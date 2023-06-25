@@ -1,0 +1,10 @@
+# Formatting
+isort
+Pylint
+Pycodestyle
+Black
+
+# Code Quality
+Mypy
+Pytest
+Coverage
