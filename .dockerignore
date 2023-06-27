@@ -23,11 +23,13 @@ logs/
 pip-lock.txt
 poetry.lock
 poetry.toml
-.venv
+.venv/
 
 # Ignore Docker-related files
 .dockerignore
+Dockerfile
 Dockerfile*
+docker-compose.yml
 .docker/
 
 # Ignore testing and CI files
