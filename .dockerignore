@@ -1,0 +1,55 @@
+# Ignore development and editor files
+.git
+.env
+.pytest_cache
+__pycache__
+*.pyc
+
+# Ignore static files (can be collected separately)
+/static
+
+# Ignore media files (can be mounted or uploaded separately)
+/media
+
+# Ignore logs and temporary files
+logs/
+*.log
+*.swp
+
+# Ignore database files (can be mounted or managed separately)
+*.sqlite3
+
+# Ignore package managers files
+pip-lock.txt
+poetry.lock
+poetry.toml
+.venv
+
+# Ignore Docker-related files
+.dockerignore
+Dockerfile*
+.docker/
+
+# Ignore testing and CI files
+.tox/
+.coverage
+.pytest_cache/
+nosetests.xml
+*.coverage
+
+# Ignore documentation files
+docs/
+
+# Ignore any other unnecessary files or directories specific to your project
+
+# Exclude production-specific files (additional exclusions for production)
+
+# Exclude sensitive or secret files
+secrets/
+.key
+
+# Exclude additional development files
+.dev/
+.vscode/
+
+dev-tools.txt
