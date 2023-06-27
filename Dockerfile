@@ -6,8 +6,10 @@ EXPOSE 8000
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
+RUN pip3 install --upgrade pip
 COPY ./requirements/requirements.txt .
-RUN pip3 install -r ./requirements/requirements.txt --no-cache-dir
+RUN pip3 install -r ./requirements.txt --no-cache-dir
+
 COPY . . 
 
 ENTRYPOINT ["python3"] 
