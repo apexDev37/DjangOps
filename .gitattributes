@@ -1,0 +1,65 @@
+# Enforce consistent platform line endings
+*  text=auto
+
+# Executable shebang line for sh scripts
+*.sh  export-subst
+
+# Files
+## Should always have LF line endings on checkout
+*.py text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+
+## Should always be treated as text
+*.txt text
+*.md text
+*.rst text
+*.csv text
+*.yml text
+*.yaml text
+*.json text
+
+## Should be treated as binary files and not be modified
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
+*.ico binary
+*.mov binary
+*.mp4 binary
+*.mp3 binary
+*.avi binary
+*.wav binary
+*.flac binary
+*.woff binary
+*.woff2 binary
+*.eot binary
+*.pdf binary
+*.doc binary
+*.docx binary
+*.ppt binary
+*.pptx binary
+*.xls binary
+*.xlsx binary
+*.zip binary
+*.gz binary
+*.tar binary
+
+# Convert binary files
+*.doc diff=astextplain
+
+# Ignore
+##  editor/IDE
+*.swp  diff=ignore
+*.pyc  diff=ignore
+.idea/  diff=ignore
+.vscode/  diff=ignore
+
+##  virtualenv
+__pycache__  diff=ignore
+.env  diff=ignore
+
+##  framework (Django)
+*.log  diff=ignore
+local_settings.py  diff=ignore
