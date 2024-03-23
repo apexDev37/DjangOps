@@ -1,0 +1,73 @@
+fail_fast: false
+repos:
+  # Best Practices
+  -   repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v4.5.0
+      hooks:
+      -   id: check-builtin-literals
+      -   id: check-executables-have-shebangs
+      -   id: check-json
+      -   id: check-symlinks
+      -   id: check-yaml
+      -   id: debug-statements
+      -   id: detect-private-key
+      -   id: end-of-file-fixer
+      -   id: name-tests-test
+      -   id: requirements-txt-fixer
+      -   id: trailing-whitespace
+
+  # Formatting
+  -   repo: https://github.com/psf/black
+      rev: 24.3.0
+      hooks:
+      -   id: black
+
+  -   repo: https://github.com/PyCQA/isort
+      rev: 5.13.2
+      hooks:
+      -   id: isort
+          args: [
+            '--settings-path', '.isort.cfg',
+            '/config',
+            '/tests',
+            '/test_utils',
+          ]
+
+  # Static Analysis
+  -   repo: https://github.com/PyCQA/flake8
+      rev: 7.0.0
+      hooks:
+      -   id: flake8
+          additional_dependencies: [
+              flake8-docstrings,
+              flake8-blind-except,
+              flake8-bugbear,
+              flake8-comprehensions,
+              flake8-implicit-str-concat,
+              pydocstyle,
+              flake8-coding,
+              flake8-debugger,
+              flake8-django,
+              flake8-deprecated,
+              flake8-isort,
+              flake8-pep3101,
+              flake8-polyfill,
+              flake8-print,
+              flake8-quotes,
+              flake8-string-format,
+          ]
+          exclude: ^(test_utils/|migrations/|setup\.py)$
+
+  # Code Quality
+  -   repo: https://github.com/asottile/pyupgrade
+      rev: v3.15.1
+      hooks:
+      -   id: pyupgrade
+          args: [--py39-plus]
+
+  # Documentation, Spelling
+  -   repo: https://github.com/codespell-project/codespell
+      rev: v2.2.6
+      hooks:
+      -   id: codespell
+          files: \.(py|sh|md|rst|yml|yaml)$
