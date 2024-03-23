@@ -8,3 +8,4 @@ Black
 Mypy
 Pytest
 Coverage
+pre-commit
