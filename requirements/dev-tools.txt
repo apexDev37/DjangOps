@@ -1,11 +1,11 @@
+Black
+Coverage
 # Formatting
 isort
-Pylint
-Pycodestyle
-Black
 
 # Code Quality
 Mypy
-Pytest
-Coverage
 pre-commit
+Pycodestyle
+Pylint
+Pytest

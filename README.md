@@ -1,10 +1,10 @@
 # DjangOps &middot; [![Inline docs](https://inch-ci.org/github/dwyl/hapi-auth-jwt2.svg?branch=master)](https://github.com/apexDev37/DjangOps/blob/main/README.md) [![Docker version](https://img.shields.io/badge/-v20.10.23-grey?style=flat&logo=docker)]() [![Python version](https://img.shields.io/badge/-v3.11.4-grey?style=flat&logo=python&logoColor=yellow)](https://www.python.org/downloads/) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blue.svg)](http://makeapullrequest.com) [![Activity](https://img.shields.io/badge/status-active-brightgreen)](https://github.com/apexDev37/DjangOps/commits/main)
-> A simple devops-inspired template for Django applications setup with compose. 
+> A simple devops-inspired template for Django applications setup with compose.
 
 <img src="./resources/docs/images/django.png" width="25%" alt="Django™"/><img src="./resources/docs/images/docker.png" width="29%" alt="Docker™"/>
 
 ## Introduction
-If you need a quick start with Django and Compose, you're in the right place. DjangOps is a dev-ops-inspired template for perfectionists with deadlines, who also happen to love Django and compose! Spin up a local dev environment with modular custom settings in a few steps and focus on the value you want to build. All comments, feedback, and contributions are highly encouraged.  I always love to hear and learn from the community❤ 
+If you need a quick start with Django and Compose, you're in the right place. DjangOps is a dev-ops-inspired template for perfectionists with deadlines, who also happen to love Django and compose! Spin up a local dev environment with modular custom settings in a few steps and focus on the value you want to build. All comments, feedback, and contributions are highly encouraged.  I always love to hear and learn from the community❤
 
 Learn more about the Django framework from the official [documentation].
 
@@ -18,12 +18,12 @@ This is an overview of the minimal setup needed to get started.
 - [Docker Desktop]
 - IDE/Code/Text editor ([PHPStorm], [VScode], [Vim], etc)
 
-Follow these tutorials on setting up Docker and Compose on either [Mac] or [Linux]. I'd recommend Microsoft's documentation to set up [Docker on WSL2] if you're on Windows. 
+Follow these tutorials on setting up Docker and Compose on either [Mac] or [Linux]. I'd recommend Microsoft's documentation to set up [Docker on WSL2] if you're on Windows.
 
 ### Local Setup
 > The following setup was run on Ubuntu focal (20.04.6 LTS)
 
-DjangOps has a single branch `main`.  
+DjangOps has a single branch `main`.
 You can clone this repo with the following command.
 
 - Clone repository
@@ -46,7 +46,7 @@ Before running your application with Compose, configure your environment variabl
 ```
 
 > This will loop through all the files in the .envs/ directory that end with .example and creates new files without the `.example` extension (ie. `django.env.example` -> `django.env`).
- 
+
 NOTE: After the `env` files are created, replace the placeholders in the files with your own values specific to your Django application and Postgres container.
 
 ### Launch
