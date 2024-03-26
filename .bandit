@@ -1,0 +1,9 @@
+[bandit]
+targets = config
+exclude = tests,test_utils
+
+# For extensive tests list:
+# See: https://bandit.readthedocs.io/en/latest/plugins/index.html
+
+## B201: flask_debug_true
+skips = B201
