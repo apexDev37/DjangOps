@@ -4,6 +4,19 @@
 .pytest_cache
 __pycache__
 *.pyc
+.envs/
+.mypy_cache/
+.ruff_cache/
+.bandit
+.commitlintrc
+.editorconfig
+.flake8
+.gitattributes
+.gitignore
+.isort.cfg
+.mypy.ini
+.pre-commit-config.yaml
+.ruff.toml
 
 # Ignore static files (can be collected separately)
 /static
@@ -41,8 +54,12 @@ nosetests.xml
 
 # Ignore documentation files
 docs/
+LICENSE
+README.md
 
 # Ignore any other unnecessary files or directories specific to your project
+resources/
+dev-tools.txt
 
 # Exclude production-specific files (additional exclusions for production)
 
@@ -53,5 +70,3 @@ secrets/
 # Exclude additional development files
 .dev/
 .vscode/
-
-dev-tools.txt
