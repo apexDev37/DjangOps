@@ -35,28 +35,11 @@ repos:
           ]
 
   # Linting
-  -   repo: https://github.com/PyCQA/flake8
-      rev: 7.0.0
+  -   repo: https://github.com/astral-sh/ruff-pre-commit
+      rev: v0.3.4
       hooks:
-      -   id: flake8
-          additional_dependencies: [
-              flake8-docstrings,
-              flake8-blind-except,
-              flake8-bugbear,
-              flake8-comprehensions,
-              flake8-implicit-str-concat,
-              pydocstyle,
-              flake8-coding,
-              flake8-debugger,
-              flake8-django,
-              flake8-deprecated,
-              flake8-isort,
-              flake8-pep3101,
-              flake8-polyfill,
-              flake8-print,
-              flake8-quotes,
-              flake8-string-format,
-          ]
+      -   id: ruff
+          args: [--fix]
           exclude: ^(test_utils/|migrations/|setup\.py)$
 
   # Code Quality
