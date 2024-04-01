@@ -1,0 +1,3 @@
+# Just the dependencies to run pip-tools
+
+pip-tools     # Contains pip-compile to generate requirements files
