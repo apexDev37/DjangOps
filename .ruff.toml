@@ -54,6 +54,9 @@ ignore = [
     "D105",   # undocumented-magic-method
 ]
 
+[lint.per-file-ignores]
+"manage.py" = ["TRY003", "EM101"]
+
 # --- Plugins ------------------------------------------------
 
 [lint.pydocstyle]
