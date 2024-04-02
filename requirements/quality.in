@@ -1,0 +1,10 @@
+# Requirements for code quality checks.
+
+-r test.txt               # Core and testing dependencies for this app.
+
+bandit                    # Find common security issues in Python code.
+black                     # PEP 8 compliant code formatter.
+isort                     # Standardize order of imports.
+mypy                      # Optional static type checker for Python.
+pre-commit                # Automatic hook checks on commits.
+ruff                      # Extremely fast Python linter and code formatter.

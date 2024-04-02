@@ -1,0 +1,6 @@
+# Additional requirements for development of this application.
+
+-r pip-tools.txt          # pip-tools and its dependencies, for managing requirements files.
+-r quality.txt            # Core, test, and quality check dependencies.
+
+diff-cover                # Changeset diff test coverage.
