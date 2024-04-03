@@ -1,5 +1,6 @@
 # Core requirements for using this application
+-c constraints.txt
 
-django~=4.2                    # Web application framework.
-django-environ>=0.11.0,<1.0.0  # Configure Django with environment variables.
-psycopg2-binary>=2.9.9,<3.0.0  # PostgreSQL adapter; wrapper for Postgres client library.
+django                    # Web application framework.
+django-environ            # Configure Django with environment variables.
+psycopg2-binary           # PostgreSQL adapter; wrapper for Postgres client library.
