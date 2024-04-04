@@ -10,7 +10,6 @@ __pycache__
 .bandit
 .commitlintrc
 .editorconfig
-.flake8
 .gitattributes
 .gitignore
 .isort.cfg
