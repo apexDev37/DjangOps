@@ -1,0 +1,48 @@
+# For more configuration details
+# See: https://docs.codecov.com/docs/codecovyml-reference
+
+# Validate your repository YAML (bash):
+# curl -X POST -c-data-binary @.codecov.yml https://codecov.io/validate
+
+# Codecov configuration
+# ----------------------
+codecov:
+  branch: main
+  strict_yaml_branch: default
+  require_ci_to_pass: true
+
+# Coverage configuration
+# ----------------------
+coverage:
+  status:
+    project:
+      default:
+        enabled: yes
+        target: 100%
+        threshold: 5%
+        branches:
+          - main
+          - staging
+          - dev
+
+    patch:
+      default:
+        enabled: yes
+        target: 100%
+        branches:
+          - main
+          - staging
+          - dev
+
+  round: down
+  precision: 2
+
+# GitHub configuration
+# ----------------------
+github_checks:
+  annotations: false
+
+comment:
+  layout: "condensed_header, condensed_files, condensed_footer"
+  behavior: default
+  require_changes: false
