@@ -27,3 +27,8 @@ django-environ>=0.11.x,<1.0.0
 # Allow minor and patch updates,
 # Prevent upgrades to 3.0.0 (potential breaking changes).
 psycopg2-binary>=2.9.9,<3.0.0
+
+# Pin to version 4.14 (latest stable),
+# Allow minor and patch updates,
+# Prevent upgrades to 5.0.0 (potential breaking changes).
+tox>=4.14,<5.0.0

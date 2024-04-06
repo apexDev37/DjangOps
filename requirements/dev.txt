@@ -16,18 +16,29 @@ build==1.2.1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
+cachetools==5.3.3
+    # via
+    #   -r requirements/ci.txt
+    #   tox
 cfgv==3.4.0
     # via
     #   -r requirements/quality.txt
     #   pre-commit
 chardet==5.2.0
-    # via diff-cover
+    # via
+    #   -r requirements/ci.txt
+    #   diff-cover
+    #   tox
 click==8.1.7
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
     #   black
     #   pip-tools
+colorama==0.4.6
+    # via
+    #   -r requirements/ci.txt
+    #   tox
 coverage==7.4.4
     # via
     #   -r requirements/quality.txt
@@ -36,19 +47,26 @@ diff-cover==8.0.3
     # via -r requirements/dev.in
 distlib==0.3.8
     # via
+    #   -r requirements/ci.txt
     #   -r requirements/quality.txt
     #   virtualenv
 django==4.2.11
-    # via -r requirements/quality.txt
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/quality.txt
 django-environ==0.11.2
-    # via -r requirements/quality.txt
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/quality.txt
 exceptiongroup==1.2.0
     # via
     #   -r requirements/quality.txt
     #   pytest
 filelock==3.13.3
     # via
+    #   -r requirements/ci.txt
     #   -r requirements/quality.txt
+    #   tox
     #   virtualenv
 identify==2.5.35
     # via
@@ -85,11 +103,14 @@ nodeenv==1.8.0
     #   pre-commit
 packaging==24.0
     # via
+    #   -r requirements/ci.txt
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
     #   black
     #   build
+    #   pyproject-api
     #   pytest
+    #   tox
 pathspec==0.12.1
     # via
     #   -r requirements/quality.txt
@@ -102,23 +123,33 @@ pip-tools==7.4.1
     # via -r requirements/pip-tools.txt
 platformdirs==4.2.0
     # via
+    #   -r requirements/ci.txt
     #   -r requirements/quality.txt
     #   black
+    #   tox
     #   virtualenv
 pluggy==1.4.0
     # via
+    #   -r requirements/ci.txt
     #   -r requirements/quality.txt
     #   diff-cover
     #   pytest
+    #   tox
 pre-commit==3.7.0
     # via -r requirements/quality.txt
 psycopg2-binary==2.9.9
-    # via -r requirements/quality.txt
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/quality.txt
 pygments==2.17.2
     # via
     #   -r requirements/quality.txt
     #   diff-cover
     #   rich
+pyproject-api==1.6.1
+    # via
+    #   -r requirements/ci.txt
+    #   tox
 pyproject-hooks==1.0.0
     # via
     #   -r requirements/pip-tools.txt
@@ -154,6 +185,7 @@ stevedore==5.2.0
     #   bandit
 tomli==2.0.1
     # via
+    #   -r requirements/ci.txt
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
     #   black
@@ -161,8 +193,17 @@ tomli==2.0.1
     #   coverage
     #   mypy
     #   pip-tools
+    #   pyproject-api
     #   pyproject-hooks
     #   pytest
+    #   tox
+tox==4.14.2
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/ci.txt
+    #   tox-battery
+tox-battery==0.6.1
+    # via -r requirements/ci.txt
 typing-extensions==4.10.0
     # via
     #   -r requirements/quality.txt
@@ -171,8 +212,10 @@ typing-extensions==4.10.0
     #   mypy
 virtualenv==20.25.1
     # via
+    #   -r requirements/ci.txt
     #   -r requirements/quality.txt
     #   pre-commit
+    #   tox
 wheel==0.43.0
     # via
     #   -r requirements/pip-tools.txt
