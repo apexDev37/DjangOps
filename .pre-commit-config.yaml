@@ -41,6 +41,12 @@ repos:
           args: [--fix]
           exclude: ^(test_utils/|migrations/|setup\.py)$
 
+  -   repo: https://github.com/AleksaC/hadolint-py
+      rev: v2.12.0.3
+      hooks:
+      -   id: hadolint
+          args: [--config, .hadolint.yaml]
+
   # Code Quality
   -   repo: https://github.com/pre-commit/mirrors-mypy
       rev: v1.9.0
