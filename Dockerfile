@@ -1,4 +1,9 @@
 FROM python:3.11.4-slim-bullseye
+LABEL \
+  author="Eugene Mwangi" \
+  contact="mwangi.em37@gmail.com" \
+  version="0.1.0" \
+  license="MIT"
 
 WORKDIR /usr/src/app
 EXPOSE 8000
@@ -6,11 +11,11 @@ EXPOSE 8000
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
-RUN pip3 install --upgrade pip
-COPY ./requirements/requirements.txt .
-RUN pip3 install -r ./requirements.txt --no-cache-dir
+RUN pip install -r requirements/pip.txt --no-cache-dir
+COPY ./requirements/base.txt ./
+RUN pip install -r ./base.txt --no-cache-dir
 
-COPY . .
+COPY . ./
 
 ENTRYPOINT ["python3"]
 CMD ["manage.py", "runserver", "0.0.0.0:8000"]
