@@ -1,0 +1,14 @@
+---
+failure-threshold: info
+label-schema:
+  author: text
+  contact: email
+  version: semver
+  license: spdx
+no-color: false
+no-fail: false
+strict-labels: true
+disable-ignore-pragma: true
+trustedRegistries:
+  - docker.io
+  - "*.gcr.io"
