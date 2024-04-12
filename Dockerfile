@@ -1,21 +1,19 @@
-FROM python:3.11.4-slim-bullseye
+FROM python:3.12.3-alpine3.19
 LABEL \
   author="Eugene Mwangi" \
   contact="mwangi.em37@gmail.com" \
-  version="0.1.0" \
+  version="0.2.0" \
   license="MIT"
 
 WORKDIR /usr/src/app
-EXPOSE 8000
-
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
-RUN pip install -r requirements/pip.txt --no-cache-dir
 COPY ./requirements/base.txt ./
-RUN pip install -r ./base.txt --no-cache-dir
+RUN pip3 --no-cache-dir install -r ./base.txt
 
-COPY . ./
+COPY . /usr/src/app
 
+EXPOSE 8000
 ENTRYPOINT ["python3"]
 CMD ["manage.py", "runserver", "0.0.0.0:8000"]
