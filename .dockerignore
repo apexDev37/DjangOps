@@ -12,6 +12,7 @@ __pycache__
 .editorconfig
 .gitattributes
 .gitignore
+.hadolint.yaml
 .isort.cfg
 .mypy.ini
 .pre-commit-config.yaml
@@ -45,11 +46,14 @@ docker-compose.yml
 .docker/
 
 # Ignore testing and CI files
-.tox/
-.coverage
-.pytest_cache/
-nosetests.xml
 *.coverage
+.coverage
+.codecov.yml
+.pytest.ini
+.pytest_cache/
+.tox/
+tox.ini
+nosetests.xml
 
 # Ignore documentation files
 docs/
