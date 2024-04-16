@@ -1,33 +1,58 @@
 ---
-version: '3.9'
-
 services:
   web:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: django_web
-    volumes:
-      - ./:/usr/src/app
+    restart: unless-stopped
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /usr/src/app
+          ignore:
+            - ./docker
+            - ./tests
+            - ./test_utils
+        - action: rebuild
+          path: ./requirements/base.txt
+    depends_on:
+      db:
+        condition: service_healthy
     networks:
-      - app_network
+      - front-tier
+      - back-tier
     ports:
-      - "8000:8000"
+      - 8000:8000
+    env_file:
+      - path: ./.envs/django.env
+        required: true
 
   db:
-    image: postgres:15.3
+    image: postgres:16.2
     container_name: postgres_db
     restart: always
+    shm_size: 128mb
+    user: postgres
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
     networks:
-      - app_network
+      - back-tier
     expose:
       - 5432
     env_file:
-      - ./.envs/postgres.env
+      - path: ./.envs/postgres.env
+        required: true
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
-  postgres_data:
+  db-data:
+
 networks:
-  app_network:
+  front-tier: {}
+  back-tier: {}
