@@ -11,8 +11,8 @@ WORKDIR /usr/src/app
 # set python-specific dev env variables.
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
+ENV PIP_DISABLE_PIP_VERSION_CHECK 1
 
-# create non-root user for container runtime.
 RUN <<EOF
 addgroup -S docker
 adduser -S --shell /bin/bash --ingroup docker appuser
