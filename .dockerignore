@@ -1,22 +1,24 @@
 # Ignore development and editor files
-.git
-.env
-.pytest_cache
-__pycache__
-*.pyc
-.envs/
-.mypy_cache/
-.ruff_cache/
 .bandit
 .commitlintrc
 .editorconfig
+.env
+.git
 .gitattributes
 .gitignore
 .hadolint.yaml
 .isort.cfg
 .mypy.ini
+.mypy_cache/
 .pre-commit-config.yaml
+.pytest_cache
+__pycache__
+*.env
+*.pyc
+.envs/
 .ruff.toml
+.ruff_cache/
+.venv/
 
 # Ignore static files (can be collected separately)
 /static
@@ -25,9 +27,9 @@ __pycache__
 /media
 
 # Ignore logs and temporary files
-logs/
 *.log
 *.swp
+logs/
 
 # Ignore database files (can be mounted or managed separately)
 *.sqlite3
@@ -36,24 +38,27 @@ logs/
 pip-lock.txt
 poetry.lock
 poetry.toml
-.venv/
 
 # Ignore Docker-related files
+.docker/
 .dockerignore
+compose.yaml
+docker/
+docker-compose.yaml
+docker-compose.yml
 Dockerfile
 Dockerfile*
-docker-compose.yml
-.docker/
 
 # Ignore testing and CI files
-*.coverage
-.coverage
 .codecov.yml
+.coverage
+.coveragerc
+*.coverage
 .pytest.ini
 .pytest_cache/
 .tox/
-tox.ini
 nosetests.xml
+tox.ini
 
 # Ignore documentation files
 docs/
@@ -61,14 +66,14 @@ LICENSE
 README.md
 
 # Ignore any other unnecessary files or directories specific to your project
+requirements/
 resources/
-dev-tools.txt
 
 # Exclude production-specific files (additional exclusions for production)
 
 # Exclude sensitive or secret files
-secrets/
 .key
+secrets/
 
 # Exclude additional development files
 .dev/
