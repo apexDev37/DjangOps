@@ -97,4 +97,6 @@ __pycache__/
 local_settings.py
 
 # Secrets
+secrets/
 db_password.txt
+secret_key.txt

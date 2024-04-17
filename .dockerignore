@@ -73,6 +73,7 @@ resources/
 
 # Exclude sensitive or secret files
 .key
+docker/secrets/
 secrets/
 db_password.txt
 
