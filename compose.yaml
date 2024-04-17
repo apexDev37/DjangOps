@@ -22,6 +22,7 @@ services:
         condition: service_healthy
     secrets:
       - db-password
+      - django-secret-key
     networks:
       - front-tier
       - back-tier
@@ -29,6 +30,7 @@ services:
       - 8000:8000
     environment:
       - DB_PASSWORD=/run/secrets/db-password
+      - SECRET_KEY=/run/secrets/django-secret-key
     env_file:
       - path: ./.envs/django.env
         required: true
@@ -68,3 +70,5 @@ networks:
 secrets:
   db-password:
     file: db/db_password.txt
+  django-secret-key:
+    file: docker/secrets/secret_key.txt
