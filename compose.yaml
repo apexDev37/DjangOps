@@ -20,11 +20,15 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    secrets:
+      - db-password
     networks:
       - front-tier
       - back-tier
     ports:
       - 8000:8000
+    environment:
+      - DB_PASSWORD=/run/secrets/db-password
     env_file:
       - path: ./.envs/django.env
         required: true
@@ -35,12 +39,16 @@ services:
     restart: always
     shm_size: 128mb
     user: postgres
+    secrets:
+      - db-password
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
       - back-tier
     expose:
       - 5432
+    environment:
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
     env_file:
       - path: ./.envs/postgres.env
         required: true
@@ -56,3 +64,7 @@ volumes:
 networks:
   front-tier: {}
   back-tier: {}
+
+secrets:
+  db-password:
+    file: db/db_password.txt
