@@ -74,6 +74,7 @@ resources/
 # Exclude sensitive or secret files
 .key
 secrets/
+db_password.txt
 
 # Exclude additional development files
 .dev/
