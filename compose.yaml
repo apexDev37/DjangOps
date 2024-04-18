@@ -29,8 +29,8 @@ services:
     ports:
       - 8000:8000
     environment:
-      - DB_PASSWORD=/run/secrets/db-password
-      - SECRET_KEY=/run/secrets/django-secret-key
+      - DB_PASSWORD_FILE=/run/secrets/db-password
+      - SECRET_KEY_FILE=/run/secrets/django-secret-key
     env_file:
       - path: ./.envs/django.env
         required: true
