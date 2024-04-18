@@ -34,8 +34,8 @@ indent_size = 2
 [*.{bat,cmd,ps1}]
 end_of_line = crlf
 
-[*.json]
-insert_final_newline = ignore
+[*.{json,txt}]
+insert_final_newline = false
 
 [*.diff]
 trim_trailing_whitespace = false
