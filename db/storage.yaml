@@ -1,0 +1,36 @@
+---
+services:
+  db:
+    image: postgres:16.2
+    container_name: postgres_db
+    restart: always
+    shm_size: 128mb
+    user: postgres
+    secrets:
+      - db-password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - back-tier
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+    env_file:
+      - path: .envs/postgres.env
+        required: true
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db-data:
+
+networks:
+  back-tier: {}
+
+secrets:
+  db-password:
+    file: db/db_password.txt
