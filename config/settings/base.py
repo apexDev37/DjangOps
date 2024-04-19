@@ -81,7 +81,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": env.str("DB_ENGINE"),
+        "ENGINE": env.str("DB_ENGINE", environ.compat.DJANGO_POSTGRES),
         "HOST": env.str("DB_HOST"),
         "NAME": env.str("DB_NAME"),
         "PASSWORD": env("DB_PASSWORD"),
