@@ -38,6 +38,8 @@ services:
     env_file:
       - path: ./.envs/django.env
         required: true
+      - path: ./.envs/database.env
+        required: true
 
 networks:
   front-tier: {}
