@@ -23,7 +23,11 @@ indent_size = 2
 trim_trailing_whitespace = false
 max_line_length = 80
 
-[*.{sh,bat.tpl,Makefile.tpl}]
+[*.{sh,bat.tpl,Makefile.tpl,mk}]
+indent_style = tab
+indent_size = 4
+
+[Makefile]
 indent_style = tab
 indent_size = 4
 
