@@ -1,4 +1,4 @@
-.PHONY: clean clean_tox help piptools requirements selfcheck upgrade
+.PHONY: clean clean_tox envs help piptools requirements secrets selfcheck upgrade
 
 .DEFAULT_GOAL := help
 
@@ -27,7 +27,7 @@ selfcheck: ## check that the Makefile is well-formed
 	@echo "The Makefile is well-formed."
 
 # --------------------------------------------------------------------------------------
-# Build & Setup
+# Build
 # --------------------------------------------------------------------------------------
 
 piptools: ## install pinned version of pip-compile and pip-sync
@@ -50,3 +50,29 @@ upgrade: piptools ## update the requirements/*.txt files with the latest package
 
 requirements: clean_tox piptools ## install development environment requirements
 	pip-sync -q requirements/dev.txt
+
+# --------------------------------------------------------------------------------------
+# Setup
+# --------------------------------------------------------------------------------------
+
+# Find all example env files in the project
+EXAMPLE_ENV_FILES := $(shell find . -type f -name "*.env.example")
+
+envs: # generate env files required to configure application environment
+	@echo "Generating env files from the following example files:"
+	@echo "$(EXAMPLE_ENV_FILES)"
+	@for file in $(EXAMPLE_ENV_FILES); do \
+		env_name=$$(basename "$$file" | sed -e 's/\.env\.example$$//'); \
+		cp "$$file" "$$(dirname "$$file")/$$env_name.env"; \
+	done
+
+# Find all placeholder secret files in the project
+PLACEHOLDER_FILES := $(shell find . -type f -name "_*.txt")
+
+secrets: # generate secrets required by Compose application model
+	@echo "Generating secrets from the following files:"
+	@echo "$(PLACEHOLDER_FILES)"
+	@for file in $(PLACEHOLDER_FILES); do \
+		secret_name=$$(basename "$$file" | sed -e 's/^_//' -e 's/\.txt$$//'); \
+		touch "$$(dirname "$$file")/$$secret_name.txt"; \
+	done
