@@ -55,26 +55,39 @@ requirements: clean_tox piptools ## install development environment requirements
 # Setup
 # --------------------------------------------------------------------------------------
 
+# Func to provide stdandard info output on automated file generation
+define output_generate_info_msg
+	if [ -n "$(3)" ]; then \
+		echo "Generated the following $(1) files from $(2) files: $(3)"; \
+	fi
+endef
+
 # Find all example env files in the project
 EXAMPLE_ENV_FILES := $(shell find . -type f -name "*.env.example")
 
 envs: # generate env files required to configure application environment
-	@echo "Generating env files from the following example files:"
-	@echo "$(EXAMPLE_ENV_FILES)"
-	@for file in $(EXAMPLE_ENV_FILES); do \
+	@generated_files=""; \
+	for file in $(EXAMPLE_ENV_FILES); do \
 		env_name=$$(basename "$$file" | sed -e 's/\.env\.example$$//'); \
-		cp "$$file" "$$(dirname "$$file")/$$env_name.env"; \
-	done
+		target_file="$$(dirname "$$file")/$$env_name.env"; \
+		if [ ! -e "$$target_file" ]; then \
+			cp "$$file" "$$target_file"; \
+			generated_files="$$generated_files\n- $$target_file"; \
+		fi \
+	done; \
+	$(call output_generate_info_msg,"env","example",$$generated_files)
 
 # Find all placeholder secret files in the project
 PLACEHOLDER_FILES := $(shell find . -type f -name "_*.txt")
 
 secrets: # generate secrets required by Compose application model
-	@echo "Generating secrets from the following files:"
-	@echo "$(PLACEHOLDER_FILES)"
-	@for file in $(PLACEHOLDER_FILES); do \
+	@generated_files=""; \
+	for file in $(PLACEHOLDER_FILES); do \
 		secret_name=$$(basename "$$file" | sed -e 's/^_//' -e 's/\.txt$$//'); \
-		if [ ! -f "$$(dirname "$$file")/$$secret_name.txt" ]; then \
-			openssl rand -base64 24 | tr -d '\n' > "$$(dirname "$$file")/$$secret_name.txt"; \
+		target_file="$$(dirname "$$file")/$$secret_name.txt"; \
+		if [ ! -e "$$target_file" ]; then \
+			openssl rand -base64 24 | tr -d '\n' > "$$target_file"; \
+			generated_files="$$generated_files\n- $$target_file"; \
 		fi \
-	done
+	done; \
+	$(call output_generate_info_msg,"secret","placeholder",$$generated_files)
