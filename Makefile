@@ -74,5 +74,5 @@ secrets: # generate secrets required by Compose application model
 	@echo "$(PLACEHOLDER_FILES)"
 	@for file in $(PLACEHOLDER_FILES); do \
 		secret_name=$$(basename "$$file" | sed -e 's/^_//' -e 's/\.txt$$//'); \
-		touch "$$(dirname "$$file")/$$secret_name.txt"; \
+		openssl rand -base64 24 | tr -d '\n' > "$$(dirname "$$file")/$$secret_name.txt"; \
 	done
