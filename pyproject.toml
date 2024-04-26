@@ -1,0 +1,70 @@
+# Guide (user-friendly):
+# https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
+
+# Specification (technical, formal):
+# https://packaging.python.org/en/latest/specifications/pyproject-toml/
+
+# TOML Specification (technical, formal):
+# https://toml.io/en/latest
+
+# ======================================================================================
+
+[project]
+name = "djangops"
+version = "0.1.0"
+description = "A simple DevOps inspired template for perfectionists, with deadlines."
+readme = "README.md"
+
+# Specify which Python versions you support.
+requires-python = ">=3.10"
+
+license = {file = "LICENSE.txt"}
+authors = [{name = "Eugene Mwangi", email = "mwangi.em37@gmail.com" },]
+maintainers = [
+  {name = "Eugene Mwangi", email = "mwangi.em37@gmail.com" },
+]
+
+# The following `project` metadata is specific to PyPI
+# to better support packages deployed on the platform.
+# Nevertheless, they have been included as metadata common
+# to Python developers for project semantics and future support
+# for Django apps intended to be packaged and distributed.
+# Feel free to omit them from your projecct.
+keywords = [ "template", "django", "devops", "development", ]
+
+classifiers = [
+  # How mature is this project? Common values are
+  #   3 - Alpha
+  #   4 - Beta
+  #   5 - Production/Stable
+  "Development Status :: 3 - Alpha",
+
+  # Indicate who your project is intended for
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Build Tools",
+
+  # Pick your license as you wish
+  "License :: OSI Approved :: MIT License",
+
+  "Framework :: Django :: 4.2",
+  "Framework :: Django :: 5.0",
+
+  "Natural Language :: English",
+
+  # Specify the Python versions you support here. In particular, ensure
+  # that you indicate you support Python 3. These classifiers are *not*
+  # checked by "pip install". See instead "requires-python" key in this file.
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3 :: Only",
+]
+
+[project.urls]
+Homepage = "https://github.com/apexDev37/DjangOps"
+Repository = "https://github.com/apexDev37/DjangOps"
+Source = "https://github.com/apexDev37/DjangOps/tree/main/src"
+Documentation = "https://github.com/apexDev37/DjangOps/tree/main/docs"
+Changelog = "https://github.com/apexDev37/DjangOps/blob/main/CHANGELOG.md"
+"Bug Reports" = "https://github.com/apexDev37/DjangOps/issues"
