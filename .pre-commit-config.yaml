@@ -27,7 +27,7 @@ repos:
       hooks:
       -   id: isort
           args: [
-            '--settings-path', '.isort.cfg',
+            '--settings-path', 'pyproject.toml',
             '/config',
             '/tests',
             '/test_utils',
@@ -52,7 +52,7 @@ repos:
       rev: v1.9.0
       hooks:
       -   id: mypy
-          args: [--config-file=.mypy.ini]
+          args: [--config-file, pyproject.toml, --warn-unused-configs]
 
   -   repo: https://github.com/asottile/pyupgrade
       rev: v3.15.1
@@ -65,7 +65,7 @@ repos:
       rev: 1.7.8
       hooks:
       -   id: bandit
-          args: [--ini, .bandit, -r]
+          args: [-c, pyproject.toml, -r]
           additional_dependencies: ["bandit[toml]"]
 
   # Documentation, Spelling
