@@ -7,6 +7,7 @@
 # TOML Specification (technical, formal):
 # https://toml.io/en/latest
 
+
 # ======================================================================================
 
 [project]
@@ -18,7 +19,7 @@ readme = "README.md"
 # Specify which Python versions you support.
 requires-python = ">=3.10"
 
-license = {file = "LICENSE.txt"}
+license = {file = "LICENSE"}
 authors = [{name = "Eugene Mwangi", email = "mwangi.em37@gmail.com" },]
 maintainers = [
   {name = "Eugene Mwangi", email = "mwangi.em37@gmail.com" },
@@ -68,3 +69,170 @@ Source = "https://github.com/apexDev37/DjangOps/tree/main/src"
 Documentation = "https://github.com/apexDev37/DjangOps/tree/main/docs"
 Changelog = "https://github.com/apexDev37/DjangOps/blob/main/CHANGELOG.md"
 "Bug Reports" = "https://github.com/apexDev37/DjangOps/issues"
+
+# ======================================================================================
+
+# For extensive bandit config:
+# See: https://bandit.readthedocs.io/en/latest/config.html
+[tool.bandit]
+targets = [ "app", "config", "src", ]
+exclude_dirs = [ "tests", "test_utils", ]
+
+# --- B201: flask_debug_true
+skips = [ "B201", ]
+
+# For extensive coverage config:
+# See: https://coverage.readthedocs.io/en/latest/config.html
+[tool.coverage.run]
+branch = true
+data_file = [ ".coverage", ]
+source = [ "src", ]
+omit = [
+    "config/*",
+    "*/migrations/*",
+    "*admin.py",
+    "*/static/*",
+    "*/templates/*",
+]
+
+[tool.coverage.report]
+ignore_errors = true
+show_missing = true
+skip_empty = true
+exclude_also = [
+    "pragma: no cover",
+    "def __repr__",
+    "def __str__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "assert",
+    "if __name__ == '__main__':",
+    "class .*Protocol:",
+    "@(abc\\.)?abstractmethod",
+]
+
+# For extensive isort config options:
+# See: https://pycqa.github.io/isort/docs/configuration/options.html
+[tool.isort]
+py_version = "auto"
+profile = "black"
+balanced_wrapping = true
+include_trailing_comma = true
+indent = "    "
+use_parentheses = true
+skip = [ "migrations", ]
+
+# For extensive mypy config:
+# See: https://mypy.readthedocs.io/en/stable/config_file.html
+# And: https://mypy.readthedocs.io/en/stable/config_file.html#using-a-pyproject-toml-file
+[tool.mypy]
+
+# --- Disallow dynamic typing
+disallow_any_expr = true
+disallow_any_explicit = true
+
+# --- Untyped definitions and calls
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+# --- Miscellaneous
+strict_equality = true
+extra_checks = true
+
+# --- Warning config
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+
+# --- Error message config
+pretty = true
+
+[[tool.mypy.overrides]]
+# --- Ignore Django boilerplate and settings
+module = "config.*"
+strict = false
+disable_error_code = [ "import-not-found", "import-untyped", "misc", ]
+
+# For extensive pytest config:
+# See: https://docs.pytest.org/en/7.1.x/reference/reference.html#ini-options-ref
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra -v --strict-markers"
+DJANGO_SETTINGS_MODULE = "config.settings.base"
+testpaths = [ "tests", ]
+
+# --- Enforce Django test naming convention/pattern
+python_files = [ "test_*.py", ]
+
+norecursedirs = [
+    ".*",
+    "__pycache__",
+    "build",
+    "dist",
+    "docs",
+    "migrations",
+    "requirements",
+    "resources",
+    "venv",
+]
+
+empty_parameter_set_mark = "xfail"
+required_plugins = [ "pytest-django>=4.0.0,<5.0.0", ]
+
+# --- Additional markers to whitelist
+markers = []
+
+# For more extensive ruff config
+# See: https://docs.astral.sh/ruff/settings
+[tool.ruff]
+target-version = "py310"
+fix = true
+
+#--- Recommended if using ruff in pre-commit.
+force-exclude = true
+
+src = ["config", "tests", "test_utils"]
+
+#--- Files to omit in addition to the standard set of exclusions.
+extend-exclude = [
+    ".env",
+    ".envrc",
+]
+
+[tool.ruff.lint]
+#--- Add rules and plugins to the default enforced rule set.
+extend-select = [
+    "B",      # flake8-bugbear
+    "BLE",    # flake8-blind-except
+    "C4",     # flake8-comprehensions
+    "D",      # pydocstyle
+    "DJ",     # flake8-django
+    "DTZ",    # flake8-datetimez
+    "EM",     # flake8-errmsg
+    "FBT",    # flake8-boolean-trap
+    "G",      # flake8-logging-format
+    "ISC",    # flake8-implicit-str-concat
+    "LOG",    # flake8-logging
+    "N",      # pep8-naming
+    "PT",     # flake8-pytest-style
+    "PTH",    # flake8-use-pathlib
+    "RUF100", # unused-noqa
+    "SIM",    # flake8-simplify
+    "T10",    # flake8-debugger
+    "T20",    # flake8-print
+    "TRY",    # tryceratops
+]
+
+ignore = [
+    "D102",   # undocumented-public-method
+    "D103",   # undocumented-public-function
+    "D104",   # undocumented-public-package
+    "D105",   # undocumented-magic-method
+]
+
+[tool.ruff.lint.per-file-ignores]
+"manage.py" = ["TRY003", "EM101",]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
