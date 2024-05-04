@@ -210,6 +210,7 @@ extend-select = [
     "DJ",     # flake8-django
     "DTZ",    # flake8-datetimez
     "EM",     # flake8-errmsg
+    "ERA001", # commented-out-code
     "FBT",    # flake8-boolean-trap
     "G",      # flake8-logging-format
     "ISC",    # flake8-implicit-str-concat
