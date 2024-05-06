@@ -7,3 +7,16 @@ language-settings:
 
 ignore: {}
 patch: {}
+
+exclude:
+  global:
+    - .envs/
+    - docs/
+    - resources/
+    - test?/
+    - "*.editorconfig"
+    - "*.hadolint.yaml"
+    - "*.codecov.yml"
+    - "*.pre-commit-config.yaml"
+    - Makefile
+    - README.md
