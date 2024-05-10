@@ -30,6 +30,8 @@ selfcheck: ## check that the Makefile is well-formed
 # Build
 # --------------------------------------------------------------------------------------
 
+export PIP_DEFAULT_TIMEOUT := 100
+
 piptools: ## install pinned version of pip-compile and pip-sync
 	pip install -qr requirements/pip.txt
 	pip install -qr requirements/pip-tools.txt
