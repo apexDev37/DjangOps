@@ -119,6 +119,7 @@ profile = "black"
 balanced_wrapping = true
 include_trailing_comma = true
 indent = "    "
+line_length = 78
 use_parentheses = true
 skip = [ "migrations", ]
 
