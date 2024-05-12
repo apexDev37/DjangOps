@@ -9,23 +9,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
-import environ
-
-env = environ.FileAwareEnv(
-    DB_ENGINE=(str, None),
-    DB_HOST=(str, None),
-    DB_NAME=(str, None),
-    DB_PASSWORD=(str, None),
-    DB_PORT=(int, None),
-    DB_USER=(str, None),
-)
-
 # Set the project base directory
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parents[2]
-
-# Read environment variables from .env file
-environ.Env.read_env(Path(BASE_DIR, ".envs", "database.env"))
 
 
 # Application definition
@@ -68,21 +54,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
-
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": env.str("DB_ENGINE", environ.compat.DJANGO_POSTGRES),
-        "HOST": env.str("DB_HOST"),
-        "NAME": env.str("DB_NAME"),
-        "PASSWORD": env("DB_PASSWORD"),
-        "PORT": env.int("DB_PORT"),
-        "USER": env.str("DB_USER"),
-    }
-}
 
 
 # Password validation
