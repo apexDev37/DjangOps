@@ -12,15 +12,12 @@ from pathlib import Path
 import environ
 
 env = environ.FileAwareEnv(
-    ALLOWED_HOSTS=(list, []),
     DB_ENGINE=(str, None),
     DB_HOST=(str, None),
     DB_NAME=(str, None),
     DB_PASSWORD=(str, None),
     DB_PORT=(int, None),
     DB_USER=(str, None),
-    DEBUG=(bool, False),
-    SECRET_KEY=(str, None),
 )
 
 # Set the project base directory
@@ -29,7 +26,6 @@ BASE_DIR = Path(__file__).resolve().parents[2]
 
 # Read environment variables from .env file
 environ.Env.read_env(Path(BASE_DIR, ".envs", "database.env"))
-environ.Env.read_env(Path(BASE_DIR, ".envs", "django.env"))
 
 
 # Application definition
