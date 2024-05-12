@@ -11,6 +11,8 @@ from pathlib import Path
 
 import environ
 
+from config.settings.base import BASE_DIR
+
 # Set default project-wide ENV casting.
 env = environ.FileAwareEnv(
     DB_ENGINE=(str, None),
@@ -20,10 +22,6 @@ env = environ.FileAwareEnv(
     DB_PORT=(int, None),
     DB_USER=(str, None),
 )
-
-# Set the project base directory
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parents[3]
 
 # Read environment variables from .env file
 environ.Env.read_env(Path(BASE_DIR, ".envs", "database.env"))

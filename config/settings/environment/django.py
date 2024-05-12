@@ -4,6 +4,8 @@ from pathlib import Path
 
 import environ
 
+from config.settings.base import BASE_DIR
+
 # Set default project-wide ENV casting.
 env = environ.FileAwareEnv(
     ALLOWED_HOSTS=(list, []),
@@ -11,10 +13,7 @@ env = environ.FileAwareEnv(
     SECRET_KEY=(str, None),
 )
 
-# Set the project base directory
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parents[3]
-
+# Read environment variables from .env file
 environ.Env.read_env(Path(BASE_DIR, ".envs", "django.env"))
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
