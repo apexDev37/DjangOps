@@ -10,6 +10,7 @@ from config.settings.base import BASE_DIR
 env = environ.FileAwareEnv(
     ALLOWED_HOSTS=(list, []),
     DEBUG=(bool, False),
+    ENVIRONMENT=(str, "production"),
     SECRET_KEY=(str, None),
 )
 
@@ -18,4 +19,5 @@ environ.Env.read_env(Path(BASE_DIR, ".envs", "django.env"))
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 DEBUG = env("DEBUG")
+ENVIRONMENT = env("ENVIRONMENT")
 SECRET_KEY = env("SECRET_KEY")
