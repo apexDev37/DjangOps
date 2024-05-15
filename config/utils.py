@@ -10,9 +10,27 @@ Note:
 
 from config.settings.environment.django import ENVIRONMENT
 
+SETTINGS_MODULE: str = "config.settings"
+
 
 def get_target_settings() -> str:
-    """Return the user-configured target environment settings."""
-    settings_module = "config.settings"
-    target = ENVIRONMENT
-    return f"{settings_module}.{target}"
+    """Return valid module setting for a target environment.
+
+    Concatenates the project's settings module and a valid
+    user-configured target environment.
+
+    Raises:
+        ValueError: If the target environment is not valid.
+
+    Note:
+        If the target `environment` ENV is not configured by the user,
+        the default `prod` environment will be used.
+    """
+    target: str = ENVIRONMENT
+    if target not in ("dev", "staging", "prod"):
+        errmsg = (
+            "Please use a valid target environment module for `ENVIRONMENT` env."
+            "See modules in `config.settings.<environments>`"
+        )
+        raise ValueError(errmsg)
+    return f"{SETTINGS_MODULE}.{target}"
