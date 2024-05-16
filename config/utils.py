@@ -8,9 +8,20 @@ Note:
     host and manage their own `utils` module for easier app deploys.
 """
 
+from enum import Enum
+
 from config.settings.environment.django import ENVIRONMENT
 
+# Constants.
 SETTINGS_MODULE: str = "config.settings"
+
+
+class Env(Enum):
+    """Target environment settings for the Django project."""
+
+    DEVELOP: str = "dev"
+    STAGING: str = "staging"
+    PRODUCTION: str = "prod"
 
 
 def get_target_settings() -> str:
@@ -26,11 +37,12 @@ def get_target_settings() -> str:
         If the target `environment` ENV is not configured by the user,
         the default `prod` environment will be used.
     """
-    target: str = ENVIRONMENT
-    if target not in ("dev", "staging", "prod"):
+    try:
+        target: str = Env(ENVIRONMENT).value
+    except ValueError as exc:
         errmsg = (
             "Please use a valid target environment module for `ENVIRONMENT` env."
-            "See modules in `config.settings.<environments>`"
+            f"Target environments: `{list(Env)}`"
         )
-        raise ValueError(errmsg)
+        raise ValueError(errmsg) from exc
     return f"{SETTINGS_MODULE}.{target}"
