@@ -13,6 +13,6 @@ from enum import Enum
 class Env(Enum):
     """Target environment settings for the Django project."""
 
-    DEVELOP: str = "dev"
+    DEVELOP: str = "develop"
     STAGING: str = "staging"
-    PRODUCTION: str = "prod"
+    PRODUCTION: str = "production"
