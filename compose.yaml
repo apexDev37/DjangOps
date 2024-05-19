@@ -21,6 +21,8 @@ services:
             - ./test_utils
         - action: rebuild
           path: ./requirements/base.txt
+        - action: sync+restart
+          path: ./.envs
     depends_on:
       db:
         condition: service_healthy
