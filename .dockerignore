@@ -18,6 +18,7 @@ __pycache__
 .envs/
 .ruff.toml
 .ruff_cache/
+.snyk
 .venv/
 
 # Ignore static files (can be collected separately)
@@ -80,3 +81,4 @@ db/db_password.txt
 # Exclude additional development files
 .dev/
 .vscode/
+Makefile
