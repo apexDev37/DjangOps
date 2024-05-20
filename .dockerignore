@@ -74,7 +74,8 @@ resources/
 .key
 docker/secrets/
 secrets/
-db_password.txt
+*password.txt
+db/db_password.txt
 
 # Exclude additional development files
 .dev/
