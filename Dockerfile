@@ -19,8 +19,8 @@ adduser -S --shell /bin/bash --ingroup docker appuser
 EOF
 
 # install app's base runtime dependencies.
-COPY ./requirements/base.txt ./
-RUN pip3 --no-cache-dir install -r ./base.txt
+COPY ./requirements/base.txt ./requirements/
+RUN pip3 --no-cache-dir install -r ./requirements/base.txt
 
 COPY . /usr/src/app
 
