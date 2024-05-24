@@ -3,4 +3,4 @@
 
 django                    # Web application framework.
 django-environ            # Configure Django with environment variables.
-psycopg2-binary           # PostgreSQL adapter; wrapper for Postgres client library.
+psycopg[binary]           # Modern implementation of a PostgreSQL adapter for Python.

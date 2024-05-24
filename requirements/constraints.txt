@@ -23,10 +23,10 @@ django>=4.2.x,<5.0.0
 # Prevent upgrades to 1.0.0 (potential breaking changes).
 django-environ>=0.11.x,<1.0.0
 
-# Pin to version 2.9.9 (minimum for both Python 3.12 and PostgreSQL 16 support),
+# Pin to version 2.9.9 (successfully tested locally),
 # Allow minor and patch updates,
-# Prevent upgrades to 3.0.0 (potential breaking changes).
-psycopg2-binary>=2.9.9,<3.0.0
+# Prevent upgrades to 4.0.0 (potential breaking changes).
+psycopg[binary]>=3.1.19,<4.0.0
 
 # Pin to version 4.14 (latest stable),
 # Allow minor and patch updates,
