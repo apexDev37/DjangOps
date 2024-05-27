@@ -14,5 +14,6 @@ class Env(Enum):
     """Target environment settings for the Django project."""
 
     DEVELOP: str = "develop"
+    TESTING: str = "testing"
     STAGING: str = "staging"
     PRODUCTION: str = "production"
