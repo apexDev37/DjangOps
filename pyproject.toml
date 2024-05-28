@@ -160,7 +160,7 @@ disable_error_code = [ "import-not-found", "import-untyped", "misc", ]
 [tool.pytest.ini_options]
 minversion = "8.0"
 addopts = "-ra -v --strict-markers"
-DJANGO_SETTINGS_MODULE = "config.settings.base"
+DJANGO_SETTINGS_MODULE = "config.settings.testing"
 testpaths = [ "tests", ]
 
 # --- Enforce Django test naming convention/pattern
