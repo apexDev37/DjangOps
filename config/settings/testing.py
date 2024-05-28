@@ -23,7 +23,7 @@ from config.settings.environment.django import (
     SECRET_KEY,
 )
 
-from .base import *  # noqa: F403
+from .common.base import *  # noqa: F403
 
 # Settings for test databases for the target env: `testing`.
 # NB: Test databases are destroyed when all the tests have been executed,

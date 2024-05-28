@@ -15,4 +15,4 @@ from config.settings.environment.django import (
     SECRET_KEY,
 )
 
-from .base import *  # noqa: F403
+from .common.base import *  # noqa: F403

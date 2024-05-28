@@ -11,7 +11,7 @@ from pathlib import Path
 
 import environ
 
-from config.settings.base import BASE_DIR
+from config.settings.common.base import BASE_DIR
 
 # Set default project-wide ENV casting.
 env = environ.FileAwareEnv(

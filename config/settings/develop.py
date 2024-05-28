@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 
 import sys
 
-from config.settings.base import INSTALLED_APPS, MIDDLEWARE
+from config.settings.common.base import INSTALLED_APPS, MIDDLEWARE
 from config.settings.environment.database import DATABASES
 from config.settings.environment.django import (
     ALLOWED_HOSTS,
@@ -18,7 +18,7 @@ from config.settings.environment.django import (
     SECRET_KEY,
 )
 
-from .base import *  # noqa: F403
+from .common.base import *  # noqa: F403
 
 INTERNAL_IPS = [".localhost", "127.0.0.1", "[::1]"]
 
