@@ -26,16 +26,9 @@ env = environ.FileAwareEnv(
 # Read environment variables from .env file
 environ.Env.read_env(Path(BASE_DIR, ".envs", "database.env"))
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": env("DB_ENGINE"),
-        "HOST": env("DB_HOST"),
-        "NAME": env("DB_NAME"),
-        "PASSWORD": env("DB_PASSWORD"),
-        "PORT": env("DB_PORT"),
-        "USER": env("DB_USER"),
-    }
-}
+DB_ENGINE = env("DB_ENGINE")
+DB_HOST = env("DB_HOST")
+DB_NAME = env("DB_NAME")
+DB_PASSWORD = env("DB_PASSWORD")
+DB_PORT = env("DB_PORT")
+DB_USER = env("DB_USER")

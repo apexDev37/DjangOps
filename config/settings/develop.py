@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 import sys
 
 from config.settings.common.base import INSTALLED_APPS, MIDDLEWARE
-from config.settings.environment.database import DATABASES
+from config.settings.common.database import DATABASES
 from config.settings.environment.django import (
     ALLOWED_HOSTS,
     DEBUG,
