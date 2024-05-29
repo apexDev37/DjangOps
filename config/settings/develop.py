@@ -10,11 +10,13 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 
 import sys
 
+from config.enums import Env
 from config.settings.common.base import INSTALLED_APPS, MIDDLEWARE
 from config.settings.common.database import DATABASES
 from config.settings.environment.django import (
     ALLOWED_HOSTS,
     DEBUG,
+    ENVIRONMENT,
     SECRET_KEY,
 )
 
@@ -41,4 +43,6 @@ MIDDLEWARE.extend(
 # Only enable the toolbar when we're in debug mode and we're
 # not running tests. Django will change DEBUG to be False for
 # tests, so we can't rely on DEBUG alone.
-ENABLE_DEBUG_TOOLBAR = DEBUG and "test" not in sys.argv
+ENABLE_DEBUG_TOOLBAR = bool(
+    DEBUG and "test" not in sys.argv and ENVIRONMENT is Env.DEVELOP
+)
