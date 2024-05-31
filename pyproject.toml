@@ -161,6 +161,7 @@ disable_error_code = [ "import-not-found", "import-untyped", "misc", ]
 minversion = "8.0"
 addopts = "-ra -v --strict-markers"
 DJANGO_SETTINGS_MODULE = "config.settings.testing"
+FAIL_INVALID_TEMPLATE_VARS = true
 testpaths = [ "tests", ]
 
 # --- Enforce Django test naming convention/pattern
