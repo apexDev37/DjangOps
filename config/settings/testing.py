@@ -31,9 +31,10 @@ from .common.base import *  # noqa: F403
 DATABASES["default"]["TEST"] = {"MIGRATE": True, "NAME": None}
 
 
-# TODO(apexDev37): Test running tests in separate parallel processes.
-# Uncomment after verified successful behavior.
-# os.environ.setdefault("DJANGO_TEST_PROCESSES", 4)  # noqa: ERA001
+# Support running tests in separate parallel processes.
+# NB: `auto` spawns a number of workers processes equal to the number of available CPUs.
+# See: https://pytest-xdist.readthedocs.io/en/stable/distribution.html
+os.environ.setdefault("PYTEST_XDIST_AUTO_NUM_WORKERS", "auto")
 
 
 # Leverage faster PWD hasher to speed up tests.
