@@ -180,7 +180,7 @@ norecursedirs = [
 ]
 
 empty_parameter_set_mark = "xfail"
-required_plugins = [ "pytest-django>=4.0.0,<5.0.0", ]
+required_plugins = [ "pytest-django>=4.0.0,<5.0.0", "pytest-xdist>=3.6.1,<4.0.0" ]
 
 # --- Additional markers to whitelist
 markers = []
