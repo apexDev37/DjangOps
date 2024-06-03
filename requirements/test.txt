@@ -20,12 +20,16 @@ django-environ==0.11.2
     #   -r requirements/base.txt
 exceptiongroup==1.2.1
     # via pytest
+execnet==2.1.1
+    # via pytest-xdist
 iniconfig==2.0.0
     # via pytest
 packaging==24.0
     # via pytest
 pluggy==1.5.0
     # via pytest
+psutil==5.9.8
+    # via pytest-xdist
 psycopg==3.1.19
     # via
     #   -c requirements/constraints.txt
@@ -36,9 +40,12 @@ pytest==8.2.0
     # via
     #   pytest-cov
     #   pytest-django
+    #   pytest-xdist
 pytest-cov==5.0.0
     # via -r requirements/test.in
 pytest-django==4.8.0
+    # via -r requirements/test.in
+pytest-xdist==3.6.1
     # via -r requirements/test.in
 sqlparse==0.5.0
     # via

@@ -1,7 +1,8 @@
 # Requirements for test runs.
 -c constraints.txt
 
--r base.txt               # Core dependencies for this app.
+-r base.txt                 # Core dependencies for this app.
 
-pytest-cov                # pytest extension for code coverage statistics.
-pytest-django             # pytest extension for better Django support.
+pytest-cov                  # pytest extension for code coverage statistics.
+pytest-django               # pytest extension for better Django support.
+pytest-xdist[psutil]        # pytest extension to distribute tests across multiple CPUs.

@@ -34,6 +34,10 @@ exceptiongroup==1.2.1
     # via
     #   -r requirements/test.txt
     #   pytest
+execnet==2.1.1
+    # via
+    #   -r requirements/test.txt
+    #   pytest-xdist
 filelock==3.14.0
     # via virtualenv
 identify==2.5.36
@@ -75,6 +79,8 @@ pluggy==1.5.0
     #   pytest
 pre-commit==3.7.1
     # via -r requirements/quality.in
+psutil==5.9.8
+    # via -r requirements/test.txt
 psycopg==3.1.19
     # via
     #   -c requirements/constraints.txt
@@ -88,9 +94,12 @@ pytest==8.2.0
     #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
+    #   pytest-xdist
 pytest-cov==5.0.0
     # via -r requirements/test.txt
 pytest-django==4.8.0
+    # via -r requirements/test.txt
+pytest-xdist==3.6.1
     # via -r requirements/test.txt
 pyyaml==6.0.1
     # via
