@@ -159,7 +159,7 @@ disable_error_code = [ "import-not-found", "import-untyped", "misc", ]
 # See: https://docs.pytest.org/en/7.1.x/reference/reference.html#ini-options-ref
 [tool.pytest.ini_options]
 minversion = "8.0"
-addopts = "-ra -v --strict-markers"
+addopts = "-ra -v --ds=config.settings.testing --strict-markers"
 DJANGO_SETTINGS_MODULE = "config.settings.testing"
 FAIL_INVALID_TEMPLATE_VARS = true
 testpaths = [ "tests", ]
