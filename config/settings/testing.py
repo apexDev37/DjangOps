@@ -16,12 +16,11 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 
 import os
 
-from django.core.files.storage import InMemoryStorage
-
 from config.settings.common.database import DATABASES
 from config.settings.environment.django import (
     ALLOWED_HOSTS,
     DEBUG,
+    ENVIRONMENT,
     SECRET_KEY,
 )
 
@@ -51,3 +50,8 @@ PASSWORD_HASHERS = [
 #   - Evaluate apps don't require serialization.
 #   - Evaluate apps don't rely on data from other serialized apps.
 TEST_NON_SERIALIZED_APPS: list[str] = []
+
+# Configure temporary in memory storage for media during test runs.
+# Avoiding disk access for media files and speed up access.
+# NB: Caution when using parallel test runs; it isn’t shared between processes.
+DEFAULT_FILE_STORAGE = "django.core.files.storage.InMemoryStorage"
