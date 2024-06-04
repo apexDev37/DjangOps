@@ -16,6 +16,8 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 
 import os
 
+from django.core.files.storage import InMemoryStorage
+
 from config.settings.common.database import DATABASES
 from config.settings.environment.django import (
     ALLOWED_HOSTS,
@@ -43,3 +45,9 @@ os.environ.setdefault("PYTEST_XDIST_AUTO_NUM_WORKERS", "auto")
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.SHA1PasswordHasher",
 ]
+
+# Exclude specific apps from the serialization process during test setup.
+# NB: Use with caution:
+#   - Evaluate apps don't require serialization.
+#   - Evaluate apps don't rely on data from other serialized apps.
+TEST_NON_SERIALIZED_APPS: list[str] = []
