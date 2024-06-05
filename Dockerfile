@@ -23,7 +23,7 @@ RUN pip3 --no-cache-dir install -r ./requirements/base.txt
 COPY . /usr/src/app
 
 # ======================================================================================
-# Stage 2: Runtime environment
+# Stage 2: Runtime environment (inherits from build stage)
 # ======================================================================================
 
 FROM build-stage AS final-stage
@@ -38,3 +38,12 @@ USER appuser
 EXPOSE 8000
 ENTRYPOINT ["python3"]
 CMD ["manage.py", "runserver", "0.0.0.0:8000"]
+
+# ======================================================================================
+# Environment: devlopment (inherits from final stage)
+# ======================================================================================
+
+FROM final-stage AS env-develop
+
+COPY ./requirements/dev.txt ./requirements/
+RUN pip3 --no-cache-dir install -r ./requirements/dev.txt
