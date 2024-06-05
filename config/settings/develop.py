@@ -44,5 +44,5 @@ MIDDLEWARE.extend(
 # not running tests. Django will change DEBUG to be False for
 # tests, so we can't rely on DEBUG alone.
 ENABLE_DEBUG_TOOLBAR = bool(
-    DEBUG and "test" not in sys.argv and ENVIRONMENT is Env.DEVELOP
+    DEBUG and "test" not in sys.argv and Env.DEVELOP.value == ENVIRONMENT
 )
