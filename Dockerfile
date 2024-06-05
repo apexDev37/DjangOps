@@ -1,5 +1,8 @@
-# use alpine base image with python build tools.
-FROM python:3.12.3-alpine3.19
+# ======================================================================================
+# Stage 1: Build Environment
+# ======================================================================================
+
+FROM python:3.12.3-alpine3.19 AS build-stage
 LABEL \
   author="Eugene Mwangi" \
   contact="mwangi.em37@gmail.com" \
@@ -9,20 +12,26 @@ LABEL \
 WORKDIR /usr/src/app
 
 # set python-specific dev env variables.
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PIP_DISABLE_PIP_VERSION_CHECK 1
-
-RUN <<EOF
-addgroup -S docker
-adduser -S --shell /bin/bash --ingroup docker appuser
-EOF
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 
 # install app's base runtime dependencies.
 COPY ./requirements/base.txt ./requirements/
 RUN pip3 --no-cache-dir install -r ./requirements/base.txt
 
 COPY . /usr/src/app
+
+# ======================================================================================
+# Stage 2: Runtime environment
+# ======================================================================================
+
+FROM build-stage AS final-stage
+
+RUN <<EOF
+addgroup -S docker
+adduser -S --shell /bin/bash --ingroup docker appuser
+EOF
 
 # expose and run django dev server with non-root user.
 USER appuser
