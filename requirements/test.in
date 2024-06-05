@@ -5,4 +5,4 @@
 
 pytest-cov                  # pytest extension for code coverage statistics.
 pytest-django               # pytest extension for better Django support.
-pytest-xdist[psutil]        # pytest extension to distribute tests across multiple CPUs.
+pytest-xdist                # pytest extension to distribute tests across multiple CPUs.

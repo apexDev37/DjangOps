@@ -79,8 +79,6 @@ pluggy==1.5.0
     #   pytest
 pre-commit==3.7.1
     # via -r requirements/quality.in
-psutil==5.9.8
-    # via -r requirements/test.txt
 psycopg==3.1.19
     # via
     #   -c requirements/constraints.txt
