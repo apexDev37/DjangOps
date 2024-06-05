@@ -45,13 +45,20 @@ PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.SHA1PasswordHasher",
 ]
 
+
 # Exclude specific apps from the serialization process during test setup.
 # NB: Use with caution:
 #   - Evaluate apps don't require serialization.
 #   - Evaluate apps don't rely on data from other serialized apps.
 TEST_NON_SERIALIZED_APPS: list[str] = []
 
+
 # Configure temporary in memory storage for media during test runs.
 # Avoiding disk access for media files and speed up access.
 # NB: Caution when using parallel test runs; it isn’t shared between processes.
 DEFAULT_FILE_STORAGE = "django.core.files.storage.InMemoryStorage"
+
+
+# Explicit disable of debug feature for templates.
+# NB: Template debug info in the browser's console is not required for tests.
+TEMPLATES[0]["OPTIONS"]["debug"] = False  # type: ignore
