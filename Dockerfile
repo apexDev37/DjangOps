@@ -44,6 +44,4 @@ CMD ["manage.py", "runserver", "0.0.0.0:8000"]
 # ======================================================================================
 
 FROM final-stage AS env-develop
-
-COPY ./requirements/dev.txt ./requirements/
 RUN pip3 --no-cache-dir install -r ./requirements/dev.txt
