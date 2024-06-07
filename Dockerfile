@@ -2,11 +2,11 @@
 # Stage 1: Build Environment
 # ======================================================================================
 
-FROM python:3.12.3-alpine3.20 AS build-stage
+FROM python:3.12.4-alpine3.20 AS build-stage
 LABEL \
   author="Eugene Mwangi" \
   contact="mwangi.em37@gmail.com" \
-  version="0.2.2" \
+  version="0.2.3" \
   license="MIT"
 
 WORKDIR /usr/src/app
