@@ -2,7 +2,7 @@
 # Stage 1: Build Environment
 # ======================================================================================
 
-FROM python:3.12.3-alpine3.19 AS build-stage
+FROM python:3.13.0b2-alpine3.19 AS build-stage
 LABEL \
   author="Eugene Mwangi" \
   contact="mwangi.em37@gmail.com" \
