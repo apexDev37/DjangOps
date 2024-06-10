@@ -42,6 +42,14 @@ EXPOSE 8000
 ENTRYPOINT ["python3"]
 CMD ["manage.py", "runserver", "0.0.0.0:8000"]
 
+
+# ======================================================================================
+# Environment: testing (inherits from final stage)
+# ======================================================================================
+
+FROM final-stage AS env-testing
+RUN pip3 --no-cache-dir install -r ./requirements/test.txt
+
 # ======================================================================================
 # Environment: devlopment (inherits from final stage)
 # ======================================================================================
