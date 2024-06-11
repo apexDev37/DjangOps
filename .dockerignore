@@ -12,7 +12,7 @@
 .mypy_cache/
 .pre-commit-config.yaml
 .pytest_cache
-__pycache__
+**/__pycache__
 *.env
 *.pyc
 .envs/
