@@ -7,7 +7,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: config/Dockerfile
     container_name: django_web
     restart: unless-stopped
     develop:
