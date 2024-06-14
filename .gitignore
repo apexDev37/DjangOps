@@ -96,7 +96,10 @@ target/
 __pycache__/
 local_settings.py
 
-# Secrets
-secrets/
-db_password.txt
-secret_key.txt
+### Secrets ###
+
+# By convention, all secret-related files
+# should exist in a `secrets` directory.
+# NB: Allow checkout of sample files prefixed with `_`.
+**/secrets/*.txt
+!**/secrets/_*.txt
