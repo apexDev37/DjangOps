@@ -7,7 +7,9 @@ services:
     shm_size: 128mb
     user: postgres
     secrets:
+      - db-name
       - db-password
+      - db-user
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
@@ -15,13 +17,12 @@ services:
     expose:
       - 5432
     environment:
-      - POSTGRES_DB={DB_NAME:?error}
+      - POSTGRES_DB_FILE=/run/secrets/db-name
       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - POSTGRES_USER_FILE=/run/secrets/db-user
     env_file:
-      - path: ./.envs/database.env
-        required: true
       - path: .envs/postgres.env
-        required: true
+        required: false
     healthcheck:
       test: [ "CMD", "pg_isready" ]
       interval: 10s
@@ -35,5 +36,11 @@ networks:
   back-tier: {}
 
 secrets:
+  db-host:
+    file: db/secrets/db_host.txt
+  db-name:
+    file: db/secrets/db_name.txt
   db-password:
-    file: db/db_password.txt
+    file: db/secrets/db_password.txt
+  db-user:
+    file: db/secrets/db_user.txt

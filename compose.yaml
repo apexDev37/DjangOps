@@ -25,7 +25,10 @@ services:
       db:
         condition: service_healthy
     secrets:
+      - db-host
+      - db-name
       - db-password
+      - db-user
       - django-secret-key
     networks:
       - front-tier
@@ -33,7 +36,10 @@ services:
     ports:
       - 8000:8000
     environment:
+      - DB_HOST_FILE=/run/secrets/db-host
+      - DB_NAME_FILE=/run/secrets/db-name
       - DB_PASSWORD_FILE=/run/secrets/db-password
+      - DB_USER_FILE=/run/secrets/db-user
       - SECRET_KEY_FILE=/run/secrets/django-secret-key
     env_file:
       - path: ./.envs/django.env
