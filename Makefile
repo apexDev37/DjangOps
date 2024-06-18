@@ -80,12 +80,12 @@ envs: # generate env files required to configure application environment
 	$(call output_generate_info_msg,"env","example",$$generated_files)
 
 # Find all placeholder secret files in the project
-PLACEHOLDER_FILES := $(shell find . -type f -name "_*.txt")
+PLACEHOLDER_FILES := $(shell find . -type f -name "*.txt.sample")
 
 secrets: # generate secrets required by Compose application model
 	@generated_files=""; \
 	for file in $(PLACEHOLDER_FILES); do \
-		secret_name=$$(basename "$$file" | sed -e 's/^_//' -e 's/\.txt$$//'); \
+		secret_name=$$(basename "$$file" | sed -e 's/\.txt.sample$$//'); \
 		target_file="$$(dirname "$$file")/$$secret_name.txt"; \
 		if [ ! -e "$$target_file" ]; then \
 			openssl rand -base64 24 | tr -d '\n' > "$$target_file"; \
