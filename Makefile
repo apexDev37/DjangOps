@@ -57,7 +57,7 @@ requirements: clean_tox piptools ## install development environment requirements
 # Setup
 # --------------------------------------------------------------------------------------
 
-# Func to provide stdandard info output on automated file generation
+# Func to provide standard info output on automated file generation
 define output_generate_info_msg
 	if [ -n "$(3)" ]; then \
 		echo "Generated the following $(1) files from $(2) files: $(3)"; \
@@ -80,7 +80,7 @@ envs: # generate env files required to configure application environment
 	$(call output_generate_info_msg,"env","example",$$generated_files)
 
 # Find all placeholder secret files in the project
-PLACEHOLDER_FILES := $(shell find . -type f -name "*.txt.sample")
+PLACEHOLDER_FILES := $(shell find . -type f -path "*/secrets/*" -name "*.txt.sample")
 
 secrets: # generate secrets required by Compose application model
 	@generated_files=""; \
@@ -88,7 +88,10 @@ secrets: # generate secrets required by Compose application model
 		secret_name=$$(basename "$$file" | sed -e 's/\.txt.sample$$//'); \
 		target_file="$$(dirname "$$file")/$$secret_name.txt"; \
 		if [ ! -e "$$target_file" ]; then \
-			openssl rand -base64 24 | tr -d '\n' > "$$target_file"; \
+			touch "$$target_file"; \
+			if echo "$$secret_name" | grep -qE 'key|secret|password'; then \
+				openssl rand -base64 24 | tr -d '\n' > "$$target_file"; \
+			fi; \
 			generated_files="$$generated_files\n- $$target_file"; \
 		fi \
 	done; \
