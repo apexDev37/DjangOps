@@ -47,6 +47,11 @@ repos:
       -   id: hadolint
           args: [--config, .hadolint.yaml]
 
+  -   repo: https://github.com/shellcheck-py/shellcheck-py
+      rev: v0.10.0.1
+      hooks:
+      -   id: shellcheck
+
   # Code Quality
   -   repo: https://github.com/pre-commit/mirrors-mypy
       rev: v1.10.0
