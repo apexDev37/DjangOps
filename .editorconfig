@@ -23,9 +23,22 @@ indent_size = 2
 trim_trailing_whitespace = false
 max_line_length = 80
 
-[*.{sh,bat.tpl,Makefile.tpl,mk}]
+[*.{bat.tpl,Makefile,Makefile.tpl,mk}]
 indent_style = tab
 indent_size = 4
+
+[*.sh]
+# See, tool `shfmt` options:
+# https://github.com/mvdan/sh/blob/master/cmd/shfmt/shfmt.1.scd#examples
+indent_style = space
+indent_size = 2
+max_line_length = 80
+shell_variant = bash
+binary_next_line = true
+switch_case_indent = true
+space_redirects = true
+keep_padding = false
+function_next_line = true
 
 [Makefile]
 indent_style = tab
