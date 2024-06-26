@@ -23,7 +23,7 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 COPY ./requirements/base.txt ./requirements/
 RUN pip3 --no-cache-dir install -r ./requirements/base.txt
 
-COPY . /usr/src/app
+COPY ./src/ /usr/src/app
 
 # ======================================================================================
 # Stage 2: Runtime environment (inherits from build stage)
@@ -40,7 +40,7 @@ EOF
 USER appuser
 EXPOSE 8000
 ENTRYPOINT ["python3"]
-CMD ["src/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["manage.py", "runserver", "0.0.0.0:8000"]
 
 
 # ======================================================================================
@@ -48,6 +48,7 @@ CMD ["src/manage.py", "runserver", "0.0.0.0:8000"]
 # ======================================================================================
 
 FROM final-stage AS env-testing
+COPY ./requirements/test.txt ./requirements/
 RUN pip3 --no-cache-dir install -r ./requirements/test.txt
 
 # ======================================================================================
@@ -55,4 +56,5 @@ RUN pip3 --no-cache-dir install -r ./requirements/test.txt
 # ======================================================================================
 
 FROM final-stage AS env-develop
+COPY ./requirements/dev.txt ./requirements/
 RUN pip3 --no-cache-dir install -r ./requirements/dev.txt
