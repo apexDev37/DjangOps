@@ -20,8 +20,9 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 
 # install app's base runtime dependencies.
-COPY ./requirements/base.txt ./requirements/
-RUN pip3 --no-cache-dir install -r ./requirements/base.txt
+RUN --mount=type=cache,target=/root/.cache/pip \
+    --mount=type=bind,source=./requirements/base.txt,target=./requirements/base.txt \
+    pip3 --no-cache-dir install -r ./requirements/base.txt
 
 COPY ./src/ /usr/src/app
 
@@ -48,13 +49,15 @@ CMD ["manage.py", "runserver", "0.0.0.0:8000"]
 # ======================================================================================
 
 FROM final-stage AS env-testing
-COPY ./requirements/test.txt ./requirements/
-RUN pip3 --no-cache-dir install -r ./requirements/test.txt
+RUN --mount=type=cache,target=/root/.cache/pip \
+    --mount=type=bind,source=./requirements/test.txt,target=./requirements/test.txt \
+    pip3 --no-cache-dir install -r ./requirements/test.txt
 
 # ======================================================================================
 # Environment: devlopment (inherits from final stage)
 # ======================================================================================
 
 FROM final-stage AS env-develop
-COPY ./requirements/dev.txt ./requirements/
-RUN pip3 --no-cache-dir install -r ./requirements/dev.txt
+RUN --mount=type=cache,target=/root/.cache/pip \
+    --mount=type=bind,source=./requirements/dev.txt,target=./requirements/dev.txt \
+    pip3 --no-cache-dir install -r ./requirements/dev.txt
