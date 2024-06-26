@@ -75,7 +75,7 @@ Changelog = "https://github.com/apexDev37/DjangOps/blob/main/CHANGELOG.md"
 # For extensive bandit config:
 # See: https://bandit.readthedocs.io/en/latest/config.html
 [tool.bandit]
-targets = [ "app", "config", "src", ]
+targets = [ "src", ]
 exclude_dirs = [ "tests", "test_utils", ]
 
 # --- B201: flask_debug_true
@@ -88,7 +88,7 @@ branch = true
 data_file = [ ".coverage", ]
 source = [ "src", ]
 omit = [
-    "config/*",
+    "*/config/*",
     "*/migrations/*",
     "*admin.py",
     "*/static/*",
@@ -127,6 +127,7 @@ skip = [ "migrations", ]
 # See: https://mypy.readthedocs.io/en/stable/config_file.html
 # And: https://mypy.readthedocs.io/en/stable/config_file.html#using-a-pyproject-toml-file
 [tool.mypy]
+mypy_path = "$MYPY_CONFIG_FILE_DIR/src"
 
 # --- Disallow dynamic typing
 disallow_any_expr = true
@@ -159,8 +160,9 @@ disable_error_code = [ "import-not-found", "import-untyped", "misc", ]
 # See: https://docs.pytest.org/en/7.1.x/reference/reference.html#ini-options-ref
 [tool.pytest.ini_options]
 minversion = "8.0"
+pythonpath = [".", "src"]
+django_find_project = false
 addopts = "-ra -v --strict-markers --ds=config.settings.testing --dist loadscope"
-DJANGO_SETTINGS_MODULE = "config.settings.testing"
 FAIL_INVALID_TEMPLATE_VARS = true
 testpaths = [ "tests", ]
 
@@ -194,7 +196,7 @@ fix = true
 #--- Recommended if using ruff in pre-commit.
 force-exclude = true
 
-src = ["config", "tests", "test_utils"]
+src = ["src", "tests", "test_utils"]
 
 #--- Files to omit in addition to the standard set of exclusions.
 extend-exclude = [

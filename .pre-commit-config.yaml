@@ -28,7 +28,7 @@ repos:
       -   id: isort
           args: [
             '--settings-path', 'pyproject.toml',
-            '/config',
+            '/src',
             '/tests',
             '/test_utils',
           ]
