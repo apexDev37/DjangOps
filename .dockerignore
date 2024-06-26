@@ -47,8 +47,9 @@ compose.yaml
 docker/
 docker-compose.yaml
 docker-compose.yml
-Dockerfile
-Dockerfile*
+**/Dockerfile
+**/*Dockerfile
+**/Dockerfile*
 
 # Ignore testing and CI files
 .codecov.yml
