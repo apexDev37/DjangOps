@@ -1,0 +1,53 @@
+#
+# List of commonly used Docker commands for users.
+#
+# file: docker/commands/help_text.txt
+# note: all commands below assume execution from the project root.
+#
+# command: $ docker help
+# see: https://docs.docker.com/reference/cli/docker/
+#
+
+
+# ------------------------------------------------------------------------------
+# Build
+#
+# see: https://docs.docker.com/reference/cli/docker/image/build/
+# ------------------------------------------------------------------------------
+
+# Build target images.
+docker build --file src/Dockerfile --target final-stage -t djangops:base .
+docker build --file src/Dockerfile --target env-testing -t djangops:test .
+docker build --file src/Dockerfile --target env-develop -t djangops:dev .
+
+# Build target images without cached dependencies.
+docker build --file src/Dockerfile --no-cache \
+  --target final-stage -t djangops:base .
+docker build --file src/Dockerfile --no-cache \
+  --target env-testing -t djangops:test .
+docker build --file src/Dockerfile --no-cache \
+  --target env-develop -t djangops:dev .
+
+# ------------------------------------------------------------------------------
+# Compose
+#
+# see: https://docs.docker.com/reference/cli/docker/image/build/
+# ------------------------------------------------------------------------------
+
+# Start all service containers.
+docker compose up -d
+
+# Recreate all service containers.
+docker compose up -d --force-recreate
+
+# Build and start all service containers.
+docker compose up --build -d
+
+# Build and start all service containers without cache.
+docker compose up --build --no-cache -d
+
+# Start a single service container.
+docker compose up --build -d <service>
+
+Remove all service containers, networks, volumes, and
+docker compose down --volumes --remove-orphans
