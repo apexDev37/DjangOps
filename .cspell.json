@@ -1,0 +1,39 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "minWordLength": 3,
+  "ignorePaths": [
+    "**/.git/**",
+    "**/vscode-extension/**",
+    "**/.devcontainer/**"
+  ],
+  "words": [
+    "codecov",
+    "codespell",
+    "commitlint",
+    "concat",
+    "datetimez",
+    "devcontainer",
+    "docstrings",
+    "hadolint",
+    "healthcheck",
+    "isort",
+    "isready",
+    "markdownlint",
+    "mypy",
+    "noqa",
+    "pydocstyle",
+    "pyproject",
+    "pytest",
+    "pyupgrade",
+    "rst",
+    "shellcheck",
+    "shfmt",
+    "shm",
+    "snyk",
+    "tryceratops"
+  ],
+  "flagWords": [
+    "hte"
+  ]
+}
