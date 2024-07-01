@@ -8,19 +8,9 @@ services:
     build:
       context: .
       dockerfile: src/Dockerfile
+      target: final-stage
     container_name: django_web
-    restart: unless-stopped
-    develop:
-      watch:
-        - action: sync
-          path: src
-          target: /usr/src/app
-          ignore:
-            - ./docker
-            - ./tests
-            - ./test_utils
-        - action: rebuild
-          path: ./requirements/base.txt
+    restart: no
     depends_on:
       db:
         condition: service_healthy

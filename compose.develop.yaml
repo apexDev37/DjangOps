@@ -1,0 +1,18 @@
+---
+services:
+  web:
+    build:
+      target: env-develop
+    container_name: django_web_dev
+    restart: unless-stopped
+    environment:
+      - ENVIRONMENT=develop
+    develop:
+      watch:
+        - action: sync
+          path: src
+          target: /usr/src/app
+        - action: rebuild
+          path: ./requirements/dev.txt
+        - action: sync+restart
+          path: ./src/config
