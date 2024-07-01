@@ -1,0 +1,18 @@
+---
+services:
+  web:
+    build:
+      target: env-testing
+    container_name: django_web_test
+    restart: unless-stopped
+    environment:
+      - ENVIRONMENT=testing
+    develop:
+      watch:
+        - action: sync
+          path: src
+          target: /usr/src/app
+        - action: rebuild
+          path: ./requirements/test.txt
+        - action: sync+restart
+          path: ./src/config
