@@ -5,8 +5,6 @@ services:
       target: env-develop
     container_name: django_web_dev
     restart: unless-stopped
-    environment:
-      - ENVIRONMENT=develop
     develop:
       watch:
         - action: sync

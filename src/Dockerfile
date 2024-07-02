@@ -9,7 +9,7 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 LABEL \
   author="Eugene Mwangi" \
   contact="mwangi.em37@gmail.com" \
-  version="0.2.4" \
+  version="0.2.5" \
   license="MIT"
 
 WORKDIR /usr/src/app
@@ -49,6 +49,7 @@ CMD ["manage.py", "runserver", "0.0.0.0:8000"]
 # ======================================================================================
 
 FROM final-stage AS env-testing
+ENV ENVIRONMENT=testing
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=./requirements/test.txt,target=./requirements/test.txt \
     pip3 --no-cache-dir install -r ./requirements/test.txt
@@ -58,6 +59,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # ======================================================================================
 
 FROM final-stage AS env-develop
+ENV ENVIRONMENT=develop
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=./requirements/dev.txt,target=./requirements/dev.txt \
     pip3 --no-cache-dir install -r ./requirements/dev.txt

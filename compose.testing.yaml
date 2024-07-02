@@ -5,8 +5,6 @@ services:
       target: env-testing
     container_name: django_web_test
     restart: unless-stopped
-    environment:
-      - ENVIRONMENT=testing
     develop:
       watch:
         - action: sync
