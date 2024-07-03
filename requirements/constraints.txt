@@ -13,22 +13,22 @@
 
 
 # Require minimum minor (LTS) version 4.2.13 (fixes known security issues),
-# Allow updates within 4.2.x,
+# Allow patch upgrades within 4.2.x,
 # NB: Django policy keeps deprecation shims for at least two feature releases (4.2, 5.0).
 #     Permit upgrade to Django 5.0 after testing in a tox (django50) environment.
-django>=4.2.13,<5.0.0
+django~=4.2.13
 
 # Pin to minor version 0.11 (minimum for Django 4 support),
-# Allow minor and patch updates,
+# Allow minor and patch upgrades,
 # Prevent upgrades to 1.0.0 (potential breaking changes).
-django-environ>=0.11.x,<1.0.0
+django-environ>=0.11.0,<1.0.0
 
-# Pin to version 2.9.9 (successfully tested locally),
-# Allow minor and patch updates,
+# Pin to version 3.1.19 (successfully tested locally),
+# Allow minor and patch upgrades,
 # Prevent upgrades to 4.0.0 (potential breaking changes).
 psycopg[binary]>=3.1.19,<4.0.0
 
 # Pin to version 4.14 (latest stable),
-# Allow minor and patch updates,
+# Allow minor and patch upgrades,
 # Prevent upgrades to 5.0.0 (potential breaking changes).
 tox>=4.14,<5.0.0
