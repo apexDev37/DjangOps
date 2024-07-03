@@ -9,7 +9,7 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 LABEL \
   author="Eugene Mwangi" \
   contact="mwangi.em37@gmail.com" \
-  version="0.2.5" \
+  version="0.3.0" \
   license="MIT"
 
 WORKDIR /usr/src/app
@@ -18,11 +18,14 @@ WORKDIR /usr/src/app
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
+ENV PIP_NO_CACHE_DIR=1
 
 # install app's base runtime dependencies.
 RUN --mount=type=cache,target=/root/.cache/pip \
+    --mount=type=bind,source=./requirements/pip.txt,target=./requirements/pip.txt \
     --mount=type=bind,source=./requirements/base.txt,target=./requirements/base.txt \
-    pip3 --no-cache-dir install -r ./requirements/base.txt
+    python3 -m pip install -r ./requirements/pip.txt \
+    && python3 -m pip install -r ./requirements/base.txt
 
 COPY ./src/ /usr/src/app
 
@@ -52,7 +55,7 @@ FROM final-stage AS env-testing
 ENV ENVIRONMENT=testing
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=./requirements/test.txt,target=./requirements/test.txt \
-    pip3 --no-cache-dir install -r ./requirements/test.txt
+    python3 -m pip install -r ./requirements/test.txt
 
 # ======================================================================================
 # Environment: devlopment (inherits from final stage)
@@ -62,4 +65,4 @@ FROM final-stage AS env-develop
 ENV ENVIRONMENT=develop
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=./requirements/dev.txt,target=./requirements/dev.txt \
-    pip3 --no-cache-dir install -r ./requirements/dev.txt
+    python3 -m pip install -r ./requirements/dev.txt
