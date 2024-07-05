@@ -8,6 +8,30 @@ Note:
 """
 
 from enum import Enum
+from typing import NoReturn
+
+from typing_extensions import LiteralString
+
+
+class BaseStrEnum(Enum):
+    """Generic abstract class for the project's string enums.
+
+    Note:
+        Thanks to @artbataev, for inspiring this implementation!
+        See: https://github.com/NVIDIA/NeMo/blob/main/nemo/utils/enum.py#L18
+    """
+
+    @classmethod
+    def _missing_(cls, value: object) -> NoReturn:
+        choices = ", ".join(map(str, cls))
+        errmsg = f"""
+            {value} is not a valid {cls.__name__}.
+            Valid choices: {choices}
+            """
+        raise ValueError(errmsg)
+
+    def __str__(self) -> LiteralString:
+        return str(self.value)
 
 
 class Env(Enum):
