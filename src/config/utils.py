@@ -8,27 +8,26 @@ Note:
     host and manage their own `utils` module for easier app deploys.
 """
 
+from typing_extensions import LiteralString
+
 from config.constants import SETTINGS_MODULE
 from config.enums import Environment
 from config.settings.environment.django import ENVIRONMENT
 
 
-def get_target_settings() -> str:
+def get_target_settings() -> LiteralString:
     """Return valid module setting for a target environment.
 
     Concatenates the project's settings module and a valid
     user-configured target environment.
 
-    Raises:
-        ValueError: If the target environment is not valid.
-
     Note:
         If the target `environment` ENV is not configured by the user,
-        the default `prod` environment will be used.
+        the default environment, `production`, will be used.
     """
     try:
-        target: str = Environment(ENVIRONMENT).value
+        target: Environment = Environment(ENVIRONMENT)
     except ValueError as exc:
-        errmsg = f"Please configure a valid target setting for `ENVIRONMENT`: {list(Environment)}"
+        errmsg = "Please configure a valid target `ENVIRONMENT`."
         raise ValueError(errmsg) from exc
-    return f"{SETTINGS_MODULE}.{target}"
+    return f"{SETTINGS_MODULE}.{str(target)}"
