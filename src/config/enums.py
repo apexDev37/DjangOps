@@ -8,18 +8,29 @@ Note:
 """
 
 from enum import Enum
-from typing import NoReturn
+from typing import Any, NoReturn
 
 from typing_extensions import LiteralString
 
 
-class BaseStrEnum(Enum):
-    """Generic abstract class for the project's string enums.
+class BaseStrEnum(str, Enum):
+    """Base class for the project's enum string constants.
+
+    Disclaimer:
+        This class runs type conversion, str(v), on member assigned values
+        but does not validate initial values are of type:string.
 
     Note:
         Thanks to @artbataev, for inspiring this implementation!
         See: https://github.com/NVIDIA/NeMo/blob/main/nemo/utils/enum.py#L18
     """
+
+    @staticmethod
+    def _generate_next_value_(
+        name: str, start: int, count: int, last_values: list[Any]
+    ) -> LiteralString:
+        """Return the lower-cased version of the member name."""
+        return name.lower()
 
     @classmethod
     def _missing_(cls, value: object) -> NoReturn:
