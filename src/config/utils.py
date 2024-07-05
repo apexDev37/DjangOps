@@ -9,7 +9,7 @@ Note:
 """
 
 from config.constants import SETTINGS_MODULE
-from config.enums import Env
+from config.enums import Environment
 from config.settings.environment.django import ENVIRONMENT
 
 
@@ -27,10 +27,8 @@ def get_target_settings() -> str:
         the default `prod` environment will be used.
     """
     try:
-        target: str = Env(ENVIRONMENT).value
+        target: str = Environment(ENVIRONMENT).value
     except ValueError as exc:
-        errmsg = (
-            f"Please configure a valid target setting for `ENVIRONMENT`: {list(Env)}"
-        )
+        errmsg = f"Please configure a valid target setting for `ENVIRONMENT`: {list(Environment)}"
         raise ValueError(errmsg) from exc
     return f"{SETTINGS_MODULE}.{target}"

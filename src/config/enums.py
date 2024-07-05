@@ -7,7 +7,7 @@ Note:
     host and manage their own `enums.py` module for easier app deploys.
 """
 
-from enum import Enum
+from enum import Enum, auto, unique
 from typing import Any, NoReturn
 
 from typing_extensions import LiteralString
@@ -45,10 +45,11 @@ class BaseStrEnum(str, Enum):
         return str(self.value)
 
 
-class Env(Enum):
+@unique
+class Environment(BaseStrEnum):
     """Target environment settings for the Django project."""
 
-    DEVELOP: str = "develop"
-    TESTING: str = "testing"
-    STAGING: str = "staging"
-    PRODUCTION: str = "production"
+    DEVELOP = auto()
+    TESTING = auto()
+    STAGING = auto()
+    PRODUCTION = auto()

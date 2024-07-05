@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 
 import sys
 
-from config.enums import Env
+from config.enums import Environment
 from config.settings.common.base import INSTALLED_APPS, MIDDLEWARE
 from config.settings.common.database import DATABASES
 from config.settings.environment.django import (
@@ -44,5 +44,5 @@ MIDDLEWARE.extend(
 # not running tests. Django will change DEBUG to be False for
 # tests, so we can't rely on DEBUG alone.
 ENABLE_DEBUG_TOOLBAR = bool(
-    DEBUG and "test" not in sys.argv and Env.DEVELOP.value == ENVIRONMENT
+    DEBUG and "test" not in sys.argv and Environment.DEVELOP.value == ENVIRONMENT
 )
