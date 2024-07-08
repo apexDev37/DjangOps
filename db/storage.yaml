@@ -1,4 +1,8 @@
 ---
+include:
+  - path: db/secrets.yaml
+    project_directory: .
+
 x-db-conn:
   secrets: &database-connection-secrets
     - db-host
@@ -43,13 +47,3 @@ volumes:
 
 networks:
   back-tier: {}
-
-secrets:
-  db-host:
-    file: db/secrets/db_host.txt
-  db-name:
-    file: db/secrets/db_name.txt
-  db-password:
-    file: db/secrets/db_password.txt
-  db-user:
-    file: db/secrets/db_user.txt

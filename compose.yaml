@@ -2,6 +2,8 @@
 include:
   - path: db/storage.yaml
     project_directory: .
+  - path: db/secrets.yaml
+    project_directory: .
 
 services:
   web:
