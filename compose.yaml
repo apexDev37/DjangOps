@@ -42,4 +42,4 @@ networks:
 
 secrets:
   django-secret-key:
-    external: true
+    file: docker/secrets/secret_key.txt

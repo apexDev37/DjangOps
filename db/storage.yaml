@@ -46,10 +46,10 @@ networks:
 
 secrets:
   db-host:
-    external: true
+    file: db/secrets/db_host.txt
   db-name:
-    external: true
+    file: db/secrets/db_name.txt
   db-password:
-    external: true
+    file: db/secrets/db_password.txt
   db-user:
-    external: true
+    file: db/secrets/db_user.txt
