@@ -3,14 +3,7 @@ include:
   - path: db/secrets.yaml
     project_directory: .
 
-x-db-conn:
-  secrets: &database-connection-secrets
-    - db-host
-    - db-name
-    - db-password
-    - db-user
-
-x-db-env:
+x-db-overrides:
   environment: &database-environment-secrets
     - POSTGRES_DB_FILE=/run/secrets/db-name
     - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
@@ -23,7 +16,9 @@ services:
     restart: unless-stopped
     shm_size: 128mb
     user: postgres
-    secrets: *database-connection-secrets
+    extends:
+      file: db/config/connection-params.yaml
+      service: db.interface
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:

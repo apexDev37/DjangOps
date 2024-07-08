@@ -16,11 +16,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
+        required: true
+    extends:
+      file: db/config/connection-params.yaml
+      service: web.interface
     secrets:
-      - db-host
-      - db-name
-      - db-password
-      - db-user
       - django-secret-key
     networks:
       - front-tier
@@ -28,15 +28,11 @@ services:
     ports:
       - 8000:8000
     environment:
-      - DB_HOST_FILE=/run/secrets/db-host
-      - DB_NAME_FILE=/run/secrets/db-name
-      - DB_PASSWORD_FILE=/run/secrets/db-password
-      - DB_USER_FILE=/run/secrets/db-user
       - SECRET_KEY_FILE=/run/secrets/django-secret-key
     env_file:
-      - path: ./.envs/django.env
+      - path: .envs/django.env
         required: true
-      - path: ./.envs/database.env
+      - path: .envs/database.env
         required: true
 
 networks:

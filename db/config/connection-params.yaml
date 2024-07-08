@@ -1,0 +1,18 @@
+---
+services:
+  db.interface:
+    secrets:
+      - db-name
+      - db-password
+      - db-user
+    environment:
+      - DB_NAME_FILE=/run/secrets/db-name
+      - DB_PASSWORD_FILE=/run/secrets/db-password
+      - DB_USER_FILE=/run/secrets/db-user
+
+  web.interface:
+    extends: db.interface
+    secrets:
+      - db-host
+    environment:
+      - DB_HOST_FILE=/run/secrets/db-host
