@@ -44,7 +44,7 @@ PIP_COMPILE_UNSAFE = $(PIP_COMPILE) --allow-unsafe
 REQUIREMENTS_GROUPS := pip pip-tools base ci test-ci test quality dev
 
 upgrade: export CUSTOM_COMPILE_COMMAND=make upgrade
-upgrade: piptools ## update the requirements/*.txt files with the latest packages satisfying requirements/*.in
+upgrade: piptools ## upgrade requirements/*.txt files with the latest packages satisfying requirements/*.in
 	@for group in $(REQUIREMENTS_GROUPS); do \
 		CMD=$$( [ $$group = "pip" ] && echo "$(PIP_COMPILE_UNSAFE)" || echo "$(PIP_COMPILE)" ); \
 		$$CMD -o requirements/$$group.txt requirements/$$group.in; \
@@ -67,7 +67,7 @@ endef
 # Find all example env files in the project.
 EXAMPLE_ENV_FILES := $(shell find . -type f -name "*.env.example")
 
-envs: # generate env files required to configure application environment
+envs: ## generate env files required to configure application environment
 	@generated_files=""; \
 	for file in $(EXAMPLE_ENV_FILES); do \
 		env_name=$$(basename "$$file" | sed -e 's/\.env\.example$$//'); \
@@ -92,7 +92,7 @@ define generate_random_secret
 	fi
 endef
 
-secrets: # generate secrets required by Compose application model
+secrets: ## generate secrets required by Compose application model
 	@generated_files=""; \
 	for file in $(PLACEHOLDER_FILES); do \
 		secret_name=$$(basename "$$file" | sed -e 's/\.txt.sample$$//'); \
