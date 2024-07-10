@@ -1,74 +1,98 @@
 ---
+name: djangops
 services:
+  db:
+    image: postgres:16.3-alpine3.20
+    container_name: postgres_db
+    restart: unless-stopped
+    shm_size: "134217728"
+    user: postgres
+    environment:
+      - POSTGRES_DB_FILE=/run/secrets/db-name
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - POSTGRES_USER_FILE=/run/secrets/db-user
+    expose:
+      - "5432"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -d $$(cat /run/secrets/db-name) -U $$(cat /run/secrets/db-user)
+      timeout: 5s
+      interval: 10s
+      retries: 5
+    networks:
+      - back-tier
+    secrets:
+      - source: db-name
+        target: /run/secrets/db-name
+      - source: db-password
+        target: /run/secrets/db-password
+      - source: db-user
+        target: /run/secrets/db-user
+    volumes:
+      - type: volume
+        source: db-data
+        target: /var/lib/postgresql/data
+        volume: {}
+
   web:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: src/Dockerfile
+      target: final-stage
     container_name: django_web
-    restart: unless-stopped
-    develop:
-      watch:
-        - action: sync
-          path: .
-          target: /usr/src/app
-          ignore:
-            - ./docker
-            - ./tests
-            - ./test_utils
-        - action: rebuild
-          path: ./requirements/base.txt
+    restart: "no"
     depends_on:
       db:
         condition: service_healthy
-    secrets:
-      - db-password
-      - django-secret-key
-    networks:
-      - front-tier
-      - back-tier
-    ports:
-      - 8000:8000
+        required: true
     environment:
+      - DB_HOST_FILE=/run/secrets/db-host
+      - DB_NAME_FILE=/run/secrets/db-name
       - DB_PASSWORD_FILE=/run/secrets/db-password
+      - DB_USER_FILE=/run/secrets/db-user
       - SECRET_KEY_FILE=/run/secrets/django-secret-key
     env_file:
-      - path: ./.envs/django.env
+      - path: ../.envs/django.env
         required: true
-
-  db:
-    image: postgres:16.2
-    container_name: postgres_db
-    restart: always
-    shm_size: 128mb
-    user: postgres
-    secrets:
-      - db-password
-    volumes:
-      - db-data:/var/lib/postgresql/data
+      - path: ../.envs/database.env
+        required: true
     networks:
       - back-tier
-    expose:
-      - 5432
-    environment:
-      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-    env_file:
-      - path: ./.envs/postgres.env
-        required: true
-    healthcheck:
-      test: [ "CMD", "pg_isready" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      - front-tier
+    ports:
+      - mode: ingress
+        target: 8000
+        published: "8000"
+        protocol: tcp
+    secrets:
+      - source: db-name
+        target: /run/secrets/db-name
+      - source: db-password
+        target: /run/secrets/db-password
+      - source: db-user
+        target: /run/secrets/db-user
+      - source: db-host
+        target: /run/secrets/db-host
+      - source: django-secret-key
+        target: /run/secrets/django-secret-key
+
+networks:
+  back-tier: {}
+  front-tier: {}
 
 volumes:
   db-data:
-
-networks:
-  front-tier: {}
-  back-tier: {}
+    name: djangops_db-data
 
 secrets:
+  db-host:
+    file: ../db/secrets/db_host.txt
+  db-name:
+    file: ../db/secrets/db_name.txt
   db-password:
-    file: db/db_password.txt
+    file: ../db/secrets/db_password.txt
+  db-user:
+    file: ../db/secrets/db_user.txt
   django-secret-key:
-    file: docker/secrets/secret_key.txt
+    file: ../docker/secrets/secret_key.txt
