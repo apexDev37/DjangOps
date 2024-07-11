@@ -10,7 +10,7 @@ asgiref==3.8.1
     #   django
 coverage==7.5.4
     # via pytest-cov
-django==4.2.13
+django==4.2.14
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.txt
