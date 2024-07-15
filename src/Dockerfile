@@ -9,14 +9,15 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 LABEL \
   author="Eugene Mwangi" \
   contact="mwangi.em37@gmail.com" \
-  version="0.3.0" \
+  version="0.3.1" \
   license="MIT"
 
 WORKDIR /usr/src/app
 
-# set python-specific dev env variables.
+# set python-specific env variables.
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
+# set pkg-manger specific env variables.
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_CACHE_DIR=1
 
@@ -26,8 +27,6 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=./requirements/base.txt,target=./requirements/base.txt \
     python3 -m pip install -r ./requirements/pip.txt \
     && python3 -m pip install -r ./requirements/base.txt
-
-COPY ./src/ /usr/src/app
 
 # ======================================================================================
 # Stage 2: Runtime environment (inherits from build stage)
@@ -39,6 +38,8 @@ RUN <<EOF
 addgroup -S docker
 adduser -S --shell /bin/bash --ingroup docker appuser
 EOF
+
+COPY ./src/ /usr/src/app
 
 # expose and run django dev server with non-root user.
 USER appuser
@@ -58,7 +59,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     python3 -m pip install -r ./requirements/test.txt
 
 # ======================================================================================
-# Environment: devlopment (inherits from final stage)
+# Environment: development (inherits from final stage)
 # ======================================================================================
 
 FROM final-stage AS env-develop
