@@ -9,7 +9,7 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 LABEL \
   author="Eugene Mwangi" \
   contact="mwangi.em37@gmail.com" \
-  version="0.3.1" \
+  version="0.3.2" \
   license="MIT"
 
 WORKDIR /usr/src/app
@@ -20,6 +20,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # set pkg-manger specific env variables.
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_CACHE_DIR=1
+ENV PIP_ROOT_USER_ACTION=ignore
 
 # install app's base runtime dependencies.
 RUN --mount=type=cache,target=/root/.cache/pip \
@@ -34,36 +35,61 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 FROM build-stage AS final-stage
 
-RUN <<EOF
-addgroup -S docker
-adduser -S --shell /bin/bash --ingroup docker appuser
-EOF
-
 COPY ./src/ /usr/src/app
 
 # expose and run django dev server with non-root user.
-USER appuser
 EXPOSE 8000
 ENTRYPOINT ["python3"]
 CMD ["manage.py", "runserver", "0.0.0.0:8000"]
 
+# ======================================================================================
+# Least-priviledge user mode (inherits from final stage)
+# ======================================================================================
+
+FROM final-stage AS local-rootless
+
+RUN <<EOF
+addgroup -S docker
+adduser -S --shell /bin/shell --ingroup docker appuser
+EOF
+
+FROM final-stage AS rootless
+
+ARG UID=1000
+RUN <<EOF
+adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --system \
+    --no-create-home \
+    --uid "${UID}" \
+    appuser
+EOF
 
 # ======================================================================================
-# Environment: testing (inherits from final stage)
+# Environment: testing (inherits from local rootless)
 # ======================================================================================
 
-FROM final-stage AS env-testing
+FROM local-rootless AS env-testing
+
 ENV ENVIRONMENT=testing
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=./requirements/test.txt,target=./requirements/test.txt \
     python3 -m pip install -r ./requirements/test.txt
 
+USER appuser
+
 # ======================================================================================
-# Environment: development (inherits from final stage)
+# Environment: development (inherits from local rootless)
 # ======================================================================================
 
-FROM final-stage AS env-develop
+FROM local-rootless AS env-develop
+
 ENV ENVIRONMENT=develop
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=./requirements/dev.txt,target=./requirements/dev.txt \
     python3 -m pip install -r ./requirements/dev.txt
+
+USER appuser
