@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1
+
 # ======================================================================================
 # Stage 1: Build Environment
 # ======================================================================================
@@ -9,7 +11,7 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 LABEL \
   author="Eugene Mwangi" \
   contact="mwangi.em37@gmail.com" \
-  version="0.3.2" \
+  version="0.3.3" \
   license="MIT"
 
 WORKDIR /usr/src/app
