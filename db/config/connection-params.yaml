@@ -2,9 +2,21 @@
 services:
   db.interface:
     secrets:
-      - db-name
-      - db-password
-      - db-user
+      - source: db-name
+        target: db-name
+        uid: "1000"
+        gid: "101"
+        mode: 0400
+      - source: db-password
+        target: db-password
+        uid: "1000"
+        gid: "101"
+        mode: 0400
+      - source: db-user
+        target: db-user
+        uid: "1000"
+        gid: "101"
+        mode: 0400
     environment:
       - DB_NAME_FILE=/run/secrets/db-name
       - DB_PASSWORD_FILE=/run/secrets/db-password
@@ -13,6 +25,10 @@ services:
   web.interface:
     extends: db.interface
     secrets:
-      - db-host
+      - source: db-host
+        target: db-host
+        uid: "1000"
+        gid: "101"
+        mode: 0400
     environment:
       - DB_HOST_FILE=/run/secrets/db-host

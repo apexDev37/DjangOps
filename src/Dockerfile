@@ -50,9 +50,10 @@ CMD ["manage.py", "runserver", "0.0.0.0:8000"]
 
 FROM final-stage AS local-rootless
 
+ARG UID=1000
 RUN <<EOF
 addgroup -S docker
-adduser -S --shell /bin/shell --ingroup docker appuser
+adduser -S --shell /bin/shell --ingroup docker --uid "${UID}" appuser
 EOF
 
 FROM final-stage AS rootless

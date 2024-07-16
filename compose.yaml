@@ -21,14 +21,18 @@ services:
       file: db/config/connection-params.yaml
       service: web.interface
     secrets:
-      - django-secret-key
+      - source: django-secret-key
+        target: secret_key
+        uid: "1000"
+        gid: "101"
+        mode: 0400
     networks:
       - front-tier
       - back-tier
     ports:
       - 8000:8000
     environment:
-      - SECRET_KEY_FILE=/run/secrets/django-secret-key
+      - SECRET_KEY_FILE=/run/secrets/secret_key
     env_file:
       - path: .envs/django.env
         required: true
