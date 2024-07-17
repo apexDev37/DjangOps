@@ -8,9 +8,9 @@ asgiref==3.8.1
     # via
     #   -r requirements/base.txt
     #   django
-coverage==7.5.4
+coverage==7.6.0
     # via pytest-cov
-django==4.2.13
+django==4.2.14
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.txt
@@ -43,7 +43,7 @@ pytest-django==4.8.0
     # via -r requirements/test.in
 pytest-xdist==3.6.1
     # via -r requirements/test.in
-sqlparse==0.5.0
+sqlparse==0.5.1
     # via
     #   -r requirements/base.txt
     #   django
