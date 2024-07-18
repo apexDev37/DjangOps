@@ -1,0 +1,53 @@
+.PHONY: dev dev.admin healthy help selfcheck sync test test.admin
+
+.DEFAULT_GOAL := help
+
+# ------------------------------------------------------------------------------
+# Base
+# ------------------------------------------------------------------------------
+
+help: ## display this help message
+	@echo "Please use \`make <target>' where <target> is one of"
+	@awk -F ':.*?## ' '/^[a-zA-Z]/ && NF==2 {printf "\033[36m  %-25s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
+
+# TODO(apexDev37)
+healthy: ## checks the compose app model is valid
+	@echo "The compose application model is valid"
+
+# TODO(apexDev37)
+sync: ## checks local and in-container interpreter/package manager are synced
+
+selfcheck: ## check that the Makefile is well-formed
+	@echo "The Makefile is well-formed."
+
+# ------------------------------------------------------------------------------
+# Up
+# ------------------------------------------------------------------------------
+
+dev: ## run core compose services with the develop environment target
+	@echo "Starting core services in [develop] mode."
+	@docker compose \
+		-f compose.yaml \
+		-f compose.develop.yaml \
+		up -d
+
+dev.admin: ## run adminer profile service with the develop environment target
+	@echo "Starting core services and adminer profile in [develop] mode."
+	@docker compose \
+		-f compose.yaml --profile admin \
+		-f compose.develop.yaml \
+		up -d
+
+test: ## run core compose services with the testing environment target
+	@echo "Starting core services in [testing] mode."
+	@docker compose \
+		-f compose.yaml \
+		-f compose.testing.yaml \
+		up -d
+
+test.admin: ## run adminer profile service with the testing environment target
+	@echo "Starting core services and adminer profile in [testing] mode."
+	@docker compose \
+		-f compose.yaml --profile admin \
+		-f compose.testing.yaml \
+		up -d
