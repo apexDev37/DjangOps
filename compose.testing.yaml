@@ -1,4 +1,8 @@
 ---
+include:
+  - path: db/local-admin.yaml
+    project_directory: .
+
 services:
   web:
     build:

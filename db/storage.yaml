@@ -37,23 +37,6 @@ services:
       timeout: 5s
       retries: 5
 
-  adminer:
-    image: adminer:latest
-    container_name: db_admin_gui
-    restart: unless-stopped
-    depends_on:
-      db:
-        condition: service_healthy
-        required: true
-    environment:
-      - ADMINER_DEFAULT_SERVER=db
-      - ADMINER_DESIGN=galkaev
-    profiles: [admin]
-    networks:
-      - back-tier
-    ports:
-      - "127.0.0.1:8080:8080"
-
 volumes:
   db-data:
 
