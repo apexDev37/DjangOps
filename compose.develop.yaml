@@ -9,16 +9,9 @@ services:
       target: env-develop
     container_name: django_web_dev
     restart: unless-stopped
-    develop:
-      watch:
-        - action: sync
-          path: src
-          target: /usr/src/app
-        - action: rebuild
-          path: ./requirements/dev.txt
-        - action: sync+restart
-          path: ./src/config/settings
-          target: /usr/src/app/config/settings
+    extends:
+      file: docker/compose/fragments/watch-spec.yaml
+      service: develop.watch
 
   db:
     networks:

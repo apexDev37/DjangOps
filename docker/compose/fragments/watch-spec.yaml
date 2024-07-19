@@ -1,0 +1,16 @@
+---
+services:
+  develop.watch:
+    develop:
+      watch:
+        - action: sync
+          path: ../../../src
+          target: /usr/src/app
+        - action: rebuild
+          path: ../../../requirements/dev.txt
+        - action: sync+restart
+          path: ../../../src/config/settings
+          target: /usr/src/app/config/settings
+
+  testing.watch:
+    extends: develop.watch
