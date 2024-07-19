@@ -17,7 +17,8 @@ services:
         - action: rebuild
           path: ./requirements/test.txt
         - action: sync+restart
-          path: ./src/config
+          path: ./src/config/settings
+          target: /usr/src/app/config/settings
 
   db:
     networks:
