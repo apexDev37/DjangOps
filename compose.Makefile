@@ -1,4 +1,5 @@
-.PHONY: dev dev.admin healthy help selfcheck sync test test.admin
+.PHONY: dev dev.admin healthy help selfcheck sync test test.admin watch.dev \
+		watch.test
 
 .DEFAULT_GOAL := help
 
@@ -51,3 +52,19 @@ test.admin: ## run adminer profile service with the testing environment target
 		-f compose.yaml --profile admin \
 		-f compose.testing.yaml \
 		up -d
+
+# ------------------------------------------------------------------------------
+# Watch: Targets to run compose services in watch mode.
+# ------------------------------------------------------------------------------
+
+watch.dev: ## watch `service:web` and start core services with develop target
+	@echo "Starting core services and watching 'web' service in [develop] mode."
+	@docker compose \
+		-f compose.yaml -f compose.develop.yaml \
+		watch --no-up
+
+watch.test: ## watch `service:web` and start core services with testing target
+	@echo "Starting core services and watching 'web' service in [testing] mode."
+	@docker compose \
+		-f compose.yaml -f compose.testing.yaml \
+		watch --no-up
