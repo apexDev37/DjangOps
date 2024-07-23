@@ -185,7 +185,18 @@ empty_parameter_set_mark = "xfail"
 required_plugins = [ "pytest-django>=4.0.0,<5.0.0", "pytest-xdist>=3.6.1,<4.0.0" ]
 
 # --- Additional markers to whitelist
-markers = []
+markers = [
+    # Core
+    "unit: marks a test of single, isolated, units of functionality (deselect with '-m \"not unit\"')",
+    "integration: marks a test of inter-module interaction and communication (deselect with '-m \"not integration\"')",
+    "acceptance: marks a test to verify business requirements and end-user needs are met (deselect with '-m \"not acceptance\"')",
+    "e2e: marks a test to simulate real-world scenarios of application flow from start to end (deselect with '-m \"not e2e\"')",
+    # Environment
+    "in-memory: marks a test capable to use an in-memory database to speed-up execution (deselect with '-m \"not in-memory\"')",
+    "system: marks a test to run in a production-like environment (contrast to in-memory) (deselect with '-m \"not system\"')",
+    # Metrics
+    "slow: marks a test as slow (deselect with '-m \"not slow\"')",
+]
 
 # For more extensive ruff config
 # See: https://docs.astral.sh/ruff/settings
