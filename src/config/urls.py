@@ -5,7 +5,7 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 """
 
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
 
 from config.settings.develop import ENABLE_DEBUG_TOOLBAR
 
@@ -14,8 +14,6 @@ urlpatterns = [
 ]
 
 if ENABLE_DEBUG_TOOLBAR:
-    urlpatterns.extend(
-        [
-            path("__debug__/", include("debug_toolbar.urls")),
-        ]
-    )
+    from debug_toolbar.toolbar import debug_toolbar_urls
+
+    urlpatterns.extend([debug_toolbar_urls()])
