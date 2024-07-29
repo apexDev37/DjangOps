@@ -5,6 +5,7 @@ include:
 
 services:
   web:
+    image: djangops:dev
     build:
       target: env-develop
     container_name: django_web_dev

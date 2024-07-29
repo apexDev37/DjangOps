@@ -7,6 +7,7 @@ include:
 
 services:
   web:
+    image: djangops:base
     build:
       context: .
       dockerfile: src/Dockerfile

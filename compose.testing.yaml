@@ -5,6 +5,7 @@ include:
 
 services:
   web:
+    image: djangops:test
     build:
       target: env-testing
     container_name: django_web_test
