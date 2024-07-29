@@ -1,5 +1,5 @@
-.PHONY: dev dev.admin healthy help selfcheck sync test test.admin watch.dev \
-		watch.test
+.PHONY: build build.all build.dev build.test dev dev.admin healthy help \
+	selfcheck sync test test.admin watch.dev watch.test
 
 .DEFAULT_GOAL := help
 
@@ -20,6 +20,31 @@ sync: ## checks local and in-container interpreter/package manager are synced
 
 selfcheck: ## check that the Makefile is well-formed
 	@echo "The Makefile is well-formed."
+
+# ------------------------------------------------------------------------------
+# Build
+# ------------------------------------------------------------------------------
+
+build: ## build the base, `web` service image with default env: `production`
+	 @docker build . \
+	 	--file src/Dockerfile \
+		--target final-stage \
+		--tag djangops:base
+
+build.all: ## build all `web` service images for all supported target envs
+build.all: build build.test build.dev
+
+build.dev: ## build the dev, `web` service image with target env: `develop`
+	 @docker build . \
+	 	--file src/Dockerfile \
+		--target env-develop \
+		--tag djangops:dev
+
+build.test: ## build the test, `web` service image with target env: `testing`
+	 @docker build . \
+	 	--file src/Dockerfile \
+		--target env-testing \
+		--tag djangops:test
 
 # ------------------------------------------------------------------------------
 # Up
