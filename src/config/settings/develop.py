@@ -8,9 +8,6 @@ For more information on this file, see
 https://docs.djangoproject.com/en/4.2/topics/settings/
 """
 
-import sys
-
-from config.enums import Environment
 from config.settings.common.base import INSTALLED_APPS, MIDDLEWARE
 from config.settings.common.database import DATABASES
 from config.settings.environment.django import (
@@ -37,12 +34,4 @@ MIDDLEWARE.extend(
     [
         "debug_toolbar.middleware.DebugToolbarMiddleware",
     ]
-)
-
-
-# Only enable the toolbar when we're in debug mode and we're
-# not running tests. Django will change DEBUG to be False for
-# tests, so we can't rely on DEBUG alone.
-ENABLE_DEBUG_TOOLBAR = bool(
-    DEBUG and "test" not in sys.argv and Environment.DEVELOP.value == ENVIRONMENT
 )

@@ -7,7 +7,7 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 from django.contrib import admin
 from django.urls import path
 
-from config.settings.develop import ENABLE_DEBUG_TOOLBAR
+from config.constants import ENABLE_DEBUG_TOOLBAR
 
 urlpatterns = [
     path("admin/", admin.site.urls),
