@@ -5,7 +5,16 @@ services:
       watch:
         - action: sync
           path: ../../../src
-          target: /usr/src/app
+          target: /usr/src/app/src
+        - action: sync
+          path: ../../../tests
+          target: /usr/src/app/tests
+        - action: sync
+          path: ../../../test_utils
+          target: /usr/src/app/test_utils
+        - action: sync
+          path: ../../../pyproject.toml
+          target: /usr/src/app/pyproject.toml
         - action: rebuild
           path: ../../../requirements/dev.txt
         - action: sync+restart

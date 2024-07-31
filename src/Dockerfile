@@ -11,7 +11,7 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 LABEL \
   author="Eugene Mwangi" \
   contact="mwangi.em37@gmail.com" \
-  version="0.3.3" \
+  version="0.3.4" \
   license="MIT"
 
 WORKDIR /usr/src/app
@@ -37,12 +37,12 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 FROM build-stage AS final-stage
 
-COPY ./src/ /usr/src/app
+COPY ./src/ /usr/src/app/src
 
 # expose and run django dev server with non-root user.
 EXPOSE 8000
 ENTRYPOINT ["python3"]
-CMD ["manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["src/manage.py", "runserver", "0.0.0.0:8000"]
 
 # ======================================================================================
 # Least-priviledge user mode (inherits from final stage)
