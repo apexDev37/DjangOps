@@ -12,7 +12,7 @@ from typing_extensions import LiteralString
 
 from config.constants import SETTINGS_MODULE
 from config.enums import Environment
-from config.settings.environment.django import ENVIRONMENT
+from config.settings.environment.django import env
 
 
 def get_target_settings() -> LiteralString:
@@ -26,8 +26,8 @@ def get_target_settings() -> LiteralString:
         the default environment, `production`, will be used.
     """
     try:
-        target: Environment = Environment(ENVIRONMENT)
+        target: Environment = Environment(env("ENVIRONMENT"))
     except ValueError as exc:
         errmsg = "Please configure a valid target `ENVIRONMENT`."
         raise ValueError(errmsg) from exc
-    return f"{SETTINGS_MODULE}.{str(target)}"
+    return str(f"{SETTINGS_MODULE}.{target}")

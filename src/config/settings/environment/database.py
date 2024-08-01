@@ -3,8 +3,22 @@
 The environment variables defined here are for the database
 connection settings for the Django project.
 
+Note:
+    To utilize the custom/standard Django settings in this module in your Python
+    code, import the settings module from 'django.conf' rather than this module
+    itself. This allows for more flexible and testable code while deriving the
+    setting from the configured Django settings module used at runtime.
+
+    [Example]
+    - Prefer: `from django.conf import settings; settings.ENVIRONMENT`
+    - Avoid: `from config.settings.environment.django import ENVIRONMENT`
+
+    This doesn't apply to base or target environment settings (ie. develop, etc)
+    which should import directly from `environment` modules.
+
 See:
-https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+    https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+    https://docs.djangoproject.com/en/4.2/topics/settings/#using-settings-in-python-code
 """
 
 from pathlib import Path
