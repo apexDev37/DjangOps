@@ -191,6 +191,7 @@ markers = [
     "integration: marks a test of inter-module interaction and communication (deselect with '-m \"not integration\"')",
     "acceptance: marks a test to verify business requirements and end-user needs are met (deselect with '-m \"not acceptance\"')",
     "e2e: marks a test to simulate real-world scenarios of application flow from start to end (deselect with '-m \"not e2e\"')",
+    "smoke: marks a test of critical and core functionality of the application (deselect with '-m \"not smoke\"')",
     # Environment
     "in-memory: marks a test capable to use an in-memory database to speed-up execution (deselect with '-m \"not in-memory\"')",
     "system: marks a test to run in a production-like environment (contrast to in-memory) (deselect with '-m \"not system\"')",
