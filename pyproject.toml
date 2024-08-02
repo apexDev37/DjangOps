@@ -127,7 +127,10 @@ skip = [ "migrations", ]
 # See: https://mypy.readthedocs.io/en/stable/config_file.html
 # And: https://mypy.readthedocs.io/en/stable/config_file.html#using-a-pyproject-toml-file
 [tool.mypy]
-mypy_path = "$MYPY_CONFIG_FILE_DIR/src"
+mypy_path = ["$MYPY_CONFIG_FILE_DIR/"]
+explicit_package_bases = true
+ignore_missing_imports = false
+namespace_packages = true
 
 # --- Disallow dynamic typing
 disallow_any_expr = true
@@ -152,7 +155,7 @@ pretty = true
 
 [[tool.mypy.overrides]]
 # --- Ignore Django boilerplate and settings
-module = "config.*"
+module = [ "src/config.*", "tests/*" ]
 strict = false
 disable_error_code = [ "import-not-found", "import-untyped", "misc", ]
 
