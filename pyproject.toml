@@ -243,6 +243,7 @@ extend-select = [
     "T20",    # flake8-print
     "TID",    # flake8-tidy-imports
     "TRY",    # tryceratops
+    "UP",     # pyupgrade
 ]
 
 ignore = [
@@ -250,6 +251,7 @@ ignore = [
     "D103",   # undocumented-public-function
     "D104",   # undocumented-public-package
     "D105",   # undocumented-magic-method
+    "UP007",  # support using type `Optional` (opinionated)
 ]
 
 [tool.ruff.lint.flake8-tidy-imports]
