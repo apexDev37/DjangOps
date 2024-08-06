@@ -8,6 +8,7 @@ For more information on this file, see
 https://docs.djangoproject.com/en/4.2/topics/settings/
 """
 
+from config.settings.common.base import *  # noqa: F403
 from config.settings.common.base import INSTALLED_APPS, MIDDLEWARE
 from config.settings.common.database import DATABASES
 from config.settings.environment.django import (
@@ -16,8 +17,6 @@ from config.settings.environment.django import (
     ENVIRONMENT,
     SECRET_KEY,
 )
-
-from .common.base import *  # noqa: F403
 
 INTERNAL_IPS = [".localhost", "127.0.0.1", "[::1]"]
 

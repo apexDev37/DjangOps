@@ -16,6 +16,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 
 import os
 
+from config.settings.common.base import *  # noqa: F403
 from config.settings.common.database import DATABASES
 from config.settings.environment.django import (
     ALLOWED_HOSTS,
@@ -23,8 +24,6 @@ from config.settings.environment.django import (
     ENVIRONMENT,
     SECRET_KEY,
 )
-
-from .common.base import *  # noqa: F403
 
 # Settings for test databases for the target env: `testing`.
 # NB: Test databases are destroyed when all the tests have been executed,

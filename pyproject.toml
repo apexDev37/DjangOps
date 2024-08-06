@@ -241,6 +241,7 @@ extend-select = [
     "SIM",    # flake8-simplify
     "T10",    # flake8-debugger
     "T20",    # flake8-print
+    "TID",    # flake8-tidy-imports
     "TRY",    # tryceratops
 ]
 
@@ -250,6 +251,16 @@ ignore = [
     "D104",   # undocumented-public-package
     "D105",   # undocumented-magic-method
 ]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+# Ban certain modules from being imported at module level, instead requiring
+# that they're imported lazily (e.g., within a condition or function definition).
+# - (debug_toolbar): Package to be used only in the `develop` environment.
+banned-module-level-imports = ["debug_toolbar",]
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"random".msg = "Prefer `secrets` lib for secure random generation. See PEP506: https://peps.python.org/pep-0506/"
 
 [tool.ruff.lint.per-file-ignores]
 "manage.py" = ["TRY003", "EM101",]
