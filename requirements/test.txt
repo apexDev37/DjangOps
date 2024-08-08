@@ -8,9 +8,9 @@ asgiref==3.8.1
     # via
     #   -r requirements/base.txt
     #   django
-coverage==7.6.0
+coverage==7.6.1
     # via pytest-cov
-django==4.2.14
+django==4.2.15
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.txt
@@ -32,7 +32,7 @@ psycopg==3.2.1
     #   -r requirements/base.txt
 psycopg-binary==3.2.1
     # via -r requirements/base.txt
-pytest==8.2.2
+pytest==8.3.2
     # via
     #   pytest-cov
     #   pytest-django
