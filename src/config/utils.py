@@ -8,6 +8,7 @@ Note:
     host and manage their own `utils` module for easier app deploys.
 """
 
+from django.core.exceptions import ImproperlyConfigured
 from typing_extensions import LiteralString
 
 from config.constants import SETTINGS_MODULE
@@ -29,5 +30,5 @@ def get_target_settings() -> LiteralString:
         target: Environment = Environment(env("ENVIRONMENT"))
     except ValueError as exc:
         errmsg = "Please configure a valid target `ENVIRONMENT`."
-        raise ValueError(errmsg) from exc
+        raise ImproperlyConfigured(errmsg) from exc
     return str(f"{SETTINGS_MODULE}.{target}")

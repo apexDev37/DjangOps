@@ -13,6 +13,7 @@ import re
 from typing import Self
 
 import pytest
+from django.core.exceptions import ImproperlyConfigured
 
 from src.config.constants import SETTINGS_MODULE
 from src.config.enums import Environment
@@ -41,7 +42,10 @@ class TestEnvironmentTargetSettings:
         target = "non-existent"
         monkeypatch.setenv("ENVIRONMENT", target)
 
-        with pytest.raises(ValueError, match="configure a valid target"):  # Then
+        # Then
+        with pytest.raises(
+            (ValueError, ImproperlyConfigured), match="configure a valid target"
+        ):
             get_target_settings()  # When
 
     def test_should_default_to_prod_when_env_not_user_configured(
