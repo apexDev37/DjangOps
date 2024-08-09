@@ -11,7 +11,7 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 LABEL \
   author="Eugene Mwangi" \
   contact="mwangi.em37@gmail.com" \
-  version="0.3.4" \
+  version="0.3.5" \
   license="MIT"
 
 WORKDIR /usr/src/app
@@ -52,9 +52,17 @@ FROM final-stage AS local-rootless
 
 ARG UID=1000
 RUN <<EOF
-addgroup -S docker
-adduser -S --shell /bin/shell --ingroup docker --uid "${UID}" appuser
+adduser \
+    --gecos "" \
+    --home "/home/appuser" \
+    --shell "/bin/shell" \
+    --system \
+    --uid "${UID}" \
+    appuser
 EOF
+
+# set user-writeable, pytest cache dir for local target stages.
+ENV PYTEST_ADDOPTS="-o cache_dir=/home/appuser/.pytest_cache"
 
 FROM final-stage AS rootless
 
