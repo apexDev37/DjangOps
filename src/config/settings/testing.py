@@ -55,8 +55,11 @@ TEST_NON_SERIALIZED_APPS: list[str] = []
 # Configure temporary in memory storage for media during test runs.
 # Avoiding disk access for media files and speed up access.
 # NB: Caution when using parallel test runs; it isn’t shared between processes.
-DEFAULT_FILE_STORAGE = "django.core.files.storage.InMemoryStorage"
-
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.InMemoryStorage",
+    },
+}
 
 # Explicit disable of debug feature for templates.
 # NB: Template debug info in the browser's console is not required for tests.
