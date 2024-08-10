@@ -1,25 +1,50 @@
 ---
+x-common-src: &src-sync-watch
+  action: sync
+  path: ../../../src
+  target: /usr/src/app/src
+
+x-common-tests: &tests-sync-watch
+  action: sync
+  path: ../../../tests
+  target: /usr/src/app/tests
+
+x-common-test-utils: &tests_utils-sync-watch
+  action: sync
+  path: ../../../test_utils
+  target: /usr/src/app/test_utils
+
+x-common-tools: &tools-sync-watch
+  action: sync
+  path: ../../../pyproject.toml
+  target: /usr/src/app/pyproject.toml
+
+x-common-settings: &settings-restart-watch
+  action: sync+restart
+  path: ../../../src/config/settings
+  target: /usr/src/app/config/settings
+
 services:
   develop.watch:
     develop:
       watch:
-        - action: sync
-          path: ../../../src
-          target: /usr/src/app/src
-        - action: sync
-          path: ../../../tests
-          target: /usr/src/app/tests
-        - action: sync
-          path: ../../../test_utils
-          target: /usr/src/app/test_utils
-        - action: sync
-          path: ../../../pyproject.toml
-          target: /usr/src/app/pyproject.toml
+        - *src-sync-watch
+        - *tests-sync-watch
+        - *tests_utils-sync-watch
+        - *tools-sync-watch
+        - *settings-restart-watch
+        # Include additional, custom sequences for watch actions.
         - action: rebuild
           path: ../../../requirements/dev.txt
-        - action: sync+restart
-          path: ../../../src/config/settings
-          target: /usr/src/app/config/settings
 
   testing.watch:
-    extends: develop.watch
+    develop:
+      watch:
+        - *src-sync-watch
+        - *tests-sync-watch
+        - *tests_utils-sync-watch
+        - *tools-sync-watch
+        - *settings-restart-watch
+        # Include additional, custom sequences for watch actions.
+        - action: rebuild
+          path: ../../../requirements/test.txt
