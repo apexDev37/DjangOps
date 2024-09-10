@@ -22,7 +22,7 @@ coverage==7.6.1
     #   pytest-cov
 distlib==0.3.8
     # via virtualenv
-django==4.2.15
+django==4.2.16
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/test.txt
@@ -34,7 +34,7 @@ execnet==2.1.1
     # via
     #   -r requirements/test.txt
     #   pytest-xdist
-filelock==3.15.4
+filelock==3.16.0
     # via virtualenv
 identify==2.6.0
     # via pre-commit
@@ -48,7 +48,7 @@ markdown-it-py==3.0.0
     # via rich
 mdurl==0.1.2
     # via markdown-it-py
-mypy==1.11.1
+mypy==1.11.2
     # via -r requirements/quality.in
 mypy-extensions==1.0.0
     # via
@@ -63,9 +63,9 @@ packaging==24.1
     #   pytest
 pathspec==0.12.1
     # via black
-pbr==6.0.0
+pbr==6.1.0
     # via stevedore
-platformdirs==4.2.2
+platformdirs==4.3.2
     # via
     #   black
     #   virtualenv
@@ -91,7 +91,7 @@ pytest==8.3.2
     #   pytest-xdist
 pytest-cov==5.0.0
     # via -r requirements/test.txt
-pytest-django==4.8.0
+pytest-django==4.9.0
     # via -r requirements/test.txt
 pytest-xdist==3.6.1
     # via -r requirements/test.txt
@@ -99,20 +99,20 @@ pyyaml==6.0.2
     # via
     #   bandit
     #   pre-commit
-rich==13.7.1
+rich==13.8.0
     # via bandit
-ruff==0.5.6
+ruff==0.6.4
     # via -r requirements/quality.in
 sqlparse==0.5.1
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==5.2.0
+stevedore==5.3.0
     # via bandit
 typing-extensions==4.12.2
     # via
     #   -r requirements/test.txt
     #   mypy
     #   psycopg
-virtualenv==20.26.3
+virtualenv==20.26.4
     # via pre-commit

@@ -18,5 +18,5 @@ psycopg2-binary==2.9.9
     # via -r requirements/test-ci.in
 pytest==8.3.2
     # via pytest-django
-pytest-django==4.8.0
+pytest-django==4.9.0
     # via -r requirements/test-ci.in
