@@ -12,11 +12,11 @@
 #     with preference to use the latest (dev) and (quality) tools.
 
 
-# Require minimum patch version 4.2.15 (fixes known security issues),
+# Require minimum patch version 4.2.16 (fixes known security issues),
 # Allow patch upgrades within (LTS), 4.2.x,
 # NB: Django policy keeps deprecation shims for at least two feature releases (4.2, 5.0).
 #     Permit upgrade to Django 5.0 after testing in a tox (django50) environment.
-django~=4.2.15
+django~=4.2.16
 
 # Pin to minor version 0.11 (minimum for Django 4 support),
 # Allow minor and patch upgrades,
