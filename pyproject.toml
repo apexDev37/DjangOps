@@ -85,18 +85,24 @@ skips = [ "B201", ]
 # See: https://coverage.readthedocs.io/en/latest/config.html
 [tool.coverage.run]
 branch = true
-data_file = [ ".coverage", ]
-source = [ "src", ]
+data_file = ".coverage"
+source = [ "src" ]
 omit = [
-    "*/config/*",
+    "*/config/settings/*",
     "*/migrations/*",
-    "*admin.py",
     "*/static/*",
     "*/templates/*",
+    "*admin.py",
+    "*asgi.py",
+    "*urls.py",
+    "*wsgi.py",
+    "*manage.py",
 ]
 
 [tool.coverage.report]
 ignore_errors = true
+include_namespace_packages = true
+precision = 2
 show_missing = true
 skip_empty = true
 exclude_also = [
