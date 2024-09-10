@@ -4,14 +4,14 @@
 # Stage 1: Build Environment
 # ======================================================================================
 
-ARG PYTHON_VERSION="3.12.4"
+ARG PYTHON_VERSION="3.12.6"
 ARG ALPINE_VERSION="3.20"
 FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 
 LABEL \
   author="Eugene Mwangi" \
   contact="mwangi.em37@gmail.com" \
-  version="0.3.5" \
+  version="0.3.6" \
   license="MIT"
 
 WORKDIR /usr/src/app
