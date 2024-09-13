@@ -45,8 +45,8 @@ You can clone this repo with the following command.
 
 ```bash
 # cd your/desired/target/dir
-➜ git clone git@github.com:apexDev37/DjangOps.git my-project
-➜ cd my-project
+git clone git@github.com:apexDev37/DjangOps.git my-project
+cd my-project
 ```
 
 > 🛈 This will clone the repository to a target dir on your host machine with
@@ -69,8 +69,7 @@ files can contain other environment-related config.
 - Create required config files
 
 ```bash
-# idempotent operations.
-➜ make envs && make secrets
+make envs && make secrets  # idempotent operations.
 ```
 
 > 🛈 This will create and output all config files generated from available
@@ -90,8 +89,8 @@ Spin up your Django and Postgres instances with the following command.
 - Spin up containers
 
 ```bash
-➜ docker compose down
-➜ docker compose up -d
+docker compose down
+docker compose up -d
 ```
 
 > 🛈 This will create and start the Django and Postgres instances in the same
@@ -103,6 +102,82 @@ application at <http://localhost:8000>
 src="./resources/docs/images/successful-django-install.PNG"
 alt="Successful Django Install Page"
 />
+
+## Development
+
+This is an overview to prepare working with this repo locally.
+
+### Virtual Environment
+
+You can use any tool of your choice to create a [PEP 405 compliant] virtual
+environment. The following example uses `virtualenvwrapper` to create and
+manage virtual environments.
+
+- Create a virtual environment
+
+```bash
+mkvirtualenv -p python3.12 djangops-py312
+```
+
+> 🛈 This will create a fully managed venv and activate the virtual environment
+by default.
+
+If for any reason your environment is not activated from the above command or
+you encounter any issue, you can manually activate it with the following
+command.
+
+- Activate the virtual environment
+
+```bash
+workon djangops-py312
+```
+
+### Dependencies
+
+> ⚠ All following commands assume execution occurs with an active virtual env
+at the project root.
+
+- Install requirements for development.
+
+```bash
+make requirements
+```
+
+> 🛈 This will install and sync the active environment with the
+pinned versions of the compiled output for the development requirements,
+`requirements/dev.txt`.
+
+- Set up `pre-commit` hooks
+
+```bash
+pre-commit install --install-hooks
+```
+
+> 🛈 This installs the `pre-commit` script in your hidden `git/hooks` dir and
+installs all hook environments defined in the config file. This is a one time
+setup.
+
+### Runtime
+
+Run the process for the Django development server in the `web` service. You can
+use the following `make` target command to run the `develop` compose override
+model, which supports hot-reloading by watching and syncing your local files
+into the container.
+
+- Run Compose services in watch (develop) mode.
+
+```bash
+make -f compose.Makefile watch.dev
+```
+
+You can also choose to spin up more light-weight `web` service to handle only
+test-related concerns.
+
+- Run Compose services in watch (develop) mode.
+
+```bash
+make -f compose.Makefile watch.test
+```
 
 ## Licensing
 
@@ -130,6 +205,9 @@ Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdow
 [Vim]: https://www.vim.org/
 [environment]: https://docs.docker.com/compose/environment-variables/set-environment-variables/
 [secrets]: https://docs.docker.com/compose/use-secrets/
+
+<!-- Developing -->
+[PEP 405 compliant]: https://peps.python.org/pep-0405/#specification
 
 <!-- Licensing links -->
 
