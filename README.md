@@ -53,7 +53,7 @@ cd my-project
  a custom name `my-project/` and navigate into its root dir.
 
 ### Configuration
->
+
 > The following commands assume execution occurs at the project root.
 
 Before running your application with Compose, configure [environment] variables
@@ -122,9 +122,8 @@ mkvirtualenv -p python3.12 djangops-py312
 > 🛈 This will create a fully managed venv and activate the virtual environment
 by default.
 
-If for any reason your environment is not activated from the above command or
-you encounter any issue, you can manually activate it with the following
-command.
+If your environment is not activated from the above command or you encounter
+any issue, manually activate it with the following command.
 
 - Activate the virtual environment
 
@@ -144,8 +143,7 @@ make requirements
 ```
 
 > 🛈 This will install and sync the active environment with the
-pinned versions of the compiled output for the development requirements,
-`requirements/dev.txt`.
+pinned versions for your development dependencies, `requirements/dev.txt`.
 
 - Set up `pre-commit` hooks
 
@@ -153,15 +151,15 @@ pinned versions of the compiled output for the development requirements,
 pre-commit install --install-hooks
 ```
 
-> 🛈 This installs the `pre-commit` script in your hidden `git/hooks` dir and
-installs all hook environments defined in the config file. This is a one time
-setup.
+> 🛈 This one time setup installs the `pre-commit` script in your hidden
+`git/hooks` directory and installs all hook environments defined in the config
+file.
 
 ### Runtime
 
 Run the process for the Django development server in the `web` service. You can
 use the following `make` target command to run the `develop` compose override
-model, which supports hot-reloading by watching and syncing your local files
+model, which supports _hot-reload_ by watching and syncing your local files
 into the container.
 
 - Run Compose services in watch (develop) mode.
@@ -170,10 +168,10 @@ into the container.
 make -f compose.Makefile watch.dev
 ```
 
-You can also choose to spin up more light-weight `web` service to handle only
+You can also choose to spin up a more light-weight `web` service to handle only
 test-related concerns.
 
-- Run Compose services in watch (develop) mode.
+- Run Compose services in watch (testing) mode.
 
 ```bash
 make -f compose.Makefile watch.test
