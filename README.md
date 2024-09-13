@@ -1,6 +1,6 @@
 # DjangOps
 <!-- markdownlint-disable MD013 -->
-[![Inline docs](https://inch-ci.org/github/dwyl/hapi-auth-jwt2.svg?branch=master)](https://github.com/apexDev37/DjangOps/blob/main/README.md) [![Docker version](https://img.shields.io/badge/-v25.0.3-grey?style=flat&logo=docker)](https://docs.docker.com/reference/cli/docker/version/) [![Python version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue?style=flat&logo=python&logoColor=yellow)](https://github.com/apexDev37/DjangOps/blob/main/tox.ini#L5) [![Known Vulnerabilities](https://snyk.io/test/github/apexDev37/DjangOps/main/badge.svg)](https://snyk.io/test/github/apexDev37/DjangOps) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blue.svg)](http://makeapullrequest.com) [![Activity](https://img.shields.io/badge/status-active-brightgreen)](https://github.com/apexDev37/DjangOps/commits/main) [![Versioning](https://img.shields.io/badge/versioning-semver-black?logo=semver)](https://semver.org/) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit) [![Linter: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) [![Style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Inline docs](https://inch-ci.org/github/dwyl/hapi-auth-jwt2.svg?branch=master)](https://github.com/apexDev37/DjangOps/blob/main/README.md) [![Python version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue?style=flat&logo=python&logoColor=yellow)](https://github.com/apexDev37/DjangOps/blob/main/tox.ini#L5) [![docker](https://img.shields.io/badge/docker-enabled-blue?style=flat&logo=docker&labelColor=white)](https://www.docker.com/products/docker-desktop/) [![Known Vulnerabilities](https://snyk.io/test/github/apexDev37/DjangOps/main/badge.svg)](https://snyk.io/test/github/apexDev37/DjangOps) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blue.svg)](http://makeapullrequest.com) [![Activity](https://img.shields.io/badge/status-active-brightgreen)](https://github.com/apexDev37/DjangOps/commits/main) [![Versioning](https://img.shields.io/badge/versioning-semver-black?logo=semver)](https://semver.org/) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit) [![Linter: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) [![Style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 <!-- markdownlint-enable MD013 -->
 
 > A simple devops-inspired template for Django applications setup with compose.
@@ -28,9 +28,7 @@ This is an overview of the minimal setup needed to get started.
 ### Prerequisites
 
 - [Git]
-- [Docker]
-- [Docker Compose]
-- [Docker Desktop]
+- [Docker Desktop] (latest version)
 - IDE/Code/Text editor ([PyCharm], [VScode], [Vim], etc)
 
 Follow these tutorials to set up Docker and Compose on either [Mac]
@@ -46,34 +44,43 @@ You can clone this repo with the following command.
 - Clone repository
 
 ```bash
-    # cd your/desired/target/dir
-    $ git clone git@github.com:apexDev37/DjangOps.git my-project
-    $ cd my-project
+# cd your/desired/target/dir
+➜ git clone git@github.com:apexDev37/DjangOps.git my-project
+➜ cd my-project
 ```
 
-> This will clone the repository to a target dir on your host machine with
+> 🛈 This will clone the repository to a target dir on your host machine with
  a custom name `my-project/` and navigate into its root dir.
 
 ### Configuration
+>
+> The following commands assume execution occurs at the project root.
 
-Before running your application with Compose, configure your
-environment variables in the `./.envs/` directory. Example `env` files are provided
-to configure the following instances: Django and Postgres.
-You can create the required `env` files with the following code snippet.
+Before running your application with Compose, configure [environment] variables
+and [secrets] expected by the Compose app model. Sample `env` and `secret`
+files are provided to configure the following services: `web` and `db`. You can
+create the required config files with the following `make` target commands.
+After the config files are created, replace the placeholders and empty `txt`
+files with your custom values.
 
-- Create env files
+> 🛈 `secret` files should store sensitive or confidential data, whereas `env`
+files can contain other environment-related config.  
+
+- Create required config files
 
 ```bash
-    # ensure you're in the project's root
-    $ for file in .envs/*.example; do cp "$file" "${file%.example}"; done
-    $ cd .envs/
+# idempotent operations.
+➜ make envs && make secrets
 ```
 
-> This will loop through all the files in the .envs/ directory that end with
-.example and creates new files without the `.example` extension
+> 🛈 This will create and output all config files generated from available
+sample files in their target directory
 (ie. `django.env.example` -> `django.env`).  
-> ⚠ After the `env` files are created, replace the placeholders with your own
-config values for your Django and Postgres instances.
+
+- Update placeholder config values  
+
+> 💡 `secret` files intended to store keys or passwords are auto-populated with
+> a random, cryptographic, base64-encoded value.
 
 ### Launch
 
@@ -83,13 +90,12 @@ Spin up your Django and Postgres instances with the following command.
 - Spin up containers
 
 ```bash
-    # ensure you're in the project's root
-    $ docker compose down
-    $ docker compose up -d
+➜ docker compose down
+➜ docker compose up -d
 ```
 
-> This will create and start the Django and Postgres instances in the same
-network defined in the `compose` file.
+> 🛈 This will create and start the Django and Postgres instances in the same
+network defined in the base `compose` file.
 
 Once the containers have been created and started, you can access the
 application at <http://localhost:8000>
@@ -103,7 +109,6 @@ alt="Successful Django Install Page"
 To make a repository open source, you must license it so that others may freely
 use, modify, and distribute the software. Using the [MIT license], this project
 ensures this. The full original text version of the license may be seen [here].
-To apply the right to your repository, follow the procedures.
 
 [//]: # "These are reference links used in the body of this note and get stripped out when the markdown processor does
 its job. There is no need to format nicely because it shouldn't be seen.
@@ -116,8 +121,6 @@ Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdow
 <!-- Installing / Getting Started links -->
 
 [Git]: https://git-scm.com/
-[Docker]: https://www.docker.com/
-[Docker Compose]: https://docs.docker.com/compose/
 [Docker Desktop]: https://www.docker.com/products/docker-desktop/
 [Mac]: https://docs.docker.com/desktop/install/mac-install/
 [Linux]: https://docs.docker.com/desktop/install/linux-install/
@@ -125,6 +128,8 @@ Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdow
 [PyCharm]: https://www.jetbrains.com/pycharm/
 [VScode]: https://code.visualstudio.com/
 [Vim]: https://www.vim.org/
+[environment]: https://docs.docker.com/compose/environment-variables/set-environment-variables/
+[secrets]: https://docs.docker.com/compose/use-secrets/
 
 <!-- Licensing links -->
 
