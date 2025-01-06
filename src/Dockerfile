@@ -5,13 +5,13 @@
 # ======================================================================================
 
 ARG PYTHON_VERSION="3.12.8"
-ARG ALPINE_VERSION="3.20"
+ARG ALPINE_VERSION="3.21"
 FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 
 LABEL \
   author="Eugene Mwangi" \
   contact="mwangi.em37@gmail.com" \
-  version="0.3.7" \
+  version="0.3.8" \
   license="MIT"
 
 WORKDIR /usr/src/app
