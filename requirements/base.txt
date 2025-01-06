@@ -6,7 +6,7 @@
 #
 asgiref==3.8.1
     # via django
-django==4.2.16
+django==4.2.17
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.in
@@ -14,13 +14,13 @@ django-environ==0.11.2
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.in
-psycopg==3.2.1
+psycopg==3.2.3
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.in
-psycopg-binary==3.2.1
+psycopg-binary==3.2.3
     # via psycopg
-sqlparse==0.5.1
+sqlparse==0.5.3
     # via django
 typing-extensions==4.12.2
     # via psycopg

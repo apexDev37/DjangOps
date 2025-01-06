@@ -10,13 +10,13 @@ django-environ==0.11.2
     #   -r requirements/test-ci.in
 iniconfig==2.0.0
     # via pytest
-packaging==24.1
+packaging==24.2
     # via pytest
 pluggy==1.5.0
     # via pytest
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.10
     # via -r requirements/test-ci.in
-pytest==8.3.2
+pytest==8.3.4
     # via pytest-django
 pytest-django==4.9.0
     # via -r requirements/test-ci.in
