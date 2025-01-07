@@ -16,4 +16,4 @@ urlpatterns = [
 if ENABLE_DEBUG_TOOLBAR:
     from debug_toolbar.toolbar import debug_toolbar_urls
 
-    urlpatterns.extend([debug_toolbar_urls()])
+    urlpatterns.extend(debug_toolbar_urls())
