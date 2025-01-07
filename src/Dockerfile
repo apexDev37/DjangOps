@@ -11,7 +11,7 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 LABEL \
   author="Eugene Mwangi" \
   contact="mwangi.em37@gmail.com" \
-  version="0.3.8" \
+  version="0.4.0" \
   license="MIT"
 
 WORKDIR /usr/src/app
@@ -55,10 +55,13 @@ RUN <<EOF
 adduser \
     --gecos "" \
     --home "/home/appuser" \
-    --shell "/bin/shell" \
+    --shell "/bin/sh" \
     --system \
     --uid "${UID}" \
     appuser
+
+# change ownership of source directory to non-root user for local targets.
+chown -R ${UID} /usr/src/app/src
 EOF
 
 # set user-writeable, pytest cache dir for local target stages.
