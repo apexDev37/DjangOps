@@ -1,4 +1,6 @@
 fail_fast: false
+exclude: migrations/
+
 repos:
   # Best Practices
   -   repo: https://github.com/pre-commit/pre-commit-hooks
