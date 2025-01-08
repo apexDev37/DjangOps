@@ -137,6 +137,9 @@ mypy_path = ["$MYPY_CONFIG_FILE_DIR/"]
 explicit_package_bases = true
 ignore_missing_imports = false
 namespace_packages = true
+exclude = [
+    '^.*migrations/.*\.py$',  # ignore py modules in all "migrations" dirs.
+]
 
 # --- Disallow dynamic typing
 disallow_any_expr = true
@@ -223,6 +226,7 @@ src = ["src", "tests", "test_utils"]
 extend-exclude = [
     ".env",
     ".envrc",
+    "*/migrations/*",
 ]
 
 [tool.ruff.lint]
