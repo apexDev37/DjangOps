@@ -41,7 +41,7 @@ os.environ.setdefault("PYTEST_XDIST_AUTO_NUM_WORKERS", "auto")
 # NB: (MD5) cryptographically weak hashing algorithm unsuitable for production.
 # NB: (SHA1) less faster, but more secure than `MD5`; significantly faster than Django defaults.
 PASSWORD_HASHERS = [
-    "django.contrib.auth.hashers.SHA1PasswordHasher",
+    "django.contrib.auth.hashers.MD5PasswordHasher",
 ]
 
 
