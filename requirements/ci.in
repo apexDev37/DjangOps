@@ -2,4 +2,3 @@
 -c constraints.txt
 
 tox                       # An automation and environment orchestrator.
-tox-battery               # Makes tox aware of requirements file changes.
