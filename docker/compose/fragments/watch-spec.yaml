@@ -19,6 +19,11 @@ x-common-tools: &tools-sync-watch
   path: ../../../pyproject.toml
   target: /usr/src/app/pyproject.toml
 
+x-common-tox: &tox-sync-watch
+  action: sync
+  path: ../../../tox.ini
+  target: /usr/src/app/tox.ini
+
 x-common-settings: &settings-restart-watch
   action: sync+restart
   path: ../../../src/config/settings
@@ -32,6 +37,7 @@ services:
         - *tests-sync-watch
         - *tests_utils-sync-watch
         - *tools-sync-watch
+        - *tox-sync-watch
         - *settings-restart-watch
         # Include additional, custom sequences for watch actions.
         - action: rebuild
@@ -44,6 +50,7 @@ services:
         - *tests-sync-watch
         - *tests_utils-sync-watch
         - *tools-sync-watch
+        - *tox-sync-watch
         - *settings-restart-watch
         # Include additional, custom sequences for watch actions.
         - action: rebuild
