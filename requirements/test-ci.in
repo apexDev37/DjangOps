@@ -1,10 +1,14 @@
-### Requirements for CI test runs.
-# Include base requirements (excluding Django) + `pytest`
-# This file specs requirements for CI tests managed by `tox`.
-# This spec intentionally omits `Django` to prevent dependency
+# Requirements for CI test runs.
+#
+# ********************************** HACK **************************************
+#
+# Include all base (excluding Django) + test requirements.
+# This file allows us to omit `Django` to prevent dependency
 # version conflicts and allow `tox` to manage `Django` versions.
 -c constraints.txt
 
-django-environ            # Configure Django with environment variables.
-psycopg2-binary           # PostgreSQL adapter; wrapper for Postgres client library.
-pytest-django             # pytest extension for better Django support.
+django-environ                # Configure Django with environment variables.
+psycopg[binary]               # Modern implementation of a PostgreSQL adapter for Python.
+pytest-cov                    # pytest extension for code coverage statistics.
+pytest-django                 # pytest extension for better Django support.
+pytest-xdist                  # pytest extension to distribute tests across multiple CPUs.
