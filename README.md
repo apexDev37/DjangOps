@@ -6,8 +6,8 @@
 > A simple devops-inspired template for Django applications setup with compose.
 
 <!-- markdownlint-disable MD033 -->
-<img src="./resources/docs/images/django.png" style="width:25%;" alt="Django™"/>
-<img src="./resources/docs/images/docker.png" style="width:29%;" alt="Docker™"/>
+<img src="./docs/assets/images/django.png" style="width:25%;" alt="Django™"/>
+<img src="./docs/assets/images/docker.png" style="width:29%;" alt="Docker™"/>
 <!-- markdownlint-disable MD033 -->
 
 ## Introduction
@@ -128,7 +128,7 @@ network defined in the base `compose` file.
 Once the containers have been created and started, you can access the
 application at <http://localhost:8000>
 <img
-src="./resources/docs/images/successful-django-install.PNG"
+src="./docs/assets/images/successful-django-install.PNG"
 alt="Successful Django Install Page"
 />
 
