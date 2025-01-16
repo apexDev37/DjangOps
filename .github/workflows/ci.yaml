@@ -11,7 +11,7 @@
   jobs:
     linting:
 
-      name: Lint Source & Repo Files
+      name: Linting
       runs-on: ${{ matrix.os }}
       strategy:
         matrix:
@@ -24,16 +24,10 @@
             - lint-codebase
 
       steps:
-        - uses: actions/checkout@v4
-        - name: Set up Python ${{ matrix.python-version }}
-          uses: actions/setup-python@v5
+        - name: Set up Python CI
+          uses: ./.github/actions/setup-python-ci
           with:
             python-version: ${{ matrix.python-version }}
-
-        - name: Install package manager
-          run: python3 -m pip install -r requirements/pip.txt
-        - name: Install CI dependencies
-          run: python3 -m pip install -r requirements/ci.txt
 
         - name: Run Linting
           env:
@@ -43,7 +37,7 @@
 
     tests:
 
-      name: Quality Assurance
+      name: Testing
       runs-on: ${{ matrix.os }}
       strategy:
         matrix:
@@ -71,16 +65,10 @@
             POSTGRES_USER: ${{ secrets.DB_USER }}
 
       steps:
-        - uses: actions/checkout@v4
-        - name: Set up Python ${{ matrix.python-version }}
-          uses: actions/setup-python@v5
+        - name: Set up Python CI
+          uses: ./.github/actions/setup-python-ci
           with:
             python-version: ${{ matrix.python-version }}
-
-        - name: Install package manager
-          run: python3 -m pip install -r requirements/pip.txt
-        - name: Install CI dependencies
-          run: python3 -m pip install -r requirements/ci.txt
 
         - name: Run Tests
           env:

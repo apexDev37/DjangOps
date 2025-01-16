@@ -1,0 +1,23 @@
+---
+name: Set Up Python
+description: Sets up Python and installs CI dependencies
+inputs:
+  python-version:
+    description: The Python version to set up
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ inputs.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: Install package manager
+      run: python3 -m pip install -r requirements/pip.txt
+      shell: bash
+    - name: Install CI dependencies
+      run: python3 -m pip install -r requirements/ci.txt
+      shell: bash
