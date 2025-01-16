@@ -9,9 +9,9 @@
         - "**"
 
   jobs:
-    quality:
+    linting:
 
-      name: Quality Assurance
+      name: Lint Source & Repo Files
       runs-on: ${{ matrix.os }}
       strategy:
         matrix:
@@ -22,6 +22,36 @@
           toxenv:
             - lint-py
             - lint-codebase
+
+      steps:
+        - uses: actions/checkout@v4
+        - name: Set up Python ${{ matrix.python-version }}
+          uses: actions/setup-python@v5
+          with:
+            python-version: ${{ matrix.python-version }}
+
+        - name: Install package manager
+          run: python3 -m pip install -r requirements/pip.txt
+        - name: Install CI dependencies
+          run: python3 -m pip install -r requirements/ci.txt
+
+        - name: Run Linting
+          env:
+            TOX_ENV: ${{ matrix.toxenv }}
+
+          run: tox run
+
+    tests:
+
+      name: Quality Assurance
+      runs-on: ${{ matrix.os }}
+      strategy:
+        matrix:
+          os:
+            - ubuntu-latest
+          python-version:
+            - "3.12"
+          toxenv:
             - django42
             - django50
 
