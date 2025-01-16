@@ -24,6 +24,7 @@
             - lint-codebase
 
       steps:
+        - uses: actions/checkout@v4
         - name: Set up Python CI
           uses: ./.github/actions/setup-python-ci
           with:
@@ -65,6 +66,7 @@
             POSTGRES_USER: ${{ secrets.DB_USER }}
 
       steps:
+        - uses: actions/checkout@v4
         - name: Set up Python CI
           uses: ./.github/actions/setup-python-ci
           with:
