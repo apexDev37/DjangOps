@@ -1,5 +1,5 @@
 ---
-  name: Python CI
+  name: Python QA
   on:
     push:
       branches:
@@ -9,34 +9,7 @@
         - "**"
 
   jobs:
-    linting:
-
-      name: Linting
-      runs-on: ${{ matrix.os }}
-      strategy:
-        matrix:
-          os:
-            - ubuntu-latest
-          python-version:
-            - "3.12"
-          toxenv:
-            - lint-py
-            - lint-codebase
-
-      steps:
-        - uses: actions/checkout@v4
-        - name: Set up Python CI
-          uses: ./.github/actions/setup-python-ci
-          with:
-            python-version: ${{ matrix.python-version }}
-
-        - name: Run Linting
-          env:
-            TOX_ENV: ${{ matrix.toxenv }}
-
-          run: tox run
-
-    tests:
+    test:
 
       name: Testing
       runs-on: ${{ matrix.os }}
