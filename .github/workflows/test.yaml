@@ -4,9 +4,22 @@
     push:
       branches:
         - main
+      paths:
+        - 'src/**'
+        - 'requirements/**'
+        - 'tests/**'
+        - 'test_utils/**'
+        - '.github/workflows/test.yaml'
+
     pull_request:
       branches:
         - "**"
+      paths:
+        - 'src/**'
+        - 'requirements/**'
+        - 'tests/**'
+        - 'test_utils/**'
+        - '.github/workflows/test.yaml'
 
   jobs:
     test:
