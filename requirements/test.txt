@@ -6,18 +6,18 @@
 #
 asgiref==3.8.1
     # via
-    #   -r requirements/base.txt
+    #   -r /home/apex-predator/apexDev/py/django/djangops/requirements/base.txt
     #   django
-coverage==7.6.10
+coverage==7.6.11
     # via pytest-cov
-django==4.2.17
+django==4.2.19
     # via
-    #   -c requirements/constraints.txt
-    #   -r requirements/base.txt
-django-environ==0.11.2
+    #   -c /home/apex-predator/apexDev/py/django/djangops/requirements/constraints.txt
+    #   -r /home/apex-predator/apexDev/py/django/djangops/requirements/base.txt
+django-environ==0.12.0
     # via
-    #   -c requirements/constraints.txt
-    #   -r requirements/base.txt
+    #   -c /home/apex-predator/apexDev/py/django/djangops/requirements/constraints.txt
+    #   -r /home/apex-predator/apexDev/py/django/djangops/requirements/base.txt
 execnet==2.1.1
     # via pytest-xdist
 iniconfig==2.0.0
@@ -26,12 +26,12 @@ packaging==24.2
     # via pytest
 pluggy==1.5.0
     # via pytest
-psycopg==3.2.3
+psycopg==3.2.4
     # via
-    #   -c requirements/constraints.txt
-    #   -r requirements/base.txt
-psycopg-binary==3.2.3
-    # via -r requirements/base.txt
+    #   -c /home/apex-predator/apexDev/py/django/djangops/requirements/constraints.txt
+    #   -r /home/apex-predator/apexDev/py/django/djangops/requirements/base.txt
+psycopg-binary==3.2.4
+    # via -r /home/apex-predator/apexDev/py/django/djangops/requirements/base.txt
 pytest==8.3.4
     # via
     #   pytest-cov
@@ -45,9 +45,9 @@ pytest-xdist==3.6.1
     # via -r requirements/test.in
 sqlparse==0.5.3
     # via
-    #   -r requirements/base.txt
+    #   -r /home/apex-predator/apexDev/py/django/djangops/requirements/base.txt
     #   django
 typing-extensions==4.12.2
     # via
-    #   -r requirements/base.txt
+    #   -r /home/apex-predator/apexDev/py/django/djangops/requirements/base.txt
     #   psycopg
