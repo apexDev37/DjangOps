@@ -21,7 +21,6 @@
             - "3.12"
           toxenv:
             - lint-py
-            - lint-codebase
 
       steps:
         - uses: actions/checkout@v4

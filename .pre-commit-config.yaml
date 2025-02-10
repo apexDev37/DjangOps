@@ -1,6 +1,17 @@
 fail_fast: false
 exclude: migrations/
 
+ci:
+    autofix_commit_msg: |
+        style(pre-commit.ci): Patch auto-fixes from hooks
+        for more information, see https://pre-commit.ci
+    autofix_prs: true
+    autoupdate_branch: ''
+    autoupdate_commit_msg: 'chore(pre-commit.ci): Upgrade hook versions'
+    autoupdate_schedule: weekly
+    skip: []
+    submodules: false
+
 repos:
   # Best Practices
   -   repo: https://github.com/pre-commit/pre-commit-hooks
