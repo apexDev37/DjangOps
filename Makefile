@@ -88,7 +88,11 @@ SECRET_NAME_PATTERN_RE := 'key|secret|password'
 # Shell func to populate a file with a random, cryptographic, base64-encoded value.
 define generate_random_secret
 	if echo "$1" | grep -qE $(SECRET_NAME_PATTERN_RE); then \
-		openssl rand -base64 64 | tr -d '\n' > "$2"; \
+		if [[ "$1" == "db_password" ]]; then \
+			openssl rand -base64 64 | tr -dc '[:alnum:]' > "$2"; \ # URL-safe
+		else \
+			openssl rand -base64 64 | tr -d '\n' > "$2"; \
+		fi \
 	fi
 endef
 
