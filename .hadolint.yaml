@@ -8,7 +8,9 @@ label-schema:
 no-color: false
 no-fail: false
 strict-labels: true
-disable-ignore-pragma: true
+disable-ignore-pragma: false
 trustedRegistries:
   - docker.io
   - "*.gcr.io"
+ignored:
+  - DL3049

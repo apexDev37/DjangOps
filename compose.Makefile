@@ -25,26 +25,28 @@ selfcheck: ## check that the Makefile is well-formed
 # Build
 # ------------------------------------------------------------------------------
 
-build: ## build the base, `web` service image with default env: `production`
-	 @docker build . \
-	 	--file src/Dockerfile \
+build: ## build the prod, `web` service image with default env: `production`
+	@docker build . \
+		--file src/Dockerfile \
 		--target final-stage \
-		--tag djangops:base
+		-t djangops:prod
 
 build.all: ## build all `web` service images for all supported target envs
 build.all: build build.test build.dev
 
 build.dev: ## build the dev, `web` service image with target env: `develop`
-	 @docker build . \
-	 	--file src/Dockerfile \
-		--target env-develop \
-		--tag djangops:dev
+	@docker build . \
+		--file src/Dockerfile \
+		--build-arg TARGET=develop \
+		--target final-stage \
+		-t djangops:dev
 
 build.test: ## build the test, `web` service image with target env: `testing`
-	 @docker build . \
-	 	--file src/Dockerfile \
-		--target env-testing \
-		--tag djangops:test
+	@docker build . \
+		--file src/Dockerfile \
+		--build-arg TARGET=testing \
+		--target final-stage \
+		-t djangops:test
 
 # ------------------------------------------------------------------------------
 # Up

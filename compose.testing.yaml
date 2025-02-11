@@ -7,7 +7,9 @@ services:
   web:
     image: djangops:test
     build:
-      target: env-testing
+      args:
+        - TARGET=testing
+      target: final-stage
     container_name: django_web_test
     restart: unless-stopped
     extends:

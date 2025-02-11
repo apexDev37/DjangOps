@@ -15,18 +15,45 @@
 # see: https://docs.docker.com/reference/cli/docker/image/build/
 # ------------------------------------------------------------------------------
 
-# Build target images.
-docker build --file src/Dockerfile --target final-stage -t djangops:base .
-docker build --file src/Dockerfile --target env-testing -t djangops:test .
-docker build --file src/Dockerfile --target env-develop -t djangops:dev .
+docker build . \
+    --file src/Dockerfile \
+    --build-arg TARGET=develop \
+    --target final-stage \
+    -t djangops:dev
+
+docker build . \
+    --file src/Dockerfile \
+    --build-arg TARGET=testing \
+    --target final-stage \
+    -t djangops:test
+
+docker build . \
+    --file src/Dockerfile \
+    --build-arg TARGET=production \
+    --target final-stage \
+    -t djangops:prod
 
 # Build target images without cached dependencies.
-docker build --file src/Dockerfile --no-cache \
-  --target final-stage -t djangops:base .
-docker build --file src/Dockerfile --no-cache \
-  --target env-testing -t djangops:test .
-docker build --file src/Dockerfile --no-cache \
-  --target env-develop -t djangops:dev .
+docker build . \
+    --file src/Dockerfile \
+    --build-arg TARGET=develop \
+    --target final-stage \
+    -t djangops:dev \
+    --no-cache
+
+docker build . \
+    --file src/Dockerfile \
+    --build-arg TARGET=testing \
+    --target final-stage \
+    -t djangops:test \
+    --no-cache
+
+docker build . \
+    --file src/Dockerfile \
+    --build-arg TARGET=production \
+    --target final-stage \
+    -t djangops:prod \
+    --no-cache
 
 # ------------------------------------------------------------------------------
 # Compose

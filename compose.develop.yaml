@@ -7,7 +7,9 @@ services:
   web:
     image: djangops:dev
     build:
-      target: env-develop
+      args:
+        - TARGET=develop
+      target: final-stage
     container_name: django_web_dev
     restart: unless-stopped
     extends:

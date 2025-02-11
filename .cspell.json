@@ -8,7 +8,10 @@
     "**/.devcontainer/**"
   ],
   "words": [
+    "ADDOPTS",
+    "adduser",
     "adminer",
+    "appuser",
     "artbataev",
     "autoupdate",
     "codecov",
@@ -27,19 +30,25 @@
     "isready",
     "markdownlint",
     "mypy",
+    "nologin",
     "noqa",
     "piptools",
     "pydocstyle",
     "pyproject",
     "pytest",
+    "PYTHONDONTWRITEBYTECODE",
+    "PYTHONUNBUFFERED",
     "pyupgrade",
     "rst",
+    "runserver",
     "selfcheck",
     "shellcheck",
     "shfmt",
     "shm",
     "snyk",
-    "tryceratops"
+    "tryceratops",
+    "UID",
+    "usr"
   ],
   "flagWords": [
     "hte"

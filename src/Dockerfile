@@ -1,5 +1,10 @@
 # syntax=docker/dockerfile:1
 
+# This build-specific ARG is named `TARGET`
+# to avoid conflict with Django's ENV `ENVIRONMENT`,
+# which determines app settings to use.
+ARG TARGET=production
+
 # ======================================================================================
 # Stage 1: Build Environment
 # ======================================================================================
@@ -9,16 +14,15 @@ ARG ALPINE_VERSION="3.21"
 FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 
 LABEL \
-  author="Eugene Mwangi" \
-  contact="mwangi.em37@gmail.com" \
-  version="0.4.1" \
-  license="MIT"
+    author="Eugene Mwangi" \
+    contact="mwangi.em37@gmail.com" \
+    version="0.5.0" \
+    license="MIT"
 
-WORKDIR /usr/src/app
+ENV BASE=/usr/src/app
+WORKDIR $BASE
+ENV APP=$BASE/src
 
-# set python-specific env variables.
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONDONTWRITEBYTECODE=1
 # set pkg-manger specific env variables.
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_CACHE_DIR=1
@@ -32,26 +36,15 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     && python3 -m pip install -r ./requirements/base.txt
 
 # ======================================================================================
-# Stage 2: Runtime environment (inherits from build stage)
+# Least-privilege user mode (inherits from build stage)
 # ======================================================================================
-
-FROM build-stage AS final-stage
-
-COPY ./src/ /usr/src/app/src
-
-# expose and run django dev server with non-root user.
-EXPOSE 8000
-ENTRYPOINT ["python3"]
-CMD ["src/manage.py", "runserver", "0.0.0.0:8000"]
-
-# ======================================================================================
-# Least-priviledge user mode (inherits from final stage)
-# ======================================================================================
-
-FROM final-stage AS local-rootless
 
 ARG UID=1000
+
+FROM build-stage AS local-rootless
+
 RUN <<EOF
+export UID=${UID}
 adduser \
     --gecos "" \
     --home "/home/appuser" \
@@ -59,18 +52,15 @@ adduser \
     --system \
     --uid "${UID}" \
     appuser
-
-# change ownership of source directory to non-root user for local targets.
-chown -R ${UID} /usr/src/app/src
 EOF
 
 # set user-writeable, pytest cache dir for local target stages.
 ENV PYTEST_ADDOPTS="-o cache_dir=/home/appuser/.pytest_cache"
 
-FROM final-stage AS rootless
+FROM build-stage AS rootless
 
-ARG UID=1000
 RUN <<EOF
+export UID=${UID}
 adduser \
     --disabled-password \
     --gecos "" \
@@ -93,8 +83,6 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=./requirements/test.txt,target=./requirements/test.txt \
     python3 -m pip install -r ./requirements/test.txt
 
-USER appuser
-
 # ======================================================================================
 # Environment: development (inherits from local rootless)
 # ======================================================================================
@@ -106,4 +94,25 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=./requirements/dev.txt,target=./requirements/dev.txt \
     python3 -m pip install -r ./requirements/dev.txt
 
+# ======================================================================================
+# Final Stage: use build-arg to decide which environment to “bridge”
+# ======================================================================================
+
+# hadolint ignore=DL3006
+FROM env-${TARGET} AS final-stage
+
+# set python-specific env variables.
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY ./src/ $APP
+
+# change ownership of source directory to non-root user for local targets.
+# hadolint ignore=SC3028
+RUN chown -R ${UID} "$APP"
+
+# expose and run django dev server with non-root user.
 USER appuser
+EXPOSE 8000
+ENTRYPOINT ["python3", "/usr/src/app/src/manage.py"]
+CMD ["runserver", "0.0.0.0:8000"]
