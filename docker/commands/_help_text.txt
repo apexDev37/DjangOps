@@ -1,7 +1,7 @@
 #
 # List of commonly used Docker commands for users.
 #
-# file: docker/commands/help_text.txt
+# file: docker/commands/_help_text.txt
 # note: all commands below assume execution from the project root.
 #
 # command: $ docker help
@@ -58,23 +58,29 @@ docker build . \
 # ------------------------------------------------------------------------------
 # Compose
 #
-# see: https://docs.docker.com/reference/cli/docker/image/build/
+# see: https://docs.docker.com/reference/cli/docker/compose/
 # ------------------------------------------------------------------------------
 
 # Start all service containers.
-docker compose up -d
+docker compose -f compose.yaml -f compose.<target>.yaml up
 
-# Recreate all service containers.
-docker compose up -d --force-recreate
+# Start all service containers (detached mode).
+docker compose -f compose.yaml -f compose.<target>.yaml up -d
 
-# Build and start all service containers.
-docker compose up --build -d
+# Recreate all service containers (detached mode).
+docker compose -f compose.yaml -f compose.<target>.yaml up -d --force-recreate
 
-# Build and start all service containers without cache.
-docker compose up --build --no-cache -d
+# Build then start all service containers (detached mode).
+docker compose -f compose.yaml -f compose.<target>.yaml up -d --build
 
-# Start a single service container.
-docker compose up --build -d <service>
+# Build and start all service containers without cache (detached mode).
+docker compose -f compose.yaml -f compose.<target>.yaml up -d --build --no-cache
 
-Remove all service containers, networks, volumes, and
+# Start a single service container (detached mode).
+docker compose up <service> -d --no-deps
+
+# Restart a single service container.
+docker compose restart <service>
+
+Remove all service containers, networks, and volumes.
 docker compose down --volumes --remove-orphans
