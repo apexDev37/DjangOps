@@ -24,6 +24,7 @@
     "docstrings",
     "env",
     "galkaev",
+    "gunicorn",
     "hadolint",
     "healthcheck",
     "isort",
