@@ -8,6 +8,7 @@
     "**/.devcontainer/**"
   ],
   "words": [
+    "accesslog",
     "ADDOPTS",
     "adduser",
     "adminer",
@@ -24,11 +25,13 @@
     "docstrings",
     "env",
     "galkaev",
+    "gthread",
     "gunicorn",
     "hadolint",
     "healthcheck",
     "isort",
     "isready",
+    "keepalive",
     "markdownlint",
     "mypy",
     "nologin",
