@@ -41,7 +41,7 @@ PIP_COMPILE = pip-compile --upgrade $(PIP_COMPILE_OPTS)
 PIP_COMPILE_UNSAFE = $(PIP_COMPILE) --allow-unsafe
 
 # Make sure to order requirements based on their include layer hierarchy!
-REQUIREMENTS_GROUPS := pip pip-tools base ci test-ci test quality dev
+REQUIREMENTS_GROUPS := pip pip-tools base ci test-ci prod test quality dev
 
 upgrade: export CUSTOM_COMPILE_COMMAND=make upgrade
 upgrade: piptools ## upgrade requirements/*.txt files with the latest packages satisfying requirements/*.in

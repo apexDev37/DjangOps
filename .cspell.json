@@ -52,7 +52,9 @@
     "snyk",
     "tryceratops",
     "UID",
-    "usr"
+    "usr",
+    "whitenoise",
+    "WSGI"
   ],
   "flagWords": [
     "hte"

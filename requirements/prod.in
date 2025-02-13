@@ -1,0 +1,8 @@
+# Requirements specific to production environments.
+-c constraints.txt
+
+-r base.txt                 # Core dependencies for this app.
+
+dj-database-url             # 12factor-inspired `DATABASE_URL` env variable.
+gunicorn                    # Python WSGI http server for unix.
+whitenoise                  # Static file serving for WSGI applications.
