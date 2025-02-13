@@ -16,7 +16,7 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 LABEL \
     author="Eugene Mwangi" \
     contact="mwangi.em37@gmail.com" \
-    version="0.5.0" \
+    version="0.6.0" \
     license="MIT"
 
 ENV BASE=/usr/src/app
@@ -95,6 +95,17 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     python3 -m pip install -r ./requirements/dev.txt
 
 # ======================================================================================
+# Environment: production (inherits from rootless)
+# ======================================================================================
+
+FROM rootless AS env-production
+
+ENV ENVIRONMENT=production
+RUN --mount=type=cache,target=/root/.cache/pip \
+    --mount=type=bind,source=./requirements/prod.txt,target=./requirements/prod.txt \
+    python3 -m pip install -r ./requirements/prod.txt
+
+# ======================================================================================
 # Final Stage: use build-arg to decide which environment to “bridge”
 # ======================================================================================
 
@@ -106,13 +117,23 @@ ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
 COPY ./src/ $APP
+EXPOSE 8000
 
-# change ownership of source directory to non-root user for local targets.
+# ======================================================================================
+# Runtime: application execution (inherits from Final Stage)
+# ======================================================================================
+
+FROM final-stage AS local-runtime
+
+# change ownership of src directory to non-root user for local targets.
 # hadolint ignore=SC3028
 RUN chown -R ${UID} "$APP"
 
-# expose and run django dev server with non-root user.
 USER appuser
-EXPOSE 8000
 ENTRYPOINT ["python3", "/usr/src/app/src/manage.py"]
 CMD ["runserver", "0.0.0.0:8000"]
+
+FROM final-stage AS prod-runtime
+
+USER appuser
+ENTRYPOINT ["gunicorn", "config.wsgi:application"]

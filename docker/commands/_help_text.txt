@@ -18,40 +18,40 @@
 docker build . \
     --file src/Dockerfile \
     --build-arg TARGET=develop \
-    --target final-stage \
+    --target local-runtime \
     -t djangops:dev
 
 docker build . \
     --file src/Dockerfile \
     --build-arg TARGET=testing \
-    --target final-stage \
+    --target local-runtime \
     -t djangops:test
 
 docker build . \
     --file src/Dockerfile \
     --build-arg TARGET=production \
-    --target final-stage \
+    --target prod-runtime \
     -t djangops:prod
 
 # Build target images without cached dependencies.
 docker build . \
     --file src/Dockerfile \
     --build-arg TARGET=develop \
-    --target final-stage \
+    --target local-runtime \
     -t djangops:dev \
     --no-cache
 
 docker build . \
     --file src/Dockerfile \
     --build-arg TARGET=testing \
-    --target final-stage \
+    --target local-runtime \
     -t djangops:test \
     --no-cache
 
 docker build . \
     --file src/Dockerfile \
     --build-arg TARGET=production \
-    --target final-stage \
+    --target prod-runtime \
     -t djangops:prod \
     --no-cache
 

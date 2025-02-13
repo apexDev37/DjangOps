@@ -9,7 +9,7 @@ services:
     build:
       args:
         - TARGET=develop
-      target: final-stage
+      target: local-runtime
     container_name: django_web_dev
     restart: unless-stopped
     extends:
