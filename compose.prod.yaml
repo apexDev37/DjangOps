@@ -1,0 +1,19 @@
+---
+services:
+  web:
+    image: djangops:prod
+    build:
+      args:
+        - TARGET=production
+      target: prod-runtime
+    container_name: django_web_prod
+    restart: on-failure:3
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=25M
+    cap_drop:
+      - ALL  # Enforce principle of least privilege
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "127.0.0.1:8000:8000"

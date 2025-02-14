@@ -16,7 +16,7 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 LABEL \
     author="Eugene Mwangi" \
     contact="mwangi.em37@gmail.com" \
-    version="0.6.0" \
+    version="0.6.1" \
     license="MIT"
 
 ENV BASE=/usr/src/app
@@ -39,38 +39,36 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # Least-privilege user mode (inherits from build stage)
 # ======================================================================================
 
-ARG UID=1000
-
 FROM build-stage AS local-rootless
 
-RUN <<EOF
-export UID=${UID}
-adduser \
+ARG UID=1000
+ENV UID=${UID}
+
+RUN adduser \
     --gecos "" \
     --home "/home/appuser" \
     --shell "/bin/sh" \
     --system \
     --uid "${UID}" \
     appuser
-EOF
 
 # set user-writeable, pytest cache dir for local target stages.
 ENV PYTEST_ADDOPTS="-o cache_dir=/home/appuser/.pytest_cache"
 
 FROM build-stage AS rootless
 
-RUN <<EOF
-export UID=${UID}
-adduser \
+ARG UID=1000
+ENV UID=${UID}
+
+RUN adduser \
     --disabled-password \
     --gecos "" \
     --home "/nonexistent" \
     --shell "/sbin/nologin" \
     --system \
     --no-create-home \
-    --uid "${UID}" \
+    --uid $UID \
     appuser
-EOF
 
 # ======================================================================================
 # Environment: testing (inherits from local rootless)
@@ -116,7 +114,8 @@ FROM env-${TARGET} AS final-stage
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
-COPY ./src/ $APP
+COPY ./src/ "${APP}"
+WORKDIR "${APP}"
 EXPOSE 8000
 
 # ======================================================================================
@@ -127,13 +126,13 @@ FROM final-stage AS local-runtime
 
 # change ownership of src directory to non-root user for local targets.
 # hadolint ignore=SC3028
-RUN chown -R ${UID} "$APP"
+RUN chown -R ${UID} "${APP}"
 
 USER appuser
-ENTRYPOINT ["python3", "/usr/src/app/src/manage.py"]
+ENTRYPOINT ["python3", "manage.py"]
 CMD ["runserver", "0.0.0.0:8000"]
 
 FROM final-stage AS prod-runtime
 
 USER appuser
-ENTRYPOINT ["gunicorn", "config.wsgi:application"]
+ENTRYPOINT ["gunicorn", "--config", "gunicorn.conf.py", "config.wsgi:application"]

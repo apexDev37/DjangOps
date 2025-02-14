@@ -52,6 +52,7 @@ loglevel: str = env("GUNICORN_LOG_LEVEL")
 
 # == Server (Mechanics) ========================================================
 bind: list[str] = env("GUNICORN_BIND")
+worker_tmp_dir: str = "/dev/shm"  # nosec B108
 
 # == Server (Socket) ===========================================================
 preload_app: bool = env("GUNICORN_PRELOAD_APP")
