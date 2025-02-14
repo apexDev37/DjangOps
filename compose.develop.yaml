@@ -15,6 +15,13 @@ services:
     extends:
       file: docker/compose/fragments/watch-spec.yaml
       service: develop.watch
+    ports: !override
+      - name: web-insecure
+        target: 8000
+        host_ip: 127.0.0.1
+        published: "8001"
+        protocol: tcp
+        app_protocol: http
 
   db:
     networks:

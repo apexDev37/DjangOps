@@ -31,7 +31,12 @@ services:
       - front-tier
       - back-tier
     ports:
-      - "127.0.0.1:8000:8000"
+      - name: web-insecure
+        target: 8000
+        host_ip: 127.0.0.1
+        published: "8080"
+        protocol: tcp
+        app_protocol: http
     environment:
       - SECRET_KEY_FILE=/run/secrets/secret_key
     env_file:

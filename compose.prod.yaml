@@ -15,5 +15,10 @@ services:
       - ALL  # Enforce principle of least privilege
     security_opt:
       - no-new-privileges:true
-    ports:
-      - "127.0.0.1:8000:8000"
+    ports: !override
+      - name: web-insecure
+        target: 8000
+        host_ip: 127.0.0.1
+        published: "8003"
+        protocol: tcp
+        app_protocol: http
