@@ -6,7 +6,7 @@
 #
 asgiref==3.8.1
     # via django
-django==4.2.19
+django==4.2.20
     # via
     #   -c /home/apex-predator/apexDev/py/django/djangops/requirements/constraints.txt
     #   -r requirements/base.in
@@ -14,13 +14,13 @@ django-environ==0.12.0
     # via
     #   -c /home/apex-predator/apexDev/py/django/djangops/requirements/constraints.txt
     #   -r requirements/base.in
-psycopg==3.2.4
+psycopg==3.2.7
     # via
     #   -c /home/apex-predator/apexDev/py/django/djangops/requirements/constraints.txt
     #   -r requirements/base.in
-psycopg-binary==3.2.4
+psycopg-binary==3.2.7
     # via psycopg
 sqlparse==0.5.3
     # via django
-typing-extensions==4.12.2
+typing-extensions==4.13.2
     # via psycopg
