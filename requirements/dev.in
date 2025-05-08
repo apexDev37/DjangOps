@@ -2,6 +2,7 @@
 -c constraints.txt
 
 -r pip-tools.txt          # pip-tools and its dependencies, for managing requirements files.
+-r uv.txt                 # extremely fast Python package and project manager.
 -r ci.txt                 # Dependencies for setting up testing in CI
 -r quality.txt            # Core, test, and quality check dependencies.
 

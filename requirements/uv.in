@@ -1,0 +1,4 @@
+# Core dependencies for installing and managing other packages.
+-c constraints.txt
+
+uv
