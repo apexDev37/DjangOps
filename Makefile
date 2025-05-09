@@ -1,4 +1,4 @@
-.PHONY: clean clean_tox envs help piptools requirements secrets selfcheck upgrade
+.PHONY: clean clean_tox envs help requirements secrets selfcheck upgrade uv
 
 .DEFAULT_GOAL := help
 
@@ -30,28 +30,54 @@ selfcheck: ## check that the Makefile is well-formed
 # Build
 # --------------------------------------------------------------------------------------
 
-export PIP_DEFAULT_TIMEOUT := 100
+# export PIP_DEFAULT_TIMEOUT := 100
 
-piptools: ## install pinned version of pip-compile and pip-sync
-	pip install -qr requirements/pip.txt
-	pip install -qr requirements/pip-tools.txt
+# piptools: ## install pinned version of pip-compile and pip-sync
+# 	pip install -qr requirements/pip.txt
+# 	pip install -qr requirements/pip-tools.txt
 
-PIP_COMPILE_OPTS = --strip-extras
-PIP_COMPILE = pip-compile --upgrade $(PIP_COMPILE_OPTS)
-PIP_COMPILE_UNSAFE = $(PIP_COMPILE) --allow-unsafe
+# PIP_COMPILE_OPTS = --strip-extras
+# PIP_COMPILE = pip-compile --upgrade $(PIP_COMPILE_OPTS)
+# PIP_COMPILE_UNSAFE = $(PIP_COMPILE) --allow-unsafe
 
-# Make sure to order requirements based on their include layer hierarchy!
-REQUIREMENTS_GROUPS := pip pip-tools base ci test-ci prod test quality dev
+# # Make sure to order requirements based on their include layer hierarchy!
+# REQUIREMENTS_GROUPS := pip pip-tools base ci test-ci prod test quality dev
+
+# upgrade: export CUSTOM_COMPILE_COMMAND=make upgrade
+# upgrade: piptools ## upgrade requirements/*.txt files with the latest packages satisfying requirements/*.in
+# 	@for group in $(REQUIREMENTS_GROUPS); do \
+# 		CMD=$$( [ $$group = "pip" ] && echo "$(PIP_COMPILE_UNSAFE)" || echo "$(PIP_COMPILE)" ); \
+# 		$$CMD -o requirements/$$group.txt requirements/$$group.in; \
+# 	done
+
+# requirements: clean_tox piptools ## install development environment requirements
+# 	pip-sync -q requirements/dev.txt
+
+# --------------------------------------------------------------------------------------
+# Build (uv)
+# --------------------------------------------------------------------------------------
+
+export UV_REQUEST_TIMEOUT ?= 60
+
+uv: ## install pinned version of uv
+	python3 -m pip install -qU pip
+	python3 -m pip install -qr requirements/uv.txt
+
+UV_COMPILE_OPTS = --quiet --upgrade --no-emit-package setuptools
+UV_COMPILE = uv pip compile $(UV_COMPILE_OPTS)
+
+# [Important] Order requirements based on their include layer hierarchy!
+REQUIREMENTS_GROUPS := uv base ci test-ci prod test quality dev
 
 upgrade: export CUSTOM_COMPILE_COMMAND=make upgrade
-upgrade: piptools ## upgrade requirements/*.txt files with the latest packages satisfying requirements/*.in
+upgrade: uv ## upgrade requirements/*.txt files with the latest packages satisfying requirements/*.in
 	@for group in $(REQUIREMENTS_GROUPS); do \
-		CMD=$$( [ $$group = "pip" ] && echo "$(PIP_COMPILE_UNSAFE)" || echo "$(PIP_COMPILE)" ); \
-		$$CMD -o requirements/$$group.txt requirements/$$group.in; \
+		echo "Upgrading requirements/$$group.in -> requirements/$$group.txt"; \
+		$(UV_COMPILE) -o requirements/$$group.txt requirements/$$group.in; \
 	done
 
-requirements: clean_tox piptools ## install development environment requirements
-	pip-sync -q requirements/dev.txt
+requirements: clean_tox uv ## sync active environment with dev (all) requirements
+	uv pip sync -q requirements/dev.txt
 
 # --------------------------------------------------------------------------------------
 # Setup
