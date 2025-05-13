@@ -1,4 +1,0 @@
-# Just the dependencies to run pip-tools
--c constraints.txt
-
-pip-tools     # Contains pip-compile to generate requirements files

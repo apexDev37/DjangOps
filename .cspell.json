@@ -36,7 +36,6 @@
     "mypy",
     "nologin",
     "noqa",
-    "piptools",
     "pydocstyle",
     "pyproject",
     "pytest",

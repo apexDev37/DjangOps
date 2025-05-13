@@ -30,33 +30,6 @@ selfcheck: ## check that the Makefile is well-formed
 # Build
 # --------------------------------------------------------------------------------------
 
-# export PIP_DEFAULT_TIMEOUT := 100
-
-# piptools: ## install pinned version of pip-compile and pip-sync
-# 	pip install -qr requirements/pip.txt
-# 	pip install -qr requirements/pip-tools.txt
-
-# PIP_COMPILE_OPTS = --strip-extras
-# PIP_COMPILE = pip-compile --upgrade $(PIP_COMPILE_OPTS)
-# PIP_COMPILE_UNSAFE = $(PIP_COMPILE) --allow-unsafe
-
-# # Make sure to order requirements based on their include layer hierarchy!
-# REQUIREMENTS_GROUPS := pip pip-tools base ci test-ci prod test quality dev
-
-# upgrade: export CUSTOM_COMPILE_COMMAND=make upgrade
-# upgrade: piptools ## upgrade requirements/*.txt files with the latest packages satisfying requirements/*.in
-# 	@for group in $(REQUIREMENTS_GROUPS); do \
-# 		CMD=$$( [ $$group = "pip" ] && echo "$(PIP_COMPILE_UNSAFE)" || echo "$(PIP_COMPILE)" ); \
-# 		$$CMD -o requirements/$$group.txt requirements/$$group.in; \
-# 	done
-
-# requirements: clean_tox piptools ## install development environment requirements
-# 	pip-sync -q requirements/dev.txt
-
-# --------------------------------------------------------------------------------------
-# Build (uv)
-# --------------------------------------------------------------------------------------
-
 export UV_REQUEST_TIMEOUT ?= 60
 
 uv: ## install pinned version of uv
@@ -67,9 +40,9 @@ UV_COMPILE_OPTS = --quiet --upgrade --no-emit-package setuptools
 UV_COMPILE = uv pip compile $(UV_COMPILE_OPTS)
 
 # [Important] Order requirements based on their include layer hierarchy!
-REQUIREMENTS_GROUPS := uv base ci test-ci prod test quality dev
+REQUIREMENTS_GROUPS := pip uv base ci test-ci prod test quality dev
 
-upgrade: export CUSTOM_COMPILE_COMMAND=make upgrade
+upgrade: export UV_CUSTOM_COMPILE_COMMAND=make upgrade
 upgrade: uv ## upgrade requirements/*.txt files with the latest packages satisfying requirements/*.in
 	@for group in $(REQUIREMENTS_GROUPS); do \
 		echo "Upgrading requirements/$$group.in -> requirements/$$group.txt"; \
