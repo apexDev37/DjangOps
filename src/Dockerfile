@@ -16,7 +16,7 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 LABEL \
     author="Eugene Mwangi" \
     contact="mwangi.em37@gmail.com" \
-    version="0.6.2" \
+    version="0.6.3" \
     license="MIT"
 
 ENV BASE=/usr/src/app
@@ -51,9 +51,6 @@ RUN adduser \
     --system \
     --uid "${UID}" \
     appuser
-
-# set user-writeable, pytest cache dir for local target stages.
-ENV PYTEST_ADDOPTS="-o cache_dir=/home/appuser/.pytest_cache"
 
 FROM build-stage AS rootless
 
@@ -123,6 +120,9 @@ EXPOSE 8000
 # ======================================================================================
 
 FROM final-stage AS local-runtime
+
+# set user-writeable, pytest cache dir for local target stages.
+ENV PYTEST_ADDOPTS="-o cache_dir=/home/appuser/.pytest_cache"
 
 # change ownership of src directory to non-root user for local targets.
 # hadolint ignore=SC3028
