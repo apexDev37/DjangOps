@@ -16,9 +16,10 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 LABEL \
     author="Eugene Mwangi" \
     contact="mwangi.em37@gmail.com" \
-    version="0.6.3" \
+    version="0.6.4" \
     license="MIT"
 
+# set global directories for src to live across all stages.
 ENV BASE=/usr/src/app
 WORKDIR $BASE
 ENV APP=$BASE/src
@@ -35,28 +36,33 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     python3 -m pip install -r ./requirements/pip.txt \
     && python3 -m pip install -r ./requirements/base.txt
 
+# set shareable user and home arguments across stages.
+# this comes last so that custom user args don't force a reinstall of base deps.
+ARG UID=1000
+ENV UID=${UID}
+ARG APPUSER=appuser
+ENV APPUSER=${APPUSER}
+
 # ======================================================================================
 # Least-privilege user mode (inherits from build stage)
 # ======================================================================================
 
 FROM build-stage AS local-rootless
 
-ARG UID=1000
-ENV UID=${UID}
+ENV APPUSER_HOME="/home/${APPUSER}"
 
+# hadolint ignore=SC3028
 RUN adduser \
     --gecos "" \
-    --home "/home/appuser" \
+    --home "${APPUSER_HOME}" \
     --shell "/bin/sh" \
     --system \
     --uid "${UID}" \
-    appuser
+    "${APPUSER}"
 
 FROM build-stage AS rootless
 
-ARG UID=1000
-ENV UID=${UID}
-
+# hadolint ignore=SC3028
 RUN adduser \
     --disabled-password \
     --gecos "" \
@@ -64,8 +70,8 @@ RUN adduser \
     --shell "/sbin/nologin" \
     --system \
     --no-create-home \
-    --uid $UID \
-    appuser
+    --uid "${UID}" \
+    "${APPUSER}"
 
 # ======================================================================================
 # Environment: testing (inherits from local rootless)
@@ -122,17 +128,17 @@ EXPOSE 8000
 FROM final-stage AS local-runtime
 
 # set user-writeable, pytest cache dir for local target stages.
-ENV PYTEST_ADDOPTS="-o cache_dir=/home/appuser/.pytest_cache"
+ENV PYTEST_ADDOPTS="-o cache_dir=${APPUSER_HOME}/.cache/pytest/.pytest_cache"
 
 # change ownership of src directory to non-root user for local targets.
 # hadolint ignore=SC3028
 RUN chown -R ${UID} "${APP}"
 
-USER appuser
+USER ${APPUSER}
 ENTRYPOINT ["python3", "manage.py"]
 CMD ["runserver", "0.0.0.0:8000"]
 
 FROM final-stage AS prod-runtime
 
-USER appuser
+USER ${APPUSER}
 ENTRYPOINT ["gunicorn", "--config", "gunicorn.conf.py", "config.wsgi:application"]
