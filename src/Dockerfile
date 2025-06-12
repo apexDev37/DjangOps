@@ -30,11 +30,12 @@ ENV PIP_NO_CACHE_DIR=1
 ENV PIP_ROOT_USER_ACTION=ignore
 
 # install app's base runtime dependencies.
+ENV PIP_INSTALL="python3 -m pip install -r"
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=./requirements/pip.txt,target=./requirements/pip.txt \
     --mount=type=bind,source=./requirements/base.txt,target=./requirements/base.txt \
-    python3 -m pip install -r ./requirements/pip.txt \
-    && python3 -m pip install -r ./requirements/base.txt
+    ${PIP_INSTALL} ./requirements/pip.txt \
+    && ${PIP_INSTALL} ./requirements/base.txt
 
 # set shareable user and home arguments across stages.
 # this comes last so that custom user args don't force a reinstall of base deps.
@@ -82,7 +83,7 @@ FROM local-rootless AS env-testing
 ENV ENVIRONMENT=testing
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=./requirements/test.txt,target=./requirements/test.txt \
-    python3 -m pip install -r ./requirements/test.txt
+    ${PIP_INSTALL} ./requirements/test.txt
 
 # ======================================================================================
 # Environment: development (inherits from local rootless)
@@ -93,7 +94,7 @@ FROM local-rootless AS env-develop
 ENV ENVIRONMENT=develop
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=./requirements/dev.txt,target=./requirements/dev.txt \
-    python3 -m pip install -r ./requirements/dev.txt
+    ${PIP_INSTALL} ./requirements/dev.txt
 
 # ======================================================================================
 # Environment: production (inherits from rootless)
@@ -104,7 +105,7 @@ FROM rootless AS env-production
 ENV ENVIRONMENT=production
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=./requirements/prod.txt,target=./requirements/prod.txt \
-    python3 -m pip install -r ./requirements/prod.txt
+    ${PIP_INSTALL} ./requirements/prod.txt
 
 # ======================================================================================
 # Final Stage: use build-arg to decide which environment to “bridge”
