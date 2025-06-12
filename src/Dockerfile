@@ -10,13 +10,13 @@ ARG TARGET=production
 # ======================================================================================
 
 ARG PYTHON_VERSION="3.12.10"
-ARG ALPINE_VERSION="3.21"
+ARG ALPINE_VERSION="3.22"
 FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 
 LABEL \
     author="Eugene Mwangi" \
     contact="mwangi.em37@gmail.com" \
-    version="0.6.4" \
+    version="0.6.5" \
     license="MIT"
 
 # set global directories for src to live across all stages.
