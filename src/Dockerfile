@@ -16,7 +16,7 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 LABEL \
     author="Eugene Mwangi" \
     contact="mwangi.em37@gmail.com" \
-    version="0.6.6" \
+    version="0.6.7" \
     license="MIT"
 
 # set global directories for src to live across all stages.
@@ -25,9 +25,9 @@ WORKDIR $BASE
 ENV APP=$BASE/src
 
 # set pkg-manger specific env variables.
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1
-ENV PIP_NO_CACHE_DIR=1
-ENV PIP_ROOT_USER_ACTION=ignore
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_ROOT_USER_ACTION=ignore
 
 # install app's base runtime dependencies.
 ENV PIP_INSTALL="python3 -m pip install -r"
@@ -39,10 +39,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 # set shareable user and home arguments across stages.
 # this comes last so that custom user args don't force a reinstall of base deps.
-ARG UID=1000
-ENV UID=${UID}
-ARG APPUSER=appuser
-ENV APPUSER=${APPUSER}
+ARG UID=1000 APPUSER=appuser
+ENV UID=${UID} APPUSER=${APPUSER}
 
 # ======================================================================================
 # Least-privilege user mode (inherits from build stage)
@@ -115,8 +113,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 FROM env-${TARGET} AS final-stage
 
 # set python-specific env variables.
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
 
 COPY ./src/ "${APP}"
 WORKDIR "${APP}"
