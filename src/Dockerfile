@@ -16,7 +16,7 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS build-stage
 LABEL \
     author="Eugene Mwangi" \
     contact="mwangi.em37@gmail.com" \
-    version="0.6.7" \
+    version="0.7.0" \
     license="MIT"
 
 # set global directories for src to live across all stages.
@@ -25,17 +25,18 @@ WORKDIR $BASE
 ENV APP=$BASE/src
 
 # set pkg-manger specific env variables.
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    PIP_NO_CACHE_DIR=1 \
-    PIP_ROOT_USER_ACTION=ignore
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    UV_NO_CACHE=1 \
+    UV_SYSTEM_PYTHON=1
 
 # install app's base runtime dependencies.
-ENV PIP_INSTALL="python3 -m pip install -r"
-RUN --mount=type=cache,target=/root/.cache/pip \
-    --mount=type=bind,source=./requirements/pip.txt,target=./requirements/pip.txt \
+ENV UV_INSTALL="python3 -m uv pip install -r"
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=./requirements/uv.txt,target=./requirements/uv.txt \
     --mount=type=bind,source=./requirements/base.txt,target=./requirements/base.txt \
-    ${PIP_INSTALL} ./requirements/pip.txt \
-    && ${PIP_INSTALL} ./requirements/base.txt
+    ${UV_INSTALL} ./requirements/uv.txt \
+    && ${UV_INSTALL} ./requirements/base.txt
 
 # set shareable user and home arguments across stages.
 # this comes last so that custom user args don't force a reinstall of base deps.
@@ -79,9 +80,9 @@ RUN adduser \
 FROM local-rootless AS env-testing
 
 ENV ENVIRONMENT=testing
-RUN --mount=type=cache,target=/root/.cache/pip \
+RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=./requirements/test.txt,target=./requirements/test.txt \
-    ${PIP_INSTALL} ./requirements/test.txt
+    ${UV_INSTALL} ./requirements/test.txt
 
 # ======================================================================================
 # Environment: development (inherits from local rootless)
@@ -90,9 +91,9 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 FROM local-rootless AS env-develop
 
 ENV ENVIRONMENT=develop
-RUN --mount=type=cache,target=/root/.cache/pip \
+RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=./requirements/dev.txt,target=./requirements/dev.txt \
-    ${PIP_INSTALL} ./requirements/dev.txt
+    ${UV_INSTALL} ./requirements/dev.txt
 
 # ======================================================================================
 # Environment: production (inherits from rootless)
@@ -101,9 +102,9 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 FROM rootless AS env-production
 
 ENV ENVIRONMENT=production
-RUN --mount=type=cache,target=/root/.cache/pip \
+RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=./requirements/prod.txt,target=./requirements/prod.txt \
-    ${PIP_INSTALL} ./requirements/prod.txt
+    ${UV_INSTALL} ./requirements/prod.txt
 
 # ======================================================================================
 # Final Stage: use build-arg to decide which environment to “bridge”
