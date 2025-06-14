@@ -11,7 +11,7 @@ x-db-overrides:
 
 services:
   db:
-    image: postgres:17.2-alpine3.21
+    image: postgres:17.5-alpine3.22
     container_name: postgres_db
     restart: unless-stopped
     shm_size: 128mb
