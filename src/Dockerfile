@@ -26,13 +26,13 @@ ENV APP=$BASE/src
 
 # set pkg-manger specific env variables.
 ENV UV_COMPILE_BYTECODE=1 \
+    UV_SYSTEM_PYTHON=1 \
     UV_LINK_MODE=copy \
-    UV_NO_CACHE=1 \
-    UV_SYSTEM_PYTHON=1
+    UV_CACHE_DIR="/root/.cache/uv"
 
 # install app's base runtime dependencies.
 ENV UV_INSTALL="python3 -m uv pip install -r"
-RUN --mount=type=cache,target=/root/.cache/uv \
+RUN --mount=type=cache,target=${UV_CACHE_DIR} \
     --mount=type=bind,source=./requirements/uv.txt,target=./requirements/uv.txt \
     --mount=type=bind,source=./requirements/base.txt,target=./requirements/base.txt \
     ${UV_INSTALL} ./requirements/uv.txt \
@@ -80,7 +80,7 @@ RUN adduser \
 FROM local-rootless AS env-testing
 
 ENV ENVIRONMENT=testing
-RUN --mount=type=cache,target=/root/.cache/uv \
+RUN --mount=type=cache,target=${UV_CACHE_DIR} \
     --mount=type=bind,source=./requirements/test.txt,target=./requirements/test.txt \
     ${UV_INSTALL} ./requirements/test.txt
 
@@ -91,7 +91,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 FROM local-rootless AS env-develop
 
 ENV ENVIRONMENT=develop
-RUN --mount=type=cache,target=/root/.cache/uv \
+RUN --mount=type=cache,target=${UV_CACHE_DIR} \
     --mount=type=bind,source=./requirements/dev.txt,target=./requirements/dev.txt \
     ${UV_INSTALL} ./requirements/dev.txt
 
@@ -102,7 +102,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 FROM rootless AS env-production
 
 ENV ENVIRONMENT=production
-RUN --mount=type=cache,target=/root/.cache/uv \
+RUN --mount=type=cache,target=${UV_CACHE_DIR} \
     --mount=type=bind,source=./requirements/prod.txt,target=./requirements/prod.txt \
     ${UV_INSTALL} ./requirements/prod.txt
 
