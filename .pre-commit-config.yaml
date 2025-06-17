@@ -33,12 +33,12 @@ repos:
 
   # Formatting
   -   repo: https://github.com/psf/black
-      rev: 24.10.0
+      rev: 25.1.0
       hooks:
       -   id: black
 
   -   repo: https://github.com/PyCQA/isort
-      rev: 5.13.2
+      rev: 6.0.1
       hooks:
       -   id: isort
           args: [
@@ -49,13 +49,13 @@ repos:
           ]
 
   -   repo: https://github.com/maxwinterstein/shfmt-py
-      rev: v3.7.0.1
+      rev: v3.11.0.2
       hooks:
       -   id: shfmt
 
   # Linting
   -   repo: https://github.com/astral-sh/ruff-pre-commit
-      rev: v0.8.6
+      rev: v0.12.0
       hooks:
       -   id: ruff-check
           args: [--fix]
@@ -74,14 +74,14 @@ repos:
 
   # Code Quality
   -   repo: https://github.com/pre-commit/mirrors-mypy
-      rev: v1.14.1
+      rev: v1.16.1
       hooks:
       -   id: mypy
           args: [--config-file, pyproject.toml, --warn-unused-configs]
 
   # Security
   -   repo: https://github.com/PyCQA/bandit
-      rev: 1.8.0
+      rev: 1.8.5
       hooks:
       -   id: bandit
           args: [-c, pyproject.toml, -r]
@@ -89,20 +89,20 @@ repos:
 
   # Documentation, Spelling
   -   repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
-      rev: v9.20.0
+      rev: v9.22.0
       hooks:
       -   id: commitlint
           stages: [commit-msg]
           additional_dependencies: ['@commitlint/config-conventional']
 
   -   repo: https://github.com/igorshubovych/markdownlint-cli
-      rev: 'v0.43.0'
+      rev: 'v0.45.0'
       hooks:
       -   id: markdownlint
           args: ['-f']
 
   -   repo: https://github.com/codespell-project/codespell
-      rev: v2.3.0
+      rev: v2.4.1
       hooks:
       -   id: codespell
           files: \.(py|sh|md|rst|yml|yaml)$

@@ -1,4 +1,4 @@
-# ruff: noqa: F401, F405
+# ruff: noqa: F401
 """Django `development` settings for config project.
 
 Development target settings for the Django project inherited

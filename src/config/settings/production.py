@@ -1,4 +1,4 @@
-# ruff: noqa: F401, F405
+# ruff: noqa: F401
 """Django `production` settings for config project.
 
 For more information on this file, see

@@ -210,7 +210,7 @@ make -f compose.Makefile watch.test
 
 To make a repository open source, you must license it so that others may freely
 use, modify, and distribute the software. Using the [MIT license], this project
-ensures this. The full original text version of the license may be seen [here].
+ensures this. See the the full [original] text version.
 
 [//]: # "These are reference links used in the body of this note and get stripped out when the markdown processor does
 its job. There is no need to format nicely because it shouldn't be seen.
@@ -239,4 +239,4 @@ Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdow
 <!-- Licensing links -->
 
 [MIT license]: https://en.wikipedia.org/wiki/MIT_License
-[here]: https://choosealicense.com/licenses/mit/
+[original]: https://choosealicense.com/licenses/mit/

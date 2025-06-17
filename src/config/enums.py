@@ -8,7 +8,7 @@ Note:
 """
 
 from enum import Enum, auto, unique
-from typing import Any, NoReturn
+from typing import NoReturn
 
 from typing_extensions import LiteralString
 
@@ -27,7 +27,7 @@ class BaseStrEnum(str, Enum):
 
     @staticmethod
     def _generate_next_value_(
-        name: str, start: int, count: int, last_values: list[Any]
+        name: str, start: int, count: int, last_values: list[str]
     ) -> LiteralString:
         """Return the lower-cased version of the member name."""
         return name.lower()
