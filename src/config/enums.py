@@ -27,7 +27,10 @@ class BaseStrEnum(str, Enum):
 
     @staticmethod
     def _generate_next_value_(
-        name: str, start: int, count: int, last_values: list[str]
+        name: str,
+        start: int,
+        count: int,
+        last_values: list[str],
     ) -> LiteralString:
         """Return the lower-cased version of the member name."""
         return name.lower()

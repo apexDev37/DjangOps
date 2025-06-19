@@ -36,7 +36,8 @@ class TestEnvironmentTargetSettings:
     """Tests to cover the logic to dynamically configure target settings."""
 
     def test_should_raise_exc_for_invalid_user_configured_env(
-        self: Self, monkeypatch: pytest.MonkeyPatch
+        self: Self,
+        monkeypatch: pytest.MonkeyPatch,
     ) -> None:
         # Given
         target = "non-existent"
@@ -44,12 +45,14 @@ class TestEnvironmentTargetSettings:
 
         # Then
         with pytest.raises(
-            (ValueError, ImproperlyConfigured), match="configure a valid target"
+            (ValueError, ImproperlyConfigured),
+            match="configure a valid target",
         ):
             get_target_settings()  # When
 
     def test_should_default_to_prod_when_env_not_user_configured(
-        self: Self, monkeypatch: pytest.MonkeyPatch
+        self: Self,
+        monkeypatch: pytest.MonkeyPatch,
     ) -> None:
         # Given
         monkeypatch.delenv("ENVIRONMENT", raising=True)
@@ -64,7 +67,8 @@ class TestEnvironmentTargetSettings:
         assert actual == expected
 
     def test_should_return_target_setting_for_valid_user_configured_env(
-        self: Self, monkeypatch: pytest.MonkeyPatch
+        self: Self,
+        monkeypatch: pytest.MonkeyPatch,
     ) -> None:
         # Given
         target = Environment("testing")

@@ -18,5 +18,5 @@ SETTINGS_MODULE: str = "config.settings"
 # running the application with `develop` settings,
 # and we're not running tests.
 ENABLE_DEBUG_TOOLBAR = bool(
-    DEBUG and "test" not in sys.argv and str(Environment.DEVELOP) == ENVIRONMENT
+    DEBUG and "test" not in sys.argv and str(Environment.DEVELOP) == ENVIRONMENT,
 )

@@ -235,6 +235,7 @@ extend-select = [
     "B",      # flake8-bugbear
     "BLE",    # flake8-blind-except
     "C4",     # flake8-comprehensions
+    "COM812", # missing-trailing-comma
     "D",      # pydocstyle
     "DJ",     # flake8-django
     "DTZ",    # flake8-datetimez

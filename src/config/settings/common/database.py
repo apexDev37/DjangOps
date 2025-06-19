@@ -24,5 +24,5 @@ DATABASES = {
         "PASSWORD": DB_PASSWORD,
         "PORT": DB_PORT,
         "USER": DB_USER,
-    }
+    },
 }

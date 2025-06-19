@@ -24,7 +24,7 @@ INTERNAL_IPS = [".localhost", "127.0.0.1", "[::1]"]
 INSTALLED_APPS.extend(
     [
         "debug_toolbar",
-    ]
+    ],
 )
 
 # Include middleware required only for development.
@@ -32,5 +32,5 @@ INSTALLED_APPS.extend(
 MIDDLEWARE.extend(
     [
         "debug_toolbar.middleware.DebugToolbarMiddleware",
-    ]
+    ],
 )
