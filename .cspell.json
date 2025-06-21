@@ -36,6 +36,7 @@
     "mypy",
     "nologin",
     "noqa",
+    "posargs",
     "pydocstyle",
     "pyproject",
     "pytest",
@@ -53,6 +54,7 @@
     "tryceratops",
     "UID",
     "usr",
+    "venv",
     "whitenoise",
     "WSGI"
   ],

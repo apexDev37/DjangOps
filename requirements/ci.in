@@ -2,3 +2,4 @@
 -c constraints.txt
 
 tox                       # An automation and environment orchestrator.
+tox-uv                    # Plugin replacing `virtualenv` and `pip` with `uv`.
