@@ -1,33 +1,33 @@
 ---
 version: 2
 updates:
-  - package-ecosystem: github-actions
-    directory: /
+  - package-ecosystem: "github-actions"
+    directory: "/"
     schedule:
-      interval: weekly
-      day: monday
-      time: 05:00
-      timezone: Africa/Nairobi
+      interval: "weekly"
+      day: "monday"
+      time: "05:00"
+      timezone: "Africa/Nairobi"
     commit-message:
-      prefix: chore
-      include: scope
+      prefix: "chore"
+      include: "scope"
     labels:
-      - dependabot
-      - dependencies
-      - github-actions
-      - upgrades
+      - "dependabot"
+      - "dependencies"
+      - "github-actions"
+      - "upgrades"
     assignees:
-      - apexDev37
+      - "apexDev37"
     reviewers:
-      - apexDev37
-    target-branch: main
+      - "apexDev37"
+    target-branch: "main"
     open-pull-requests-limit: 3
-    rebase-strategy: auto
+    rebase-strategy: "auto"
     ignore:
-      - dependency-name: actions/checkout
+      - dependency-name: "actions/checkout"
         update-types:
-          - version-update:semver-major
+          - "version-update:semver-major"
     allow:
-      - dependency-type: direct
-      - dependency-type: indirect
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
     security-updates: true
