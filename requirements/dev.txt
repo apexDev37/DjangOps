@@ -28,6 +28,10 @@ click==8.2.1
 colorama==0.4.6
     # via
     #   -r requirements/ci.txt
+    #   -r requirements/quality.txt
+    #   bandit
+    #   click
+    #   pytest
     #   tox
 coverage==7.9.1
     # via
@@ -133,7 +137,7 @@ psycopg==3.2.9
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
-psycopg-binary==3.2.9
+psycopg-binary==3.2.9 ; implementation_name != 'pypy'
     # via -r requirements/quality.txt
 pygments==2.19.2
     # via
@@ -188,6 +192,11 @@ typing-extensions==4.14.0
     # via
     #   -r requirements/quality.txt
     #   mypy
+    #   psycopg
+tzdata==2025.2 ; sys_platform == 'win32'
+    # via
+    #   -r requirements/quality.txt
+    #   django
     #   psycopg
 uv==0.7.14
     # via

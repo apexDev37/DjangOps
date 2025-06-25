@@ -23,7 +23,7 @@ psycopg==3.2.9
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.txt
-psycopg-binary==3.2.9
+psycopg-binary==3.2.9 ; implementation_name != 'pypy'
     # via -r requirements/base.txt
 sqlparse==0.5.3
     # via
@@ -33,6 +33,11 @@ typing-extensions==4.14.0
     # via
     #   -r requirements/base.txt
     #   dj-database-url
+    #   psycopg
+tzdata==2025.2 ; sys_platform == 'win32'
+    # via
+    #   -r requirements/base.txt
+    #   django
     #   psycopg
 whitenoise==6.9.0
     # via -r requirements/prod.in

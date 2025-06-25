@@ -36,7 +36,7 @@ uv: ## install pinned version of uv
 	python3 -m pip install -qU pip
 	python3 -m pip install -qr requirements/uv.txt
 
-UV_COMPILE_OPTS = --quiet --upgrade
+UV_COMPILE_OPTS = --quiet --upgrade --universal
 UV_COMPILE = uv pip compile $(UV_COMPILE_OPTS)
 # Omit build-related tools and packages from the compiled output.
 UV_COMPILE_UNSAFE = $(UV_COMPILE) \

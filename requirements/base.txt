@@ -14,9 +14,13 @@ psycopg==3.2.9
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.in
-psycopg-binary==3.2.9
+psycopg-binary==3.2.9 ; implementation_name != 'pypy'
     # via psycopg
 sqlparse==0.5.3
     # via django
-typing-extensions==4.14.0
+typing-extensions==4.14.0 ; python_full_version < '3.13'
     # via psycopg
+tzdata==2025.2 ; sys_platform == 'win32'
+    # via
+    #   django
+    #   psycopg
