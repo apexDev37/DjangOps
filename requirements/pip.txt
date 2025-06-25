@@ -2,7 +2,7 @@
 #    make upgrade
 pip==25.1.1
     # via -r requirements/pip.in
-setuptools==80.4.0
+setuptools==80.9.0
     # via -r requirements/pip.in
 wheel==0.45.1
     # via -r requirements/pip.in

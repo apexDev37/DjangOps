@@ -4,9 +4,9 @@ asgiref==3.8.1
     # via
     #   -r requirements/base.txt
     #   django
-dj-database-url==2.3.0
+dj-database-url==3.0.0
     # via -r requirements/prod.in
-django==4.2.21
+django==4.2.23
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.txt
@@ -19,17 +19,17 @@ gunicorn==23.0.0
     # via -r requirements/prod.in
 packaging==25.0
     # via gunicorn
-psycopg==3.2.8
+psycopg==3.2.9
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.txt
-psycopg-binary==3.2.8
+psycopg-binary==3.2.9
     # via -r requirements/base.txt
 sqlparse==0.5.3
     # via
     #   -r requirements/base.txt
     #   django
-typing-extensions==4.13.2
+typing-extensions==4.14.0
     # via
     #   -r requirements/base.txt
     #   dj-database-url
